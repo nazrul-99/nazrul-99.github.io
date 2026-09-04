@@ -1,0 +1,28 @@
+# Example (copy this block to see every field):
+#
+# - id: "geometry-in-the-token"
+#   title: "Geometry in the token, not in the pipeline"
+#   description: >
+#     I work on where spatial reasoning actually lives in a vision-language
+#     model. Rather than bolting a 3D module onto a captioning pipeline, I test
+#     whether metric structure can be recovered from the token stream itself.
+#   claim: >
+#     LLaVA-1.5 scores 6.0% on MMVP, below the 25% random floor, read across
+#     the literature as a perceptual deficit.
+#   correction: >
+#     93% of its failures are answer-slot bias. Perceptual accuracy is 0.70,
+#     indistinguishable from the model scoring five times higher.
+#   related_publications: ["geotoken"]
+
+- id: "placeholder-thread-1"
+  title: "PLACEHOLDER research thread title"
+  description: >
+    PLACEHOLDER two-to-three sentence first-person description of this
+    research thread: the question it asks and why the answer matters.
+  claim: >
+    PLACEHOLDER — the widely repeated explanation a reader would assume is
+    true before looking closely.
+  correction: >
+    PLACEHOLDER — what a controlled measurement actually found instead, with
+    the number attached.
+  related_publications: []

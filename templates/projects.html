@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% set nav_current = "projects" %}
+{% block title %}Projects — {{ site.name }}{% endblock %}
+{% block content %}
+<section id="projects" aria-labelledby="page-title">
+  <h1 class="page-title" id="page-title">Projects</h1>
+  {% for project in projects %}
+  <article class="project">
+    <h2 class="project-title">{{ project.title }}{% if project.period %} <span class="project-status">· {{ project.period }}</span>{% endif %}</h2>
+    <p class="pitch">{{ project.pitch }}</p>
+    <p>{{ project.description }}</p>
+    {% if project.role %}<p class="project-meta">{{ project.role }}</p>{% endif %}
+    {% if project.stack %}<p class="project-meta">{{ project.stack | join(", ") }}</p>{% endif %}
+    {% if project.repo or project.demo %}
+    <p class="project-links">
+      {% if project.repo %}<a href="{{ project.repo }}">Code</a>{% endif %}
+      {% if project.demo %}<a href="{{ project.demo }}">Demo</a>{% endif %}
+    </p>
+    {% endif %}
+  </article>
+  {% endfor %}
+</section>
+{% endblock %}

@@ -1,0 +1,78 @@
+# Example (copy this block for a new paper, or run scripts/new_pub.py):
+#
+# - id: "geotoken"
+#   title: "GeoToken: Differentiable 3D Voxel Tokenization for Vision-Language Models"
+#   authors: ["Md. Asiful Islam Miah", "Md. Nazrul Islam", "S M Taslim Uddin Raju"]
+#   venue: "AAAI"
+#   year: 2027
+#   type: "conference"          # conference | journal | workshop | preprint | thesis
+#   status: "under-review"      # published | in-press | under-review | in-preparation | preprint
+#   anonymized: true
+#   equal_contribution: [0, 1]  # indices into authors[]
+#   links: {}                   # must stay empty while anonymized: true
+#   bibtex: ""
+#   note: ""
+#   summary: >
+#     A voxel tokenizer for vision-language models, evaluated on spatial
+#     reasoning benchmarks against a captioning-only baseline.
+#
+# Once a decision comes back, run `python scripts/reveal.py geotoken` rather
+# than hand-editing anonymized -> false; it also prompts for links and status.
+
+- id: "placeholder-under-review-1"
+  title: "PLACEHOLDER Working Title, Anonymized Submission"
+  authors: ["Md. Nazrul Islam", "PLACEHOLDER Coauthor"]
+  venue: "PLACEHOLDER Venue"
+  year: 2026
+  type: "conference"
+  status: "under-review"
+  anonymized: true
+  equal_contribution: []
+  links: {}
+  bibtex: ""
+  note: ""
+  summary: >
+    Sample text describing the question this submission asks and the result
+    it reports, written without naming the method under review.
+
+- id: "placeholder-in-preparation-1"
+  title: "PLACEHOLDER Title, Not Yet Submitted"
+  authors: ["Md. Nazrul Islam"]
+  venue: ""
+  year: 2027
+  type: "journal"
+  status: "in-preparation"
+  anonymized: false
+  equal_contribution: []
+  links: {}
+  bibtex: ""
+  note: ""
+  summary: >
+    Sample text describing a manuscript still being drafted, in the same
+    style as the under-review entry above.
+
+- id: "placeholder-published-1"
+  title: "PLACEHOLDER Published Paper Title"
+  authors: ["Md. Nazrul Islam", "PLACEHOLDER Coauthor One", "PLACEHOLDER Coauthor Two"]
+  venue: "PLACEHOLDER Venue, Vol. 1"
+  year: 2024
+  type: "journal"
+  status: "published"
+  anonymized: false
+  equal_contribution: []
+  links:
+    paper: "https://example.org/PLACEHOLDER.pdf"
+    arxiv: ""
+    code: "https://github.com/PLACEHOLDER/repo"
+    project: ""
+    slides: ""
+    poster: ""
+  bibtex: |
+    @article{placeholder2024,
+      title={PLACEHOLDER Published Paper Title},
+      author={Islam, Md. Nazrul and Coauthor, One and Coauthor, Two},
+      journal={PLACEHOLDER Venue},
+      year={2024}
+    }
+  note: ""
+  summary: "PLACEHOLDER one-line summary shown wherever a short form is used."

@@ -1,0 +1,17 @@
+# Build artifacts and portal-only files -- never committed
+build/
+cv-full.pdf
+
+# Source material (CV, portrait): local only, never published
+_source/
+*_draft*
+*private*
+*.docx
+
+# Local Python environment
+.venv
+__pycache__/
+*.pyc
+
+# OS cruft
+.DS_Store

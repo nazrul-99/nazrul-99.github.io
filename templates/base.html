@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{{ site.name }}{% endblock %}</title>
+<link rel="canonical" href="{{ canonical_url }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ site.tagline }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:locale" content="en_US">
+<script type="application/ld+json">{{ jsonld | safe }}</script>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header">
+  <p class="site-name">{{ site.name }}</p>
+  <nav aria-label="Primary">
+    <a href="/index.html"{% if nav_current == "research" %} aria-current="page"{% endif %}>Research</a>
+    <a href="/publications.html"{% if nav_current == "publications" %} aria-current="page"{% endif %}>Publications</a>
+    <a href="/projects.html"{% if nav_current == "projects" %} aria-current="page"{% endif %}>Projects</a>
+    <a href="/cv.pdf">CV</a>
+  </nav>
+</header>
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+<footer class="site-footer">
+  <p class="footer-contact">
+    <a href="mailto:{{ email_href | safe }}">{{ email_display | safe }}</a>
+  </p>
+  {% if site.links %}
+  <ul class="profile-links">
+    {% for link in site.links %}
+    <li><a href="{{ link.url }}">{{ link.label }}</a></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</footer>
+</body>
+</html>

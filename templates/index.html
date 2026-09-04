@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% set nav_current = "research" %}
+{% block content %}
+<section id="intro" aria-labelledby="name">
+  <div class="intro-head">
+    <div>
+      <h1 class="name" id="name">{{ site.name }}</h1>
+      {% if site.affiliation %}
+      <p class="affiliation">{{ site.affiliation }}</p>
+      {% endif %}
+    </div>
+    {% if site.portrait %}
+    <img class="portrait" src="{{ site.portrait }}" width="84" height="84" alt="">
+    {% endif %}
+  </div>
+  <p class="tagline">{{ site.tagline }}</p>
+  {% for para in about_html %}
+  <p>{{ para }}</p>
+  {% endfor %}
+  <p class="contact">
+    <a href="mailto:{{ email_href | safe }}">{{ email_display | safe }}</a>
+    {% for link in site.links %}
+    <a href="{{ link.url }}">{{ link.label }}</a>
+    {% endfor %}
+    <a href="/cv.pdf">CV (pdf)</a>
+  </p>
+</section>
+
+<section id="research" aria-labelledby="research-heading">
+  <h2 id="research-heading">Research</h2>
+  {% for thread in research_threads %}
+  <article class="thread" id="{{ thread.id }}">
+    <h3 class="thread-title">{{ thread.title }}</h3>
+    <p>{{ thread.description }}</p>
+    <dl class="pair">
+      <dt>Reported</dt>
+      <dd>{{ thread.claim }}</dd>
+      <dt>Found</dt>
+      <dd>{{ thread.correction }}</dd>
+    </dl>
+  </article>
+  {% endfor %}
+</section>
+
+<section id="publications" aria-labelledby="publications-heading">
+  <h2 id="publications-heading">Publications</h2>
+  {% for year, entries in publications_by_year %}
+  <div class="year-group">
+    <h3 class="year">{{ year }}</h3>
+    <div class="year-entries">
+      {% for pub in entries %}
+      <article class="pub-entry">
+        {% if pub.suppressed %}
+        {% if pub.status == "under-review" %}
+        <p class="pub-status">In submission, {{ pub.year }}</p>
+        {% elif pub.status == "in-preparation" %}
+        <p class="pub-status">In preparation, {{ pub.year }}</p>
+        {% endif %}
+        {% if pub.summary %}<p class="pub-summary">{{ pub.summary }}</p>{% endif %}
+        {% else %}
+        <p class="pub-title">{{ pub.title }}</p>
+        <p class="pub-authors">{{ pub.authors_html | safe }}</p>
+        <p class="pub-venue">{{ pub.venue }}, {{ pub.year }}</p>
+        {% if pub.links %}
+        <p class="pub-links">
+          {% for label, url in pub.links %}<a href="{{ url }}">{{ label }}</a>{% endfor %}
+        </p>
+        {% endif %}
+        {% endif %}
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+  {% endfor %}
+</section>
+
+<section id="projects" aria-labelledby="projects-heading">
+  <h2 id="projects-heading">Projects</h2>
+  {% for project in projects %}
+  <article class="project">
+    <h3 class="project-title">{{ project.title }}{% if project.period %} <span class="project-status">· {{ project.period }}</span>{% endif %}</h3>
+    <p class="pitch">{{ project.pitch }}</p>
+  </article>
+  {% endfor %}
+  <p class="more-link"><a href="/projects.html">All projects</a></p>
+</section>
+
+<section id="teaching" aria-labelledby="teaching-heading">
+  <h2 id="teaching-heading">Teaching &amp; service</h2>
+  <ul class="entries">
+    {% for t in education.teaching %}
+    <li>{{ t.role }}, {{ t.course }} — {{ t.institution }} ({{ t.period }})</li>
+    {% endfor %}
+    {% for s in education.service %}
+    <li>{{ s.role }}, {{ s.venue }} ({{ s.period }})</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

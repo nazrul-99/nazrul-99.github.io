@@ -1,0 +1,36 @@
+# Example (copy this block to see every field):
+#
+# degrees:
+#   - degree: "B.Sc. in Computer Science and Engineering"
+#     institution: "Example University"
+#     period: "2019-2023"
+#     details: "Thesis on X. Relevant coursework or honors, if notable."
+# awards:
+#   - title: "Award Name"
+#     year: 2023
+#     note: "Awarding body or context"
+# teaching:
+#   - role: "Lecturer"
+#     course: "Course Name"
+#     institution: "Example University"
+#     period: "2024-present"
+# service:
+#   - role: "Reviewer"
+#     venue: "Conference or Journal Name"
+#     period: "2025"
+
+degrees:
+  - degree: "B.Sc. in Computer Science and Engineering"
+    institution: "Khulna University of Engineering & Technology (KUET)"
+    period: "2023"
+    details: "PLACEHOLDER thesis title and any honors."
+
+awards: []
+
+teaching:
+  - role: "Lecturer"
+    course: "PLACEHOLDER course name"
+    institution: "Southeast University, Dhaka"
+    period: "PLACEHOLDER-present"
+
+service: []

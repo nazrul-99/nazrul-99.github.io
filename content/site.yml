@@ -1,0 +1,23 @@
+# Example (copy this block to see every field):
+#
+# name: "Jane Doe"
+# tagline: "One line, no verbs like 'passionate' or 'leverage'."
+# email:
+#   user: "jane.doe"
+#   domain: "gmail.com"
+# links:
+#   - label: "Google Scholar"
+#     url: "https://scholar.google.com/citations?user=XXXXXXX"
+#   - label: "GitHub"
+#     url: "https://github.com/janedoe"
+
+name: "Md. Nazrul Islam"
+tagline: "PLACEHOLDER tagline — one line on what I work on."
+email:
+  user: "nazrul.islam.cse.bd"
+  domain: "gmail.com"
+links:
+  - label: "Google Scholar"
+    url: "https://scholar.google.com/PLACEHOLDER"
+  - label: "GitHub"
+    url: "https://github.com/PLACEHOLDER"

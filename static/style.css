@@ -1,0 +1,457 @@
+/* ---------------------------------------------------------------------------
+   Md. Nazrul Islam — academic portfolio
+   Implements DESIGN.md: six colour tokens, one type family, single column
+   with a hanging year margin. No cards, no radius, no shadow, no animation.
+   --------------------------------------------------------------------------- */
+
+/* --- Colour: 6 tokens ---------------------------------------------------- */
+
+:root {
+  --paper:  #FCFBF9;
+  --ink:    #191B1F;
+  --muted:  #5B6069;
+  --rule:   #E0DCD4;
+  --accent: #294A6B;
+  --wash:   #F2EFE9;
+
+  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria,
+           "Iowan Old Style", Georgia, serif;
+
+  /* Layout: 180 + 20 + 680 = the 880px wrapper */
+  --gutter:  180px;
+  --gap:     20px;
+  --measure: min(680px, 70ch);
+  --wrap:    880px;
+  --pad:     24px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper:  #15171B;
+    --ink:    #E7E5E0;
+    --muted:  #9AA0A8;
+    --rule:   #282C33;
+    --accent: #93B4D2;
+    --wash:   #1B222B;
+  }
+}
+
+/* --- Base ---------------------------------------------------------------- */
+
+html {
+  font-size: 112.5%;          /* 1rem = 18px */
+  scroll-padding-top: 4rem;   /* clears the sticky header on anchor jumps */
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--serif);
+  font-size: 1rem;
+  line-height: 1.62;
+  text-align: left;           /* never justified: no hyphenation engine */
+  -webkit-text-size-adjust: 100%;
+}
+
+p { margin: 0 0 0.85em; }
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0;
+}
+
+ul { margin: 0; padding: 0; list-style: none; }
+
+/* --- Type scale (base 18px, ratio ~1.25) -------------------------------- */
+
+h1, h2, h3 { line-height: 1.25; font-weight: 700; margin: 0; }
+
+.name {                                              /* 44px, homepage only */
+  font-size: clamp(2rem, 1.4rem + 3vw, 2.44rem);
+  letter-spacing: -0.01em;
+  margin-bottom: 0.12em;
+}
+
+h2 { font-size: 1.56rem; margin-bottom: 24px; }      /* 28px, sections */
+
+.page-title { font-size: 1.11rem; margin-bottom: 26px; }  /* 20px, subpages */
+
+.thread-title { font-size: 1.11rem; margin-bottom: 0.35em; }  /* 20px */
+
+.affiliation,
+.contact,
+.pub-authors,
+.pub-venue,
+.pub-links,
+.project-meta,
+.project-links,
+.project-status,
+.year,
+.site-header,
+.site-footer,
+.bibtex-toggle,
+pre { font-size: 0.83rem; }                          /* 15px, metadata */
+
+.affiliation,
+.pub-authors,
+.pub-venue,
+.project-meta,
+.project-status,
+.year { color: var(--muted); }                       /* metadata only */
+
+/* --- Links and focus ----------------------------------------------------- */
+
+a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: color 120ms;
+}
+
+a:hover { color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@supports not selector(:focus-visible) {
+  a:focus, summary:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+}
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus {
+  position: static;
+  display: inline-block;
+  margin: 8px var(--pad);
+}
+
+/* --- Layout: 880px wrapper, 680px text column, 180px year gutter --------- */
+
+.site-header,
+main,
+.site-footer {
+  box-sizing: border-box;
+  max-width: calc(var(--wrap) + 2 * var(--pad));
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+main { padding-block: 44px 56px; }
+
+/* Every block-level region is a two-column grid. Content sits in the text
+   column; only publication years occupy the gutter. */
+section,
+.thread,
+.year-group,
+.site-footer {
+  display: grid;
+  grid-template-columns: var(--gutter) minmax(0, var(--measure));
+  column-gap: var(--gap);
+  align-content: start;
+}
+
+section > *,
+.thread > *,
+.year-group > *,
+.site-footer > * { grid-column: 2; }
+
+/* Hairline between sections only, 40px above and below. */
+section + section {
+  border-top: 1px solid var(--rule);
+  margin-top: 40px;
+  padding-top: 40px;
+}
+
+/* --- Header -------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px var(--gap);
+  padding-block: 10px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+.site-name { margin: 0; }
+
+.site-header nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.15em;
+}
+
+/* --- Homepage intro ------------------------------------------------------ */
+
+.intro-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--gap);
+}
+
+.portrait {
+  flex: none;
+  width: 84px;
+  height: 84px;
+  object-fit: cover;
+}
+
+.affiliation { margin-bottom: 1.1em; }
+
+.tagline { margin-bottom: 1.1em; }
+
+.contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.15em;
+  margin-top: 1.2em;
+  margin-bottom: 0;
+}
+
+/* --- Research threads ---------------------------------------------------- */
+
+.thread { grid-column: 1 / -1; }
+
+.thread + .thread {
+  border-top: 1px solid var(--rule);
+  margin-top: 40px;
+  padding-top: 40px;
+}
+
+/* The claim/correction pair: the one filled block on the site. */
+.pair {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  row-gap: 0.9em;
+  margin: 10px 0 0;
+  padding: 20px;
+  background: var(--wash);
+  border-left: 2px solid var(--accent);
+  border-radius: 0;
+}
+
+.pair dt {
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.pair dd { margin: 0; }
+
+/* --- Publications -------------------------------------------------------- */
+
+.year-group { grid-column: 1 / -1; }
+
+.year-group + .year-group { margin-top: 28px; }
+
+.year-group > .year {
+  grid-column: 1;
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+}
+
+.pub-entry + .pub-entry { margin-top: 22px; }
+
+.pub-title { font-weight: 700; margin-bottom: 0.1em; }
+
+/* Anonymized and in-preparation entries: same size, same colour as a
+   published title. Italic prose, the way a CV sets it. Never greyed out. */
+.pub-status {
+  font-style: italic;
+  color: var(--ink);
+  margin-bottom: 0.1em;
+}
+
+.pub-authors,
+.pub-venue { margin-bottom: 0.1em; }
+
+.pub-summary { margin-top: 0.35em; }
+
+.pub-links,
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3em 1.15em;
+  margin-top: 0.45em;
+}
+
+.bibtex { margin-top: 0.5em; }
+
+.bibtex-toggle {
+  color: var(--accent);
+  cursor: pointer;
+}
+
+pre {
+  font-family: var(--serif);   /* no monospace anywhere on the site */
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  margin: 0.5em 0 0;
+  background: none;
+}
+
+.pub-note { margin-top: 0.35em; }
+
+/* --- Projects ------------------------------------------------------------ */
+
+.project + .project { margin-top: 30px; }
+
+.project-title { font-size: 1rem; margin-bottom: 0.1em; }
+
+.project-status { font-weight: 400; }
+
+.pitch { margin-bottom: 0.5em; }
+
+.project-meta { margin-bottom: 0.1em; }
+
+.more-link { margin-top: 26px; margin-bottom: 0; }
+
+/* --- Teaching and footer ------------------------------------------------- */
+
+.entries > li + li { margin-top: 0.35em; }
+
+.site-footer {
+  border-top: 1px solid var(--rule);
+  padding-block: 22px 40px;
+}
+
+.footer-contact { margin-bottom: 0.5em; }
+
+.profile-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em 1.15em;
+}
+
+/* --- Narrow: the hanging year margin collapses -------------------------- */
+
+@media (max-width: 719px) {
+  section,
+  .thread,
+  .year-group,
+  .site-footer {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  section > *,
+  .thread > *,
+  .year-group > *,
+  .site-footer > *,
+  .year-group > .year { grid-column: 1; }
+
+  .year-group > .year { margin-bottom: 8px; }   /* years run inline above */
+
+  main { padding-block: 32px 44px; }
+
+  section + section,
+  .thread + .thread { margin-top: 32px; padding-top: 32px; }
+}
+
+@media (max-width: 479px) {
+  :root { --pad: 16px; }
+
+  .pair {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+    padding: 16px;
+  }
+
+  .pair dt { margin-top: 0.8em; }
+  .pair dt:first-child { margin-top: 0; }
+  .pair dd { margin-bottom: 0.15em; }
+
+  .intro-head { flex-wrap: wrap; }
+}
+
+/* --- Reduced motion ------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+/* --- Print: one clean sheet ---------------------------------------------- */
+
+@media print {
+  :root {
+    --paper: #FFFFFF;
+    --ink: #000000;
+    --muted: #333333;
+    --rule: #999999;
+    --accent: #000000;
+    --wash: transparent;
+  }
+
+  @page { margin: 1.5cm; }
+
+  html { font-size: 10pt; }
+  body { line-height: 1.34; }
+
+  p { margin-bottom: 0.5em; }
+
+  .site-header,
+  .portrait,
+  .skip,
+  .more-link,
+  .site-footer,
+  .bibtex { display: none; }
+
+  main {
+    max-width: none;
+    padding: 0;
+  }
+
+  /* Hanging year margin collapses to inline. (.site-footer stays hidden
+     above -- do not re-set its display here.) */
+  section,
+  .thread,
+  .year-group { display: block; }
+
+  .year-group > .year { margin-bottom: 2pt; }
+
+  /* Hairlines to 0.5pt. */
+  section + section,
+  .thread + .thread {
+    border-top-width: 0.5pt;
+    margin-top: 11pt;
+    padding-top: 11pt;
+  }
+
+  h2 { font-size: 13pt; margin-bottom: 7pt; }
+
+  .name { font-size: 18pt; }
+
+  .tagline, .affiliation { margin-bottom: 0.5em; }
+
+  /* Background colours dropped; the pair keeps only its left rule. */
+  .pair {
+    background: none;
+    border-left: 1pt solid #000;
+    padding: 0 0 0 10pt;
+    margin-top: 6pt;
+    row-gap: 0.45em;
+  }
+
+  .year-group + .year-group { margin-top: 9pt; }
+  .pub-entry + .pub-entry { margin-top: 8pt; }
+  .thread, .pub-entry, .project { break-inside: avoid; }
+
+  /* Links rendered with their href in parentheses at 9pt. */
+  a { text-decoration: none; }
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    overflow-wrap: break-word;
+  }
+}

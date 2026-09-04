@@ -1,0 +1,25 @@
+# Example (copy this block for a new project):
+#
+# - title: "Example Project"
+#   pitch: "One sentence: what it does and why it's interesting."
+#   description: >
+#     A few sentences on the problem, the approach, and any technical
+#     decision worth calling out.
+#   role: "Sole developer"
+#   stack: ["Python", "PyTorch"]
+#   period: "2025"
+#   repo: "https://github.com/user/repo"
+#   demo: ""
+#   featured: true
+
+- title: "PLACEHOLDER Project Title"
+  pitch: "PLACEHOLDER one-sentence pitch — what it does and why it matters."
+  description: >
+    PLACEHOLDER longer description of the project: the problem it solves,
+    the approach taken, and a technical decision worth mentioning.
+  role: "PLACEHOLDER role"
+  stack: ["PLACEHOLDER"]
+  period: "2025"
+  repo: "https://github.com/PLACEHOLDER/repo"
+  demo: ""
+  featured: true
