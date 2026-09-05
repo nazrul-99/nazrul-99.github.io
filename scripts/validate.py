@@ -24,6 +24,11 @@ Checks (CLAUDE.md, Script contracts):
   - every code URL (publications links.code, projects repo, research
     threads and earlier-work code) is absolute https and, on github.com,
     answers 200 -- a repository renamed or made private fails the build
+  - every <a href="http..."> in generated HTML carries target="_blank" and
+    rel="noopener noreferrer", and no internal link (a path, a #fragment,
+    a mailto:) carries target="_blank" -- templates/_links.html is the one
+    place that decides this, and this check catches any template that
+    bypasses it
 
 Checks (CLAUDE.md, Anonymity rules):
   - rule 3: an anonymized publication has no populated links
@@ -501,6 +506,48 @@ def check_anchors(outputs):
                 fail(f"{path.name}: anchor '{href}' matches no id in {target}")
 
 
+A_TAG = re.compile(r"<a\b[^>]*>", re.I)
+HREF_ATTR = re.compile(r'\bhref="([^"]*)"')
+TARGET_BLANK = re.compile(r'\btarget="_blank"')
+REL_ATTR = re.compile(r'\brel="([^"]*)"')
+
+
+def check_link_targets(outputs):
+    """Every external link opens in a new tab and nothing else does.
+
+    External means the href starts with http:// or https://; such a tag must
+    carry target="_blank" and a rel that names both noopener and noreferrer.
+    Any other href -- a same-site path, a #fragment, a mailto: -- must not
+    carry target="_blank", so nav anchors, the CV download and the two
+    standalone pages keep opening in the same tab. Scans the raw file, not the
+    entity-decoded copy in `outputs`, so each tag is seen once."""
+    for path, _ in outputs:
+        if path.suffix != ".html":
+            continue
+        raw = path.read_text(encoding="utf-8")
+        reported = set()
+        for tag in A_TAG.findall(raw):
+            href_match = HREF_ATTR.search(tag)
+            if not href_match:
+                continue
+            href = href_match.group(1)
+            if href in reported:
+                continue
+            blank = bool(TARGET_BLANK.search(tag))
+            rel_match = REL_ATTR.search(tag)
+            rel = set((rel_match.group(1) if rel_match else "").split())
+            if href.startswith(("http://", "https://")):
+                if not blank:
+                    fail(f"{path.name}: external link '{href}' lacks target=\"_blank\"")
+                    reported.add(href)
+                elif not {"noopener", "noreferrer"} <= rel:
+                    fail(f"{path.name}: external link '{href}' lacks rel=\"noopener noreferrer\"")
+                    reported.add(href)
+            elif blank:
+                fail(f"{path.name}: internal link '{href}' must not carry target=\"_blank\"")
+                reported.add(href)
+
+
 def _pdf_bytes(token):
     """Raw bytes of one PDF string: hex <...> or literal (...) with escapes."""
     if token.startswith(b"<"):
@@ -767,6 +814,7 @@ def main():
     check_output_files(outputs)
     check_cv_text(outputs)
     check_anchors(outputs)
+    check_link_targets(outputs)
     check_placeholder_links(publications, outputs)
     check_anonymity_in_output(publications, outputs)
 

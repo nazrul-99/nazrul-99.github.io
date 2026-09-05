@@ -1,7 +1,9 @@
 {# One project card (DESIGN.md v2 § Projects). Set `full = true` before
-   including to add the description under the pitch (projects.html). #}
+   including to add the description under the pitch (projects.html). The
+   title links to `repo` when one is set; see _links.html. #}
+{% import "_links.html" as links %}
 <article class="card project-card"{% if project.id %} id="{{ project.id }}"{% endif %}>
-  <h2 class="card-title">{{ project.title }}</h2>
+  <h2 class="card-title">{{ links.maybe(project.repo, project.title) }}</h2>
   {% if project.period %}<p class="card-meta">{{ project.period }}</p>{% endif %}
   <p>{{ project.pitch }}</p>
   {% if full and project.description %}<p>{{ project.description }}</p>{% endif %}
@@ -9,6 +11,6 @@
   <p class="tags">{% for s in project.stack %}<span class="tag">{{ s }}</span>{% endfor %}</p>
   {% endif %}
   {% if project.repo %}
-  <p class="card-actions"><a class="btn-pill" href="{{ project.repo }}">Code</a></p>
+  <p class="card-actions">{{ links.a(project.repo, "Code", "btn-pill") }}</p>
   {% endif %}
 </article>

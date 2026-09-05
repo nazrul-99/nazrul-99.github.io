@@ -398,8 +398,8 @@ main > .section:nth-child(even) .tl-item::before { border-color: var(--section-a
   margin-bottom: .15rem;
 }
 
-.pub-title a { color: var(--heading); }
-.pub-title a:hover { color: var(--primary); text-decoration: none; }
+.pub-title a, .card-title a { color: var(--heading); }
+.pub-title a:hover, .card-title a:hover { color: var(--primary); text-decoration: none; }
 
 .pub-venue { color: var(--muted); font-size: .95rem; margin-bottom: .25rem; }
 
@@ -548,5 +548,5 @@ main > .section:nth-child(even) .tag { background: var(--body-bg); }
   .pub { break-inside: avoid; }
   .tag { border: .5pt solid #999; background: none; }
   a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #444; }
-  .pub-title a::after { content: none; }
+  .pub-title a::after, .card-title a::after { content: none; }
 }

@@ -1,0 +1,19 @@
+{# The one place that decides how a link opens. An external URL (http:// or
+   https://) opens in a new tab with rel="noopener noreferrer"; anything else
+   -- a same-site path, a #fragment, a mailto: -- stays in the same tab. No
+   other template writes target= or rel= by hand, and validate.py fails the
+   build if the output disagrees with this rule. #}
+{% macro a(url, text, class="", rel="", aria_label="") -%}
+{%- set url = url | string -%}
+{%- set external = url.startswith("http://") or url.startswith("https://") -%}
+<a{% if class %} class="{{ class }}"{% endif %} href="{{ url }}"
+{%- if external %} target="_blank" rel="noopener noreferrer{% if rel %} {{ rel }}{% endif %}"
+{%- elif rel %} rel="{{ rel }}"{% endif %}
+{%- if aria_label %} aria-label="{{ aria_label }}"{% endif %}>{{ text }}</a>
+{%- endmacro %}
+
+{# A title that links when it has somewhere to go and is plain text when it
+   does not. Used for publication, research, earlier-work and project titles. #}
+{% macro maybe(url, text, class="") -%}
+{%- if url %}{{ a(url, text, class) }}{% else %}{{ text }}{% endif -%}
+{%- endmacro %}

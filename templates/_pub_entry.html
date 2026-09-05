@@ -1,13 +1,17 @@
 {# One publication in the compact list (DESIGN.md v2 § Publications). Included
    by index.html and publications.html so the markup exists once. Anonymized
-   entries (rule 1) render as status + year + summary only. #}
+   entries (rule 1) render as status + year + summary only. The title links to
+   the first of links.paper, links.pdf, links.arxiv, links.doi that is set
+   (build.py computes `title_url`); the id stays on the <article> so CV deep
+   links still land. #}
+{% import "_links.html" as links %}
 <article class="pub"{% if pub.id %} id="{{ pub.id }}"{% endif %}>
   {% if pub.suppressed %}
   <p class="pub-authors">In submission ({{ pub.year }})</p>
   {% if pub.summary %}<p class="pub-venue">{{ pub.summary }}</p>{% endif %}
   {% else %}
   <p class="pub-authors">{{ pub.authors_html | replace(" (* equal contribution)", "") | safe }} ({{ pub.year }})</p>
-  <h2 class="pub-title"><a href="#{{ pub.id }}">{{ pub.title }}</a></h2>
+  <h2 class="pub-title">{{ links.maybe(pub.title_url, pub.title) }}</h2>
   <p class="pub-venue">
     {%- if pub.status == "in-preparation" -%}
       In preparation{% if pub.venue_short %}, {{ pub.venue_short }}{% endif %}
@@ -19,15 +23,15 @@
   </p>
   <div class="pub-actions">
     {# Order: PDF, Code, Cite, then DOI / arXiv / the rest. Each only if set. #}
-    {% for label, url in pub.links if label == "Paper" %}<a class="btn-pill" href="{{ url }}">PDF</a>{% endfor %}
-    {% for label, url in pub.links if label == "Code" %}<a class="btn-pill" href="{{ url }}">Code</a>{% endfor %}
+    {% for label, url in pub.links if label in ("Paper", "PDF") %}{{ links.a(url, "PDF", "btn-pill") }}{% endfor %}
+    {% for label, url in pub.links if label == "Code" %}{{ links.a(url, "Code", "btn-pill") }}{% endfor %}
     {% if pub.bibtex %}
     <details class="cite">
       <summary class="btn-pill">Cite</summary>
       <pre>{{ pub.bibtex }}</pre>
     </details>
     {% endif %}
-    {% for label, url in pub.links if label not in ("Paper", "Code") %}<a class="btn-pill" href="{{ url }}">{{ label }}</a>{% endfor %}
+    {% for label, url in pub.links if label not in ("Paper", "PDF", "Code") %}{{ links.a(url, label, "btn-pill") }}{% endfor %}
   </div>
   {% endif %}
 </article>

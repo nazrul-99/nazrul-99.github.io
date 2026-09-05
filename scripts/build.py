@@ -79,6 +79,7 @@ def obfuscate(text):
 
 LINK_LABELS = {
     "paper": "Paper",
+    "pdf": "PDF",
     "doi": "DOI",
     "arxiv": "arXiv",
     "code": "Code",
@@ -97,6 +98,17 @@ STATUS_LABELS = {
     "in-press": "In press",
     "preprint": "Preprint",
 }
+
+
+# Where a title links. The first of these that is set on a publication is
+# the entry's title URL; a research thread borrows the title URL of its first
+# related publication that has one. A title with no URL renders as plain text.
+TITLE_LINK_ORDER = ("paper", "pdf", "arxiv", "doi")
+
+
+def title_url(links):
+    links = links or {}
+    return next((str(links[key]).strip() for key in TITLE_LINK_ORDER if links.get(key)), "")
 
 
 def status_label(status, year):
@@ -175,6 +187,7 @@ def view_publication(pub, site_name):
         "venue_short": venue_line(pub.get("venue", ""), pub.get("year"), pub.get("status")),
         "year": pub.get("year"),
         "links": links,
+        "title_url": title_url(pub.get("links")),
         "bibtex": pub.get("bibtex", ""),
         "summary": pub.get("summary", ""),
     }
@@ -204,6 +217,7 @@ def attach_related(threads, views_by_id):
         # once on the paper also appears on its thread. A suppressed paper's
         # links are never in its view, so nothing can leak through here.
         code_url = (thread.get("code") or "").strip()
+        paper_url = ""
         for pid in thread.get("related_publications") or []:
             view = views_by_id.get(pid)
             if view is None:
@@ -213,6 +227,8 @@ def attach_related(threads, views_by_id):
                 continue
             if not code_url:
                 code_url = next((url for label, url in view["links"] if label == "Code"), "")
+            if not paper_url:
+                paper_url = view["title_url"]
             # Lower-case only a sentence-like opener ("Submitted to ...",
             # "In preparation, ..."); a venue that starts with an acronym
             # ("ACL", "IEEE") must keep its case.
@@ -230,6 +246,8 @@ def attach_related(threads, views_by_id):
             })
         thread["related"] = related
         thread["code_url"] = code_url
+        # The card title links to the paper, else to the code, else nowhere.
+        thread["title_url"] = paper_url or code_url
     return threads
 
 
@@ -346,6 +364,11 @@ def build_context():
     # Every timeline is sorted here, not in the YAML (CLAUDE.md § Information
     # architecture). The CV copy is hand-made, so this is the only sort.
     earlier_work = sort_by_start(earlier_work, "years")
+    # An earlier-work title links to its code, else to its project card.
+    for entry in earlier_work:
+        code = (entry.get("code") or "").strip()
+        project = (entry.get("project") or "").strip()
+        entry["title_url"] = code or (f"#{project}" if project else "")
     if isinstance(education, dict):
         education["teaching"] = sort_by_start(education.get("teaching"), "period")
         education["honors"] = sort_by_start(education.get("honors"), "years")

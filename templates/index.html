@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import "_icons.html" as icons %}
+{% import "_links.html" as links %}
 {% set home = "" %}
 {% block content %}
 {# publication id -> year, for the meta line on research thread cards #}
@@ -20,16 +21,16 @@
       <p class="about-name">{{ site.name }}</p>
       {% if aff[0] %}<p class="about-role">{{ aff[0] }}</p>{% endif %}
       {% if aff | length > 1 %}
-      <p class="about-org">{% if site.affiliation_url %}<a href="{{ site.affiliation_url }}" rel="me">{{ aff[1] }}</a>{% else %}{{ aff[1] }}{% endif %}</p>
+      <p class="about-org">{% if site.affiliation_url %}{{ links.a(site.affiliation_url, aff[1], rel="me") }}{% else %}{{ aff[1] }}{% endif %}</p>
       {% endif %}
       {% if site.notice and site.notice | trim %}
       <p class="notice">{{ site.notice | trim }}</p>
       {% endif %}
       <ul class="icon-links" aria-label="Profiles">
         <li><a href="mailto:{{ email_href | safe }}" aria-label="Email">{{ icons.mail() }}</a></li>
-        {% if scholar %}<li><a href="{{ scholar }}" aria-label="Google Scholar">{{ icons.scholar() }}</a></li>{% endif %}
-        {% if github %}<li><a href="{{ github }}" aria-label="GitHub">{{ icons.github() }}</a></li>{% endif %}
-        {% if site.linkedin %}<li><a href="{{ site.linkedin }}" aria-label="LinkedIn">{{ icons.linkedin() }}</a></li>{% endif %}
+        {% if scholar %}<li>{{ links.a(scholar, icons.scholar(), aria_label="Google Scholar") }}</li>{% endif %}
+        {% if github %}<li>{{ links.a(github, icons.github(), aria_label="GitHub") }}</li>{% endif %}
+        {% if site.linkedin %}<li>{{ links.a(site.linkedin, icons.linkedin(), aria_label="LinkedIn") }}</li>{% endif %}
       </ul>
       <p class="about-cv"><a class="btn-pill" href="/cv.pdf" download>Download CV</a></p>
     </div>
@@ -73,7 +74,7 @@
       {% for thread in research_threads %}
       <li class="tl-item">
         <article class="card" id="{{ thread.id }}">
-          <h2 class="card-title">{{ thread.title }}</h2>
+          <h2 class="card-title">{{ links.maybe(thread.title_url, thread.title) }}</h2>
           {% if thread.related %}
           <p class="card-meta">
             {%- for r in thread.related -%}
@@ -90,8 +91,8 @@
           </dl>
           {% if thread.related or thread.code_url %}
           <p class="card-actions">
-            {% for r in thread.related if r.href %}<a class="btn-pill" href="{{ r.href | replace('/publications.html', '') }}">Paper</a>{% endfor %}
-            {% if thread.code_url %}<a class="btn-pill" href="{{ thread.code_url }}">Code</a>{% endif %}
+            {% for r in thread.related if r.href %}{{ links.a(r.href | replace('/publications.html', ''), "Paper", "btn-pill") }}{% endfor %}
+            {% if thread.code_url %}{{ links.a(thread.code_url, "Code", "btn-pill") }}{% endif %}
           </p>
           {% endif %}
         </article>
@@ -100,13 +101,13 @@
       {% for e in earlier_work %}
       <li class="tl-item">
         <article class="card">
-          <h2 class="card-title">{{ e.title }}</h2>
+          <h2 class="card-title">{{ links.maybe(e.title_url, e.title) }}</h2>
           <p class="card-meta">{{ e.years }}{% if e.stack %} · {{ e.stack }}{% endif %}</p>
           <p class="blurb">{{ e.line }}</p>
           {% if e.code or e.project %}
           <p class="card-actions">
-            {% if e.code %}<a class="btn-pill" href="{{ e.code }}">Code</a>{% endif %}
-            {% if e.project %}<a class="btn-pill" href="#{{ e.project }}">Project</a>{% endif %}
+            {% if e.code %}{{ links.a(e.code, "Code", "btn-pill") }}{% endif %}
+            {% if e.project %}{{ links.a("#" ~ e.project, "Project", "btn-pill") }}{% endif %}
           </p>
           {% endif %}
         </article>
@@ -201,9 +202,9 @@
     <h1 class="section-title">Contact</h1>
     <ul class="contact-list">
       <li>{{ icons.mail() }} <a href="mailto:{{ email_href | safe }}">{{ email_display | safe }}</a></li>
-      {% if scholar %}<li>{{ icons.scholar() }} <a href="{{ scholar }}">Google Scholar</a></li>{% endif %}
-      {% if github %}<li>{{ icons.github() }} <a href="{{ github }}">GitHub</a></li>{% endif %}
-      {% if site.linkedin %}<li>{{ icons.linkedin() }} <a href="{{ site.linkedin }}">LinkedIn</a></li>{% endif %}
+      {% if scholar %}<li>{{ icons.scholar() }} {{ links.a(scholar, "Google Scholar") }}</li>{% endif %}
+      {% if github %}<li>{{ icons.github() }} {{ links.a(github, "GitHub") }}</li>{% endif %}
+      {% if site.linkedin %}<li>{{ icons.linkedin() }} {{ links.a(site.linkedin, "LinkedIn") }}</li>{% endif %}
     </ul>
   </div>
 </section>

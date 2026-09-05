@@ -28,7 +28,7 @@
   role: ""
   stack: ["PyTorch", "Python"]
   period: "2024 – 2025"
-  repo: ""
+  repo: "https://github.com/nazrul-99/SQLi"
   demo: ""
   featured: true
 
@@ -42,6 +42,6 @@
   role: ""
   stack: ["PyTorch", "Python"]
   period: "2023"
-  repo: ""
+  repo: "https://github.com/nazrul-99/Text-to-Sql"
   demo: ""
   featured: true
