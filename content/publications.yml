@@ -1,78 +1,167 @@
 # Example (copy this block for a new paper, or run scripts/new_pub.py):
 #
-# - id: "geotoken"
-#   title: "GeoToken: Differentiable 3D Voxel Tokenization for Vision-Language Models"
-#   authors: ["Md. Asiful Islam Miah", "Md. Nazrul Islam", "S M Taslim Uddin Raju"]
-#   venue: "AAAI"
+# - id: "short-slug"
+#   title: "Paper Title: Subtitle If Any"
+#   authors: ["First Author", "Md. Nazrul Islam", "Third Author"]
+#   venue: "Venue Name 2027"      # under-review renders as "Submitted to <venue>"
 #   year: 2027
-#   type: "conference"          # conference | journal | workshop | preprint | thesis
-#   status: "under-review"      # published | in-press | under-review | in-preparation | preprint
-#   anonymized: true
-#   equal_contribution: [0, 1]  # indices into authors[]
-#   links: {}                   # must stay empty while anonymized: true
+#   type: "conference"           # conference | journal | workshop | preprint | thesis
+#   status: "under-review"       # published | in-press | under-review | in-preparation | preprint
+#   anonymized: false            # current policy: every entry is public and linked
+#   equal_contribution: []       # 0-based indices into authors[], e.g. [0, 1]
+#   links:
+#     paper: "https://drive.google.com/file/d/.../view"   # or doi: for published work
+#     code: "https://github.com/user/repo"                # optional Code pill
 #   bibtex: ""
-#   note: ""
+#   note: ""                     # e.g. "vol. 10, pp. 38999–39044"; appended to the venue line
 #   summary: >
-#     A voxel tokenizer for vision-language models, evaluated on spatial
-#     reasoning benchmarks against a captioning-only baseline.
+#     One or two sentences: the question and the result.
 #
-# Once a decision comes back, run `python scripts/reveal.py geotoken` rather
-# than hand-editing anonymized -> false; it also prompts for links and status.
+# `anonymized: true` is still honoured (title, authors, venue and links are
+# withheld; only "In submission, <year>" and the summary render) but is not
+# in use. Run `python scripts/reveal.py <id>` to flip it back and add links.
 
-- id: "placeholder-under-review-1"
-  title: "PLACEHOLDER Working Title, Anonymized Submission"
-  authors: ["Md. Nazrul Islam", "PLACEHOLDER Coauthor"]
-  venue: "PLACEHOLDER Venue"
+- id: "geotoken"
+  title: "GeoToken: Differentiable 3D Voxel Tokenization for Geometric Spatial Reasoning in VLMs"
+  authors: ["Md. Asiful Islam Miah", "Md. Nazrul Islam", "S M Taslim Uddin Raju", "Hamdi Altaheri"]
+  venue: "AAAI 2027"
+  year: 2027
+  type: "conference"
+  status: "under-review"
+  anonymized: false
+  equal_contribution: [0, 1]
+  links:
+    paper: "https://drive.google.com/file/d/1ELj4VhWy8dj_DHJAQdN-i3FPRE4wxLzI/view?usp=sharing"
+  bibtex: ""
+  note: ""
+  summary: >
+    We built a 1B-parameter spatial vision-language model. It lifts a single
+    RGB image into a metric point cloud. A soft clustering compresses the cloud
+    into a few dozen tokens that each carry a real 3D position, so the language
+    model reasons over geometry rather than a patch grid. Inference fits in
+    under 4 GB.
+
+- id: "mmvp-position-bias"
+  title: "Low Scores Without a Perceptual Deficit: Separating Answer-Position Bias from Perception on MMVP"
+  authors: ["Md. Nazrul Islam", "Md. Habibullah Belali"]
+  venue: "ICCIT 2026"
   year: 2026
   type: "conference"
   status: "under-review"
-  anonymized: true
+  # ICCIT is single-blind; the submission carries names
+  anonymized: false
   equal_contribution: []
-  links: {}
+  links:
+    paper: "https://drive.google.com/file/d/1UDr-B_FffHD4PoJ-6FCMyF1hHBAY2T0h/view?usp=drive_link"
   bibtex: ""
   note: ""
   summary: >
-    Sample text describing the question this submission asks and the result
-    it reports, written without naming the method under review.
+    MMVP's sub-chance scores are read as evidence that small VLMs cannot
+    resolve fine visual detail. Re-asking each question with the two options
+    reversed, one extra forward pass, shows the scores track answer-position
+    bias instead. Perceptual accuracy is statistically indistinguishable across
+    models spanning a fivefold range of published numbers.
 
-- id: "placeholder-in-preparation-1"
-  title: "PLACEHOLDER Title, Not Yet Submitted"
+- id: "bangla-ner-orthography"
+  title: "Anchored to the Form: Bangla Named Entity Recognition Depends on Entity Orthography, Not Context"
   authors: ["Md. Nazrul Islam"]
-  venue: ""
+  venue: "ACL Rolling Review, targeting NAACL 2027"
   year: 2027
-  type: "journal"
+  type: "conference"
+  # under review with prospective advisors; not yet submitted
   status: "in-preparation"
   anonymized: false
   equal_contribution: []
-  links: {}
+  links:
+    paper: "https://drive.google.com/TODO"
   bibtex: ""
   note: ""
   summary: >
-    Sample text describing a manuscript still being drafted, in the same
-    style as the under-review entry above.
+    Bangla NER models are assumed to generalize from context the way English
+    models do. Under controlled character perturbation they turn out to depend
+    on memorized entity spellings instead, by 9.3 to 1. Failing to find the
+    entity at all accounts for 86% of the damage. The defense that diagnosis
+    predicts recovers up to 14.3 F1, whereas the standard adversarial recipe
+    recovers nothing measurable.
 
-- id: "placeholder-published-1"
-  title: "PLACEHOLDER Published Paper Title"
-  authors: ["Md. Nazrul Islam", "PLACEHOLDER Coauthor One", "PLACEHOLDER Coauthor Two"]
-  venue: "PLACEHOLDER Venue, Vol. 1"
-  year: 2024
+- id: "bnlp-survey"
+  title: "Bangla Natural Language Processing: A Comprehensive Analysis of Classical, Machine Learning, and Deep Learning-Based Methods"
+  authors: ["Ovishake Sen", "Mohtasim Fuad", "Md. Nazrul Islam", "Jakaria Rabbi", "Mehedi Masud", "Md. Kamrul Hasan", "Md. Abdul Awal", "Awal Ahmed Fime", "Md. Tahmid Hasan Fuad", "Delowar Sikder", "Md. Akil Raihan Iftee"]
+  venue: "IEEE Access"
+  year: 2022
   type: "journal"
   status: "published"
   anonymized: false
   equal_contribution: []
   links:
-    paper: "https://example.org/PLACEHOLDER.pdf"
-    arxiv: ""
-    code: "https://github.com/PLACEHOLDER/repo"
-    project: ""
-    slides: ""
-    poster: ""
+    doi: "https://doi.org/10.1109/ACCESS.2022.3165563"
   bibtex: |
-    @article{placeholder2024,
-      title={PLACEHOLDER Published Paper Title},
-      author={Islam, Md. Nazrul and Coauthor, One and Coauthor, Two},
-      journal={PLACEHOLDER Venue},
-      year={2024}
+    @article{sen2022bangla,
+      author  = {Sen, Ovishake and Fuad, Mohtasim and Islam, Md. Nazrul and Rabbi, Jakaria and Masud, Mehedi and Hasan, Md. Kamrul and Awal, Md. Abdul and Fime, Awal Ahmed and Fuad, Md. Tahmid Hasan and Sikder, Delowar and Iftee, Md. Akil Raihan},
+      title   = {Bangla Natural Language Processing: A Comprehensive Analysis of Classical, Machine Learning, and Deep Learning-Based Methods},
+      journal = {IEEE Access},
+      volume  = {10},
+      pages   = {38999--39044},
+      year    = {2022},
+      doi     = {10.1109/ACCESS.2022.3165563}
     }
-  note: ""
-  summary: "PLACEHOLDER one-line summary shown wherever a short form is used."
+  note: "vol. 10, pp. 38999–39044"
+  summary: >
+    We organized seventy-five Bangla NLP papers from 1999–2021 into eleven
+    tasks. Each task is compared across classical, machine-learning, and
+    deep-learning methods, with the datasets it has and the evaluation it
+    still lacks.
+
+- id: "face-recognition-survey"
+  title: "Recent Advances in Deep Learning Techniques for Face Recognition"
+  authors: ["Md. Tahmid Hasan Fuad", "Awal Ahmed Fime", "Delowar Sikder", "Md. Akil Raihan Iftee", "Jakaria Rabbi", "Mabrook S. Al-Rakhami", "Abdu Gumaei", "Ovishake Sen", "Mohtasim Fuad", "Md. Nazrul Islam"]
+  venue: "IEEE Access"
+  year: 2021
+  type: "journal"
+  status: "published"
+  anonymized: false
+  equal_contribution: []
+  links:
+    doi: "https://doi.org/10.1109/ACCESS.2021.3096136"
+  bibtex: |
+    @article{fuad2021recent,
+      author  = {Fuad, Md. Tahmid Hasan and Fime, Awal Ahmed and Sikder, Delowar and Iftee, Md. Akil Raihan and Rabbi, Jakaria and Al-Rakhami, Mabrook S. and Gumaei, Abdu and Sen, Ovishake and Fuad, Mohtasim and Islam, Md. Nazrul},
+      title   = {Recent Advances in Deep Learning Techniques for Face Recognition},
+      journal = {IEEE Access},
+      volume  = {9},
+      pages   = {99112--99142},
+      year    = {2021},
+      doi     = {10.1109/ACCESS.2021.3096136}
+    }
+  note: "vol. 9, pp. 99112–99142"
+  summary: >
+    We organized 171 deep-learning face-recognition papers by architecture,
+    loss function, and dataset. For each group the survey records the pose,
+    illumination, and occlusion conditions under which accuracy still falls.
+
+- id: "blood-donor-forecasting"
+  title: "Blood Donor Arrival Forecasting Using Regression Model and Analysis of Donor Behavioural Pattern"
+  authors: ["Towsif Ahamed", "Md. Nazrul Islam", "S. M. Taslim Uddin Raju", "M. M. A. Hashem"]
+  venue: "ICCIT 2022"
+  year: 2022
+  type: "conference"
+  status: "published"
+  anonymized: false
+  equal_contribution: []
+  links:
+    doi: "https://doi.org/10.1109/ICCIT57492.2022.10054710"
+  bibtex: |
+    @inproceedings{ahamed2022blood,
+      author    = {Ahamed, Towsif and Islam, Md. Nazrul and Raju, S. M. Taslim Uddin and Hashem, M. M. A.},
+      title     = {Blood Donor Arrival Forecasting Using Regression Model and Analysis of Donor Behavioural Pattern},
+      booktitle = {2022 25th International Conference on Computer and Information Technology (ICCIT)},
+      pages     = {897--902},
+      year      = {2022},
+      doi       = {10.1109/ICCIT57492.2022.10054710}
+    }
+  note: "pp. 897–902"
+  summary: >
+    OneBlood's donor-contact records convert at 2.67%, so classifying
+    individual donors recovers 7% of them. Forecasting aggregate counts over
+    propensity buckets instead brought month-ahead error to 0.3%. OneBlood
+    deployed the model across 1.05 million approaches.

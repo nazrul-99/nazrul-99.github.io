@@ -13,16 +13,93 @@
 #     93% of its failures are answer-slot bias. Perceptual accuracy is 0.70,
 #     indistinguishable from the model scoring five times higher.
 #   related_publications: ["geotoken"]
+#   code: ""                     # optional; Code pill after Paper. Blank falls
+#                                # back to the related publication's links.code
+#
+# FLAG: _source/PAPERS.md gives no ids for the threads. The three ids below are slugs
+# derived from the titles; none contains a method name.
 
-- id: "placeholder-thread-1"
-  title: "PLACEHOLDER research thread title"
-  description: >
-    PLACEHOLDER two-to-three sentence first-person description of this
-    research thread: the question it asks and why the answer matters.
-  claim: >
-    PLACEHOLDER — the widely repeated explanation a reader would assume is
-    true before looking closely.
-  correction: >
-    PLACEHOLDER — what a controlled measurement actually found instead, with
-    the number attached.
-  related_publications: []
+threads:
+  - id: "geometry-in-the-token"
+    title: "Geometry in the token, not in the pipeline"
+    description: >
+      A VLM answers "is the chair in front of the sofa" from a grid of patch
+      features that carry no position, so it answers from word statistics. We
+      lift each patch to a metric 3D point and cluster the points into voxel
+      tokens with a soft assignment. The question-answering loss trains the
+      depth, the camera, and the grouping together.
+    claim: >
+      Spatial reasoning improves with more spatial QA data, or with detection and
+      segmentation estimators added at inference.
+    correction: >
+      Language loss alone learns a text shortcut: 41.5% on binary relations,
+      below chance. Moving geometry into the tokenizer reaches 81.33% on
+      SpatialRGPT-Bench at 1B parameters in 3.6 GB, with no region proposal at
+      inference.
+    related_publications: ["geotoken"]
+
+  - id: "what-a-score-identifies"
+    title: "What a benchmark score identifies"
+    description: >
+      MMVP's 6% for LLaVA-1.5 fits a model that cannot see. It fits equally a
+      model that sees fine but always picks option (a). A single score is
+      consistent with both readings until a control separates them. I build the
+      cheapest control that does, then report what the published number was
+      actually tracking.
+    claim: >
+      LLaVA-1.5 scores 6.0% on MMVP, below the 25% random floor. The literature
+      reads this as a perceptual deficit inherited from CLIP.
+    correction: >
+      93% of its failures pick the same slot whatever the image shows. On answers
+      that survive reversal its accuracy is 0.70, indistinguishable from the
+      model scoring 33.3.
+    related_publications: ["mmvp-position-bias"]
+
+  - id: "what-a-low-resource-model-keys-on"
+    title: "What a low-resource model is keying on"
+    description: >
+      Bangla encoders are evaluated on clean text. Bangla outside curated corpora
+      is not clean. Rather than report that noise hurts, I control the comparison
+      until the damage can be attributed to something, then test whether that
+      attribution predicts which defense works.
+    claim: >
+      Character noise degrades Bangla encoders because it fragments subword
+      tokenization.
+    correction: >
+      With coverage held fixed, fragmentation predicts almost none of the loss
+      (r = 0.05). The model is anchored to memorized entity spellings by 9.3 to 1
+      over context. Failing to find the entity at all accounts for 86% of the
+      damage. Character augmentation recovers 14.3 F1, whereas FGSM recovers
+      nothing outside seed noise.
+    related_publications: ["bangla-ner-orthography"]
+
+# Earlier work: rendered as timeline cards after the threads, no claim/found
+# block. `project` links to that project's card (ids in content/projects.yml);
+# `code` (optional, absolute https) adds a Code pill before the Project pill.
+# Order as listed.
+#
+#   - years: "2024"
+#     title: "Example earlier project"
+#     line: "One or two sentences on what it did and what was learned."
+#     stack: "PyTorch"
+#     project: "short-slug"      # optional
+#     code: ""                   # optional
+earlier:
+  - years: "2025"
+    title: "Adversarial Robustness in Low-Resource NLP (Bangla)"
+    line: "I ran character-, word-, and noise-level attacks against Bangla language models to measure where robustness breaks. That work is the diagnostic groundwork for the NER study above."
+    stack: "PyTorch"
+  - years: "2024–2025"
+    title: "Multiclass SQL Injection Detection via Hybrid CNN–Transformer"
+    line: "I built a 1D CNN–TinyBERT classifier for multiclass SQL-injection payloads. Because the classes are heavily imbalanced, I evaluated it with macro-F1 and PR-AUC under realistic adversarial scenarios."
+    stack: "PyTorch"
+    project: "sql-injection"
+  - years: "2023"
+    title: "Lightweight LLM and Reinforcement Learning for Text-to-SQL"
+    line: "I built a TinyBERT text-to-SQL system on Spider. Reinforcement learning from execution feedback improved logical correctness without a larger model."
+    stack: "PyTorch"
+    project: "text-to-sql"
+  - years: "2022–2023"
+    title: "Undergraduate thesis: BCI-Oriented EEG Signal Analysis and Classification"
+    line: "I built end-to-end ERP detection on BCI Competition data, where cross-subject generalization was the bottleneck. The pipeline used FIR/notch/CAR preprocessing, PSD/WPD/STFT features, and NCA and Relief-F selection. The CNN reached 92% cross-subject accuracy. Ablations attributed the gain to pipeline stages rather than the model."
+    stack: "TensorFlow"

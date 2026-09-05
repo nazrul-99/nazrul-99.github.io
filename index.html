@@ -8,9 +8,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Md. Nazrul Islam">
 <meta property="og:title" content="Md. Nazrul Islam">
-<meta property="og:description" content="PLACEHOLDER tagline — one line on what I work on.">
+<meta name="description" content="I&#39;m a lecturer in computer science at Southeast University, Dhaka. My research spans vision-language models and low-resource NLP. One question runs through both: what is a model&#39;s failure actually ma…">
+<meta property="og:description" content="I&#39;m a lecturer in computer science at Southeast University, Dhaka. My research spans vision-language models and low-resource NLP. One question runs through both: what is a model&#39;s failure actually ma…">
 <meta property="og:url" content="https://nazrul-99.github.io/">
 <meta property="og:locale" content="en_US">
+<link rel="icon" href="/static/favicon.png" type="image/png">
+<meta property="og:image" content="https://nazrul-99.github.io/static/portrait.jpg">
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@graph": [
@@ -20,9 +23,16 @@
       "name": "Md. Nazrul Islam",
       "url": "https://nazrul-99.github.io/",
       "sameAs": [
-        "https://scholar.google.com/PLACEHOLDER",
-        "https://github.com/PLACEHOLDER"
-      ]
+        "https://scholar.google.com/citations?user=qr34ziEAAAAJ",
+        "https://github.com/nazrul-99"
+      ],
+      "jobTitle": "Lecturer, CSE",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Southeast University, Dhaka",
+        "url": "https://cse.seu.edu.bd/employee/profile/MDAzMDA4"
+      },
+      "image": "https://nazrul-99.github.io/static/portrait.jpg"
     },
     {
       "@type": "WebSite",
@@ -35,112 +45,363 @@
     }
   ]
 }</script>
-<link rel="stylesheet" href="/static/style.css">
+<script>
+/* Theme toggle -- the one JS allowance (DESIGN.md v2). Sets data-theme on
+   <html>, remembers the choice, defaults to prefers-color-scheme. Runs before
+   first paint so a stored choice never flashes. With JS off the button stays
+   hidden and the OS setting applies. */
+(function () {
+  var root = document.documentElement, key = "theme", stored = null;
+  var osDark = matchMedia("(prefers-color-scheme: dark)");
+  try { stored = localStorage.getItem(key); } catch (e) {}
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+  function current() { return root.getAttribute("data-theme") || (osDark.matches ? "dark" : "light"); }
+  document.addEventListener("DOMContentLoaded", function () {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    function sync() { btn.setAttribute("aria-pressed", String(current() === "dark")); }
+    btn.hidden = false;
+    sync();
+    osDark.addEventListener("change", sync);
+    btn.addEventListener("click", function () {
+      root.setAttribute("data-theme", current() === "dark" ? "light" : "dark");
+      try { localStorage.setItem(key, root.getAttribute("data-theme")); } catch (e) {}
+      sync();
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="/static/style.css?v=7c3b56c892">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-header">
-  <p class="site-name">Md. Nazrul Islam</p>
-  <nav aria-label="Primary">
-    <a href="/index.html" aria-current="page">Research</a>
-    <a href="/publications.html">Publications</a>
-    <a href="/projects.html">Projects</a>
-    <a href="/cv.pdf">CV</a>
-  </nav>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="brand" href="#top">Md. Nazrul Islam</a>
+    <nav aria-label="Primary">
+      <a class="nav-research" href="#research">Research</a>
+      <a class="nav-publications" href="#publications">Publications</a>
+      <a class="nav-projects" href="#projects">Projects</a>
+<a class="nav-teaching" href="#teaching">Teaching</a><a class="nav-honors" href="#honors">Honors</a><a class="nav-service" href="#service">Service</a>      <a class="nav-contact" href="#contact">Contact</a>
+      <a href="/cv.pdf">CV</a>
+      <button id="theme-toggle" type="button" class="theme-toggle" hidden aria-pressed="false" aria-label="Toggle dark mode"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+    </nav>
+  </div>
 </header>
 <main id="main">
-<section id="intro" aria-labelledby="name">
-  <div class="intro-head">
-    <div>
-      <h1 class="name" id="name">Md. Nazrul Islam</h1>
+
+<section id="top" class="section about">
+  <div class="container about-grid">
+    <div class="about-side">
+      <img class="portrait" src="/static/portrait.jpg" width="270" height="270" alt="">
+      <p class="about-name">Md. Nazrul Islam</p>
+<p class="about-role">Lecturer, CSE</p>      <p class="about-org"><a href="https://cse.seu.edu.bd/employee/profile/MDAzMDA4" rel="me">Southeast University, Dhaka</a></p>
+      <p class="notice">Applying to PhD programs. Open to conversations with groups working on vision-language models, evaluation methodology, or low-resource NLP.</p>
+      <ul class="icon-links" aria-label="Profiles">
+        <li><a href="mailto:&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;" aria-label="Email"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a></li>
+<li><a href="https://scholar.google.com/citations?user=qr34ziEAAAAJ" aria-label="Google Scholar"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3z" fill="currentColor"/><path d="M5 13.18V17c0 1.66 3.13 3 7 3s7-1.34 7-3v-3.82l-7 3.82-7-3.82z" fill="currentColor"/></svg></a></li><li><a href="https://github.com/nazrul-99" aria-label="GitHub"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></li>      </ul>
+      <p class="about-cv"><a class="btn-pill" href="/cv.pdf" download>Download CV</a></p>
+    </div>
+    <div class="about-main">
+      <h1 class="section-title">Biography</h1>
+      <p class="bio">I&#39;m a lecturer in computer science at Southeast University, Dhaka. My research spans vision-language models and low-resource NLP. One question runs through both: what is a model&#39;s failure actually made of? In three projects so far the accepted explanation named the wrong cause. Correcting it changed which fix works. The research threads below show where.</p>
+      <p class="bio">The questions those projects left open are the ones I want to pursue next. In vision-language models, one question is how to give a model geometry it can reason over rather than more examples of the right answers. The other is how to evaluate spatial reasoning so that a score identifies the capability, not a bias in the benchmark. In low-resource NLP, the question is what large language models actually depend on when the input is noisy, non-Latin, and underrepresented in pretraining. The defenses worth testing are the ones that dependence predicts.</p>
+      <div class="about-cols">
+        <div>
+          <h2 class="label">Interests</h2>
+          <ul class="bullets">
+<li>Vision-language models</li><li>Spatial and geometric reasoning</li><li>Benchmark validity</li><li>Robustness in low-resource NLP</li><li>Large language models</li>          </ul>
+        </div>
+        <div>
+          <h2 class="label">Education</h2>
+          <ul class="edu">
+            <li>
+              <strong>B.Sc. in Computer Science &amp; Engineering</strong><br>
+              Khulna University of Engineering &amp; Technology (KUET), Khulna, Bangladesh<br>
+              <span class="meta">January 2018 – February 2023</span>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </div>
-  <p class="tagline">PLACEHOLDER tagline — one line on what I work on.</p>
-  <p>PLACEHOLDER bio. This paragraph exists only to give build.py something to render for Phase 1 — it is not the real bio and must be replaced before the site is deployed. In the real version this is 120 to 180 words, first person, describing the research areas, the current role, and the one or two threads a committee member should walk away remembering after sixty to ninety seconds on the page. It should read like something a person wrote about their own work, not a paragraph generated to fill a box, and it should avoid the usual filler adjectives entirely.</p>
-  <p>PLACEHOLDER second paragraph, optional. Real bio content goes here once PAPERS.md and the CV are used to write it properly in Phase 4, covering current affiliation, prior degree, and the shape of the research threads that the rest of the homepage expands on in more detail with claim and correction pairs for each one.</p>
-  <p class="contact">
-    <a href="mailto:&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
-    <a href="https://scholar.google.com/PLACEHOLDER">Google Scholar</a>
-    <a href="https://github.com/PLACEHOLDER">GitHub</a>
-    <a href="/cv.pdf">CV (pdf)</a>
-  </p>
 </section>
 
-<section id="research" aria-labelledby="research-heading">
-  <h2 id="research-heading">Research</h2>
-  <article class="thread" id="placeholder-thread-1">
-    <h3 class="thread-title">PLACEHOLDER research thread title</h3>
-    <p>PLACEHOLDER two-to-three sentence first-person description of this research thread: the question it asks and why the answer matters.
+<section id="research" class="section">
+  <div class="container">
+    <h1 class="section-title">Research</h1>
+    <ol class="timeline">
+      <li class="tl-item">
+        <article class="card" id="geometry-in-the-token">
+          <h2 class="card-title">Geometry in the token, not in the pipeline</h2>
+          <p class="card-meta">Submitted to AAAI 2027</p>
+          <p class="blurb">A VLM answers &#34;is the chair in front of the sofa&#34; from a grid of patch features that carry no position, so it answers from word statistics. We lift each patch to a metric 3D point and cluster the points into voxel tokens with a soft assignment. The question-answering loss trains the depth, the camera, and the grouping together.
 </p>
-    <dl class="pair">
-      <dt>Reported</dt>
-      <dd>PLACEHOLDER — the widely repeated explanation a reader would assume is true before looking closely.
-</dd>
-      <dt>Found</dt>
-      <dd>PLACEHOLDER — what a controlled measurement actually found instead, with the number attached.
-</dd>
-    </dl>
-  </article>
+          <dl class="claim">
+            <div><dt>Reported</dt><dd>Spatial reasoning improves with more spatial QA data, or with detection and segmentation estimators added at inference.
+</dd></div>
+            <div><dt>Found</dt><dd>Language loss alone learns a text shortcut: 41.5% on binary relations, below chance. Moving geometry into the tokenizer reaches 81.33% on SpatialRGPT-Bench at 1B parameters in 3.6 GB, with no region proposal at inference.
+</dd></div>
+          </dl>
+          <p class="card-actions">
+<a class="btn-pill" href="#geotoken">Paper</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card" id="what-a-score-identifies">
+          <h2 class="card-title">What a benchmark score identifies</h2>
+          <p class="card-meta">Submitted to ICCIT 2026</p>
+          <p class="blurb">MMVP&#39;s 6% for LLaVA-1.5 fits a model that cannot see. It fits equally a model that sees fine but always picks option (a). A single score is consistent with both readings until a control separates them. I build the cheapest control that does, then report what the published number was actually tracking.
+</p>
+          <dl class="claim">
+            <div><dt>Reported</dt><dd>LLaVA-1.5 scores 6.0% on MMVP, below the 25% random floor. The literature reads this as a perceptual deficit inherited from CLIP.
+</dd></div>
+            <div><dt>Found</dt><dd>93% of its failures pick the same slot whatever the image shows. On answers that survive reversal its accuracy is 0.70, indistinguishable from the model scoring 33.3.
+</dd></div>
+          </dl>
+          <p class="card-actions">
+<a class="btn-pill" href="#mmvp-position-bias">Paper</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card" id="what-a-low-resource-model-keys-on">
+          <h2 class="card-title">What a low-resource model is keying on</h2>
+          <p class="card-meta">In preparation, 2027</p>
+          <p class="blurb">Bangla encoders are evaluated on clean text. Bangla outside curated corpora is not clean. Rather than report that noise hurts, I control the comparison until the damage can be attributed to something, then test whether that attribution predicts which defense works.
+</p>
+          <dl class="claim">
+            <div><dt>Reported</dt><dd>Character noise degrades Bangla encoders because it fragments subword tokenization.
+</dd></div>
+            <div><dt>Found</dt><dd>With coverage held fixed, fragmentation predicts almost none of the loss (r = 0.05). The model is anchored to memorized entity spellings by 9.3 to 1 over context. Failing to find the entity at all accounts for 86% of the damage. Character augmentation recovers 14.3 F1, whereas FGSM recovers nothing outside seed noise.
+</dd></div>
+          </dl>
+          <p class="card-actions">
+<a class="btn-pill" href="#bangla-ner-orthography">Paper</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Adversarial Robustness in Low-Resource NLP (Bangla)</h2>
+          <p class="card-meta">2025 · PyTorch</p>
+          <p class="blurb">I ran character-, word-, and noise-level attacks against Bangla language models to measure where robustness breaks. That work is the diagnostic groundwork for the NER study above.</p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Multiclass SQL Injection Detection via Hybrid CNN–Transformer</h2>
+          <p class="card-meta">2024–2025 · PyTorch</p>
+          <p class="blurb">I built a 1D CNN–TinyBERT classifier for multiclass SQL-injection payloads. Because the classes are heavily imbalanced, I evaluated it with macro-F1 and PR-AUC under realistic adversarial scenarios.</p>
+          <p class="card-actions">
+<a class="btn-pill" href="#sql-injection">Project</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Lightweight LLM and Reinforcement Learning for Text-to-SQL</h2>
+          <p class="card-meta">2023 · PyTorch</p>
+          <p class="blurb">I built a TinyBERT text-to-SQL system on Spider. Reinforcement learning from execution feedback improved logical correctness without a larger model.</p>
+          <p class="card-actions">
+<a class="btn-pill" href="#text-to-sql">Project</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Undergraduate thesis: BCI-Oriented EEG Signal Analysis and Classification</h2>
+          <p class="card-meta">2022–2023 · TensorFlow</p>
+          <p class="blurb">I built end-to-end ERP detection on BCI Competition data, where cross-subject generalization was the bottleneck. The pipeline used FIR/notch/CAR preprocessing, PSD/WPD/STFT features, and NCA and Relief-F selection. The CNN reached 92% cross-subject accuracy. Ablations attributed the gain to pipeline stages rather than the model.</p>
+        </article>
+      </li>
+    </ol>
+  </div>
 </section>
 
-<section id="publications" aria-labelledby="publications-heading">
-  <h2 id="publications-heading">Publications</h2>
-  <div class="year-group">
-    <h3 class="year">2027</h3>
-    <div class="year-entries">
-      <article class="pub-entry">
-        <p class="pub-status">In preparation, 2027</p>
-<p class="pub-summary">Sample text describing a manuscript still being drafted, in the same style as the under-review entry above.
-</p>      </article>
-    </div>
-  </div>
-  <div class="year-group">
-    <h3 class="year">2026</h3>
-    <div class="year-entries">
-      <article class="pub-entry">
-        <p class="pub-status">In submission, 2026</p>
-<p class="pub-summary">Sample text describing the question this submission asks and the result it reports, written without naming the method under review.
-</p>      </article>
-    </div>
-  </div>
-  <div class="year-group">
-    <h3 class="year">2024</h3>
-    <div class="year-entries">
-      <article class="pub-entry">
-        <p class="pub-title">PLACEHOLDER Published Paper Title</p>
-        <p class="pub-authors"><strong>Md. Nazrul Islam</strong>, PLACEHOLDER Coauthor One, PLACEHOLDER Coauthor Two</p>
-        <p class="pub-venue">PLACEHOLDER Venue, Vol. 1, 2024</p>
-        <p class="pub-links">
-<a href="https://example.org/PLACEHOLDER.pdf">Paper</a><a href="https://github.com/PLACEHOLDER/repo">Code</a>        </p>
-      </article>
-    </div>
+<section id="publications" class="section">
+  <div class="container">
+    <h1 class="section-title">Publications</h1>
+    <div class="pub-list">
+<article class="pub" id="geotoken">
+  <p class="pub-authors">Md. Asiful Islam Miah*, <strong>Md. Nazrul Islam</strong>*, S M Taslim Uddin Raju, Hamdi Altaheri (2027)</p>
+  <h2 class="pub-title"><a href="#geotoken">GeoToken: Differentiable 3D Voxel Tokenization for Geometric Spatial Reasoning in VLMs</a></h2>
+  <p class="pub-venue">Submitted to AAAI 2027</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/file/d/1ELj4VhWy8dj_DHJAQdN-i3FPRE4wxLzI/view?usp=sharing">PDF</a>  </div>
+</article><article class="pub" id="bangla-ner-orthography">
+  <p class="pub-authors"><strong>Md. Nazrul Islam</strong> (2027)</p>
+  <h2 class="pub-title"><a href="#bangla-ner-orthography">Anchored to the Form: Bangla Named Entity Recognition Depends on Entity Orthography, Not Context</a></h2>
+  <p class="pub-venue">In preparation, ACL Rolling Review, targeting NAACL 2027</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/TODO">PDF</a>  </div>
+</article><article class="pub" id="mmvp-position-bias">
+  <p class="pub-authors"><strong>Md. Nazrul Islam</strong>, Md. Habibullah Belali (2026)</p>
+  <h2 class="pub-title"><a href="#mmvp-position-bias">Low Scores Without a Perceptual Deficit: Separating Answer-Position Bias from Perception on MMVP</a></h2>
+  <p class="pub-venue">Submitted to ICCIT 2026</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/file/d/1UDr-B_FffHD4PoJ-6FCMyF1hHBAY2T0h/view?usp=drive_link">PDF</a>  </div>
+</article><article class="pub" id="bnlp-survey">
+  <p class="pub-authors">Ovishake Sen, Mohtasim Fuad, <strong>Md. Nazrul Islam</strong>, Jakaria Rabbi, Mehedi Masud, Md. Kamrul Hasan, Md. Abdul Awal, Awal Ahmed Fime, Md. Tahmid Hasan Fuad, Delowar Sikder, Md. Akil Raihan Iftee (2022)</p>
+  <h2 class="pub-title"><a href="#bnlp-survey">Bangla Natural Language Processing: A Comprehensive Analysis of Classical, Machine Learning, and Deep Learning-Based Methods</a></h2>
+  <p class="pub-venue"><em>IEEE Access, vol. 10, pp. 38999–39044</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@article{sen2022bangla,
+  author  = {Sen, Ovishake and Fuad, Mohtasim and Islam, Md. Nazrul and Rabbi, Jakaria and Masud, Mehedi and Hasan, Md. Kamrul and Awal, Md. Abdul and Fime, Awal Ahmed and Fuad, Md. Tahmid Hasan and Sikder, Delowar and Iftee, Md. Akil Raihan},
+  title   = {Bangla Natural Language Processing: A Comprehensive Analysis of Classical, Machine Learning, and Deep Learning-Based Methods},
+  journal = {IEEE Access},
+  volume  = {10},
+  pages   = {38999--39044},
+  year    = {2022},
+  doi     = {10.1109/ACCESS.2022.3165563}
+}
+</pre>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ACCESS.2022.3165563">DOI</a>  </div>
+</article><article class="pub" id="blood-donor-forecasting">
+  <p class="pub-authors">Towsif Ahamed, <strong>Md. Nazrul Islam</strong>, S. M. Taslim Uddin Raju, M. M. A. Hashem (2022)</p>
+  <h2 class="pub-title"><a href="#blood-donor-forecasting">Blood Donor Arrival Forecasting Using Regression Model and Analysis of Donor Behavioural Pattern</a></h2>
+  <p class="pub-venue"><em>ICCIT 2022, pp. 897–902</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@inproceedings{ahamed2022blood,
+  author    = {Ahamed, Towsif and Islam, Md. Nazrul and Raju, S. M. Taslim Uddin and Hashem, M. M. A.},
+  title     = {Blood Donor Arrival Forecasting Using Regression Model and Analysis of Donor Behavioural Pattern},
+  booktitle = {2022 25th International Conference on Computer and Information Technology (ICCIT)},
+  pages     = {897--902},
+  year      = {2022},
+  doi       = {10.1109/ICCIT57492.2022.10054710}
+}
+</pre>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ICCIT57492.2022.10054710">DOI</a>  </div>
+</article><article class="pub" id="face-recognition-survey">
+  <p class="pub-authors">Md. Tahmid Hasan Fuad, Awal Ahmed Fime, Delowar Sikder, Md. Akil Raihan Iftee, Jakaria Rabbi, Mabrook S. Al-Rakhami, Abdu Gumaei, Ovishake Sen, Mohtasim Fuad, <strong>Md. Nazrul Islam</strong> (2021)</p>
+  <h2 class="pub-title"><a href="#face-recognition-survey">Recent Advances in Deep Learning Techniques for Face Recognition</a></h2>
+  <p class="pub-venue"><em>IEEE Access, vol. 9, pp. 99112–99142</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@article{fuad2021recent,
+  author  = {Fuad, Md. Tahmid Hasan and Fime, Awal Ahmed and Sikder, Delowar and Iftee, Md. Akil Raihan and Rabbi, Jakaria and Al-Rakhami, Mabrook S. and Gumaei, Abdu and Sen, Ovishake and Fuad, Mohtasim and Islam, Md. Nazrul},
+  title   = {Recent Advances in Deep Learning Techniques for Face Recognition},
+  journal = {IEEE Access},
+  volume  = {9},
+  pages   = {99112--99142},
+  year    = {2021},
+  doi     = {10.1109/ACCESS.2021.3096136}
+}
+</pre>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ACCESS.2021.3096136">DOI</a>  </div>
+</article>    </div>
+<p class="footnote">* Equal contribution.</p>  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="container">
+    <h1 class="section-title">Projects</h1>
+    <div class="card-grid">
+<article class="card project-card" id="sql-injection">
+  <h2 class="card-title">Multiclass SQL Injection Detection via Hybrid CNN–Transformer</h2>
+<p class="card-meta">2024 – 2025</p>  <p>I built a hybrid 1D CNN–TinyBERT classifier for multiclass SQL-injection payloads. Because payload classes are heavily imbalanced, I evaluated it with macro-F1 and PR-AUC under realistic adversarial scenarios, rather than accuracy alone.
+</p>
+  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+</article><article class="card project-card" id="text-to-sql">
+  <h2 class="card-title">Lightweight LLM and Reinforcement Learning for Text-to-SQL Generation</h2>
+<p class="card-meta">2023</p>  <p>I built a TinyBERT-based text-to-SQL system on the Spider dataset. Adding reinforcement learning from execution feedback improved logical correctness without requiring a larger model.
+</p>
+  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+</article>    </div>
   </div>
 </section>
 
-<section id="projects" aria-labelledby="projects-heading">
-  <h2 id="projects-heading">Projects</h2>
-  <article class="project">
-    <h3 class="project-title">PLACEHOLDER Project Title <span class="project-status">· 2025</span></h3>
-    <p class="pitch">PLACEHOLDER one-sentence pitch — what it does and why it matters.</p>
-  </article>
-  <p class="more-link"><a href="/projects.html">All projects</a></p>
+<section id="teaching" class="section">
+  <div class="container">
+    <h1 class="section-title">Teaching</h1>
+    <ol class="timeline">
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Lecturer</h2>
+          <p class="card-subtitle">Dept. of CSE, Southeast University, Dhaka, Bangladesh</p>
+          <p class="card-meta">February 2024 – Present</p>
+          <ul class="bullets">
+<li>Teaching: programming, numerical methods, and introductory AI</li><li>Supervise undergraduate research projects in machine learning and NLP.</li>          </ul>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Lecturer</h2>
+          <p class="card-subtitle">Dept. of CSE, Uttara University, Dhaka, Bangladesh</p>
+          <p class="card-meta">July 2023 – February 2024</p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Part-time Lecturer</h2>
+          <p class="card-subtitle">Dept. of CSE, Central University of Science and Technology, Dhaka, Bangladesh</p>
+          <p class="card-meta">March 2023 – July 2023</p>
+        </article>
+      </li>
+    </ol>
+  </div>
 </section>
 
-<section id="teaching" aria-labelledby="teaching-heading">
-  <h2 id="teaching-heading">Teaching &amp; service</h2>
-  <ul class="entries">
-    <li>Lecturer, PLACEHOLDER course name — Southeast University, Dhaka (PLACEHOLDER-present)</li>
-  </ul>
+<section id="honors" class="section">
+  <div class="container">
+    <h1 class="section-title">Honors</h1>
+    <ol class="timeline">
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Ranked 10th globally and 1st among Bangladeshi teams, Indian Rover Design Challenge (IRDC) 2020</h2>
+<p class="card-subtitle">Mars Society South Asia — Team Durbar, KUET</p>          <p class="card-meta">2020</p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Dean&#39;s Award</h2>
+<p class="card-subtitle">Faculty of Electrical and Electronic Engineering, KUET</p>          <p class="card-meta">AY 2018–2019 and 2019–2020</p>
+        </article>
+      </li>
+    </ol>
+  </div>
+</section>
+<section id="service" class="section">
+  <div class="container">
+    <h1 class="section-title">Service</h1>
+    <ol class="timeline">
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Vice President</h2>
+<p class="card-subtitle">Hardware Acceleration Club of KUET (HACK)</p>          <p class="card-meta">March 2022 – March 2023</p>
+          <ul class="bullets">
+<li>Ran the club&#39;s activities and events.</li><li>Led workshops on commonly used microcontrollers.</li>          </ul>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Programmer, Software Sub-Team</h2>
+<p class="card-subtitle">KUET Mars Rover (Team Durbar)</p>          <p class="card-meta">March 2019 – December 2022</p>
+          <ul class="bullets">
+<li>Senior Programmer: rover navigation and computer vision, including a lightweight CNN for object recognition.</li><li>Junior Programmer: worked with Arduino and Raspberry Pi to implement key rover systems.</li>          </ul>
+        </article>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="container">
+    <h1 class="section-title">Contact</h1>
+    <ul class="contact-list">
+      <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="2"/></svg> <a href="mailto:&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></li>
+<li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3z" fill="currentColor"/><path d="M5 13.18V17c0 1.66 3.13 3 7 3s7-1.34 7-3v-3.82l-7 3.82-7-3.82z" fill="currentColor"/></svg> <a href="https://scholar.google.com/citations?user=qr34ziEAAAAJ">Google Scholar</a></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> <a href="https://github.com/nazrul-99">GitHub</a></li>    </ul>
+  </div>
 </section>
 </main>
 <footer class="site-footer">
-  <p class="footer-contact">
-    <a href="mailto:&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
-  </p>
-  <ul class="profile-links">
-    <li><a href="https://scholar.google.com/PLACEHOLDER">Google Scholar</a></li>
-    <li><a href="https://github.com/PLACEHOLDER">GitHub</a></li>
-  </ul>
+  <div class="container">
+    <p>© 2026 Md. Nazrul Islam</p>
+  </div>
 </footer>
 </body>
 </html>

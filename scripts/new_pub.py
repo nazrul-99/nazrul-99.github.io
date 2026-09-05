@@ -3,7 +3,7 @@
 
     python scripts/new_pub.py
 
-Eight questions, then the block is appended to the end of the file. Appending
+Nine questions (links include a repository URL for the Code pill), then the block is appended to the end of the file. Appending
 text rather than round-tripping through PyYAML keeps the commented example
 block and every existing entry byte-identical.
 
@@ -23,7 +23,11 @@ PUBS = ROOT / "content" / "publications.yml"
 
 TYPES = ["conference", "journal", "workshop", "preprint", "thesis"]
 STATUSES = ["published", "in-press", "under-review", "in-preparation", "preprint"]
-LINK_FIELDS = ["paper", "arxiv", "code", "project", "slides", "poster"]
+# Asked in this order. `code` renders as the Code pill (after PDF, before
+# Cite/DOI); validate.py requires every link to be absolute https and checks
+# that a github.com URL answers 200.
+LINK_FIELDS = ["paper", "code", "doi", "arxiv", "project", "slides", "poster"]
+LINK_HINTS = {"code": "repository, e.g. https://github.com/user/repo", "doi": "https://doi.org/..."}
 
 
 def ask(prompt, default=""):
@@ -109,9 +113,14 @@ def main():
     if anonymized:
         print("\n  anonymized: skipping the link questions (anonymity rule 3).")
     else:
-        print("\nlinks -- leave blank to skip:")
+        print("\nlinks -- absolute https URLs, leave blank to skip:")
         for field in LINK_FIELDS:
-            value = ask(f"  {field}: ")
+            hint = f" ({LINK_HINTS[field]})" if field in LINK_HINTS else ""
+            while True:
+                value = ask(f"  {field}{hint}: ")
+                if not value or value.startswith("https://"):
+                    break
+                print("  must start with https://")
             if value:
                 links[field] = value
 

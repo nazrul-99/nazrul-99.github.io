@@ -1,44 +1,21 @@
 {% extends "base.html" %}
 {% set nav_current = "publications" %}
+{% set home = "/" %}
 {% block title %}Publications — {{ site.name }}{% endblock %}
 {% block content %}
-<section id="publications" aria-labelledby="page-title">
-  <h1 class="page-title" id="page-title">Publications</h1>
-  {% for year, entries in publications_by_year %}
-  <div class="year-group">
-    <h2 class="year">{{ year }}</h2>
-    <div class="year-entries">
+<section id="publications" class="section">
+  <div class="container">
+    <h1 class="section-title">Publications</h1>
+    <div class="pub-list">
+      {% set ns2 = namespace(equal=false) %}
+      {% for year, entries in publications_by_year %}
       {% for pub in entries %}
-      <article class="pub-entry">
-        {% if pub.suppressed %}
-        {% if pub.status == "under-review" %}
-        <p class="pub-status">In submission, {{ pub.year }}</p>
-        {% elif pub.status == "in-preparation" %}
-        <p class="pub-status">In preparation, {{ pub.year }}</p>
-        {% endif %}
-        {% if pub.summary %}<p class="pub-summary">{{ pub.summary }}</p>{% endif %}
-        {% else %}
-        <p class="pub-title">{{ pub.title }}</p>
-        <p class="pub-authors">{{ pub.authors_html | safe }}</p>
-        <p class="pub-venue">{{ pub.venue }}, {{ pub.year }}</p>
-        {% if pub.summary %}<p class="pub-summary">{{ pub.summary }}</p>{% endif %}
-        {% if pub.links %}
-        <p class="pub-links">
-          {% for label, url in pub.links %}<a href="{{ url }}">{{ label }}</a>{% endfor %}
-        </p>
-        {% endif %}
-        {% if pub.note %}<p class="pub-note">{{ pub.note }}</p>{% endif %}
-        {% if pub.bibtex %}
-        <details class="bibtex">
-          <summary class="bibtex-toggle">BibTeX</summary>
-          <pre>{{ pub.bibtex }}</pre>
-        </details>
-        {% endif %}
-        {% endif %}
-      </article>
+      {% if "*" in (pub.authors_html or "") %}{% set ns2.equal = true %}{% endif %}
+      {% include "_pub_entry.html" %}
+      {% endfor %}
       {% endfor %}
     </div>
+    {% if ns2.equal %}<p class="footnote">* Equal contribution.</p>{% endif %}
   </div>
-  {% endfor %}
 </section>
 {% endblock %}

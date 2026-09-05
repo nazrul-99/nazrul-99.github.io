@@ -21,7 +21,9 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 PUBS = ROOT / "content" / "publications.yml"
 
-LINK_FIELDS = ["paper", "arxiv", "code", "project", "slides", "poster"]
+# Same set, and the same order, as build.py's LINK_LABELS: the order here
+# becomes the order the link buttons render in.
+LINK_FIELDS = ["paper", "doi", "arxiv", "code", "project", "slides", "poster"]
 REVEALED_STATUSES = ["published", "in-press"]
 
 
@@ -99,12 +101,26 @@ def main():
         if status not in REVEALED_STATUSES:
             print(f"  must be one of: {', '.join(REVEALED_STATUSES)}")
 
-    print("\nlinks -- leave blank to skip:")
-    links = {}
+    # Start from what the entry already has and merge: a blank answer keeps
+    # the existing value rather than deleting it. Replacing the block wholesale
+    # used to silently drop links this script never asked about, such as a DOI
+    # on an already-published entry.
+    links = {k: v for k, v in (entry.get("links") or {}).items() if v}
+    if links:
+        print("\nexisting links (blank keeps the current value):")
+    else:
+        print("\nlinks -- leave blank to skip:")
     for field in LINK_FIELDS:
-        value = ask(f"  {field}: ")
+        current = links.get(field, "")
+        shown = f"  {field} [{current}]: " if current else f"  {field}: "
+        value = ask(shown)
         if value:
             links[field] = value
+
+    # Preserve LINK_FIELDS order, then any unknown keys the entry already had.
+    ordered = {f: links[f] for f in LINK_FIELDS if f in links}
+    ordered.update({k: v for k, v in links.items() if k not in ordered})
+    links = ordered
 
     lines = original.splitlines(keepends=True)
     start, end = find_entry_bounds(lines, pub_id)
@@ -174,6 +190,7 @@ def main():
         return result.returncode
 
     print(f"\n'{pub_id}' is now {status}, with {len(links)} link(s).")
+    print("Remember to update _source/cv.pdf to match.")
     print("Next: ./scripts/deploy.sh \"reveal " + pub_id + "\"")
     return 0
 

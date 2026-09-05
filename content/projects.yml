@@ -1,25 +1,47 @@
 # Example (copy this block for a new project):
 #
-# - title: "Example Project"
+# - id: "short-slug"                      # anchor on projects.html; referenced by research.yml `project:`
+#   title: "Example Project"
 #   pitch: "One sentence: what it does and why it's interesting."
-#   description: >
+#   description: >                        # optional; shown on projects.html only
 #     A few sentences on the problem, the approach, and any technical
 #     decision worth calling out.
-#   role: "Sole developer"
+#   role: "Sole developer"                # optional
 #   stack: ["Python", "PyTorch"]
 #   period: "2025"
-#   repo: "https://github.com/user/repo"
+#   repo: "https://github.com/user/repo"  # renders as the Code pill; "" if none
 #   demo: ""
 #   featured: true
+#
+# Wording below is transcribed from _source/cv.docx. The CV gives one sentence
+# per project and no role, so `pitch` carries that sentence, `description` and
+# `role` are empty, and `repo` is empty because none exists.
 
-- title: "PLACEHOLDER Project Title"
-  pitch: "PLACEHOLDER one-sentence pitch — what it does and why it matters."
-  description: >
-    PLACEHOLDER longer description of the project: the problem it solves,
-    the approach taken, and a technical decision worth mentioning.
-  role: "PLACEHOLDER role"
-  stack: ["PLACEHOLDER"]
-  period: "2025"
-  repo: "https://github.com/PLACEHOLDER/repo"
+- id: "sql-injection"
+  title: "Multiclass SQL Injection Detection via Hybrid CNN–Transformer"
+  pitch: >
+    I built a hybrid 1D CNN–TinyBERT classifier for multiclass SQL-injection
+    payloads. Because payload classes are heavily imbalanced, I evaluated it
+    with macro-F1 and PR-AUC under realistic adversarial scenarios, rather than
+    accuracy alone.
+  description: ""
+  role: ""
+  stack: ["PyTorch", "Python"]
+  period: "2024 – 2025"
+  repo: ""
+  demo: ""
+  featured: true
+
+- id: "text-to-sql"
+  title: "Lightweight LLM and Reinforcement Learning for Text-to-SQL Generation"
+  pitch: >
+    I built a TinyBERT-based text-to-SQL system on the Spider dataset. Adding
+    reinforcement learning from execution feedback improved logical
+    correctness without requiring a larger model.
+  description: ""
+  role: ""
+  stack: ["PyTorch", "Python"]
+  period: "2023"
+  repo: ""
   demo: ""
   featured: true

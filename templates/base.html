@@ -1,3 +1,4 @@
+{% import "_icons.html" as icons %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,37 +9,68 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="{{ site.name }}">
 <meta property="og:title" content="{{ self.title() }}">
-<meta property="og:description" content="{{ site.tagline }}">
+{% set description = (about_html[0] if about_html else site.name) | truncate(200, true, '…') %}
+<meta name="description" content="{{ description }}">
+<meta property="og:description" content="{{ description }}">
 <meta property="og:url" content="{{ canonical_url }}">
 <meta property="og:locale" content="en_US">
+<link rel="icon" href="/static/favicon.png" type="image/png">
+{% if site.portrait %}<meta property="og:image" content="{{ base_url }}{{ site.portrait }}">
+{% endif %}
 <script type="application/ld+json">{{ jsonld | safe }}</script>
-<link rel="stylesheet" href="/static/style.css">
+<script>
+/* Theme toggle -- the one JS allowance (DESIGN.md v2). Sets data-theme on
+   <html>, remembers the choice, defaults to prefers-color-scheme. Runs before
+   first paint so a stored choice never flashes. With JS off the button stays
+   hidden and the OS setting applies. */
+(function () {
+  var root = document.documentElement, key = "theme", stored = null;
+  var osDark = matchMedia("(prefers-color-scheme: dark)");
+  try { stored = localStorage.getItem(key); } catch (e) {}
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+  function current() { return root.getAttribute("data-theme") || (osDark.matches ? "dark" : "light"); }
+  document.addEventListener("DOMContentLoaded", function () {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    function sync() { btn.setAttribute("aria-pressed", String(current() === "dark")); }
+    btn.hidden = false;
+    sync();
+    osDark.addEventListener("change", sync);
+    btn.addEventListener("click", function () {
+      root.setAttribute("data-theme", current() === "dark" ? "light" : "dark");
+      try { localStorage.setItem(key, root.getAttribute("data-theme")); } catch (e) {}
+      sync();
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="/static/style.css{% if css_version %}?v={{ css_version }}{% endif %}">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-header">
-  <p class="site-name">{{ site.name }}</p>
-  <nav aria-label="Primary">
-    <a href="/index.html"{% if nav_current == "research" %} aria-current="page"{% endif %}>Research</a>
-    <a href="/publications.html"{% if nav_current == "publications" %} aria-current="page"{% endif %}>Publications</a>
-    <a href="/projects.html"{% if nav_current == "projects" %} aria-current="page"{% endif %}>Projects</a>
-    <a href="/cv.pdf">CV</a>
-  </nav>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="brand" href="{{ home | default('/') }}#top">{{ site.name }}</a>
+    <nav aria-label="Primary">
+      <a class="nav-research{% if nav_current == 'research' %} active{% endif %}" href="{{ home | default('/') }}#research">Research</a>
+      <a class="nav-publications{% if nav_current == 'publications' %} active{% endif %}" href="{{ home | default('/') }}#publications">Publications</a>
+      <a class="nav-projects{% if nav_current == 'projects' %} active{% endif %}" href="{{ home | default('/') }}#projects">Projects</a>
+      {% if education.teaching %}<a class="nav-teaching" href="{{ home | default('/') }}#teaching">Teaching</a>{% endif %}
+      {% if education.honors %}<a class="nav-honors" href="{{ home | default('/') }}#honors">Honors</a>{% endif %}
+      {% if education.service %}<a class="nav-service" href="{{ home | default('/') }}#service">Service</a>{% endif %}
+      <a class="nav-contact" href="{{ home | default('/') }}#contact">Contact</a>
+      <a href="/cv.pdf">CV</a>
+      <button id="theme-toggle" type="button" class="theme-toggle" hidden aria-pressed="false" aria-label="Toggle dark mode">{{ icons.theme() }}</button>
+    </nav>
+  </div>
 </header>
 <main id="main">
 {% block content %}{% endblock %}
 </main>
 <footer class="site-footer">
-  <p class="footer-contact">
-    <a href="mailto:{{ email_href | safe }}">{{ email_display | safe }}</a>
-  </p>
-  {% if site.links %}
-  <ul class="profile-links">
-    {% for link in site.links %}
-    <li><a href="{{ link.url }}">{{ link.label }}</a></li>
-    {% endfor %}
-  </ul>
-  {% endif %}
+  <div class="container">
+    <p>© 2026 {{ site.name }}</p>
+  </div>
 </footer>
 </body>
 </html>

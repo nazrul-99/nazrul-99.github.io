@@ -8,9 +8,12 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Md. Nazrul Islam">
 <meta property="og:title" content="Publications — Md. Nazrul Islam">
-<meta property="og:description" content="PLACEHOLDER tagline — one line on what I work on.">
+<meta name="description" content="I&#39;m a lecturer in computer science at Southeast University, Dhaka. My research spans vision-language models and low-resource NLP. One question runs through both: what is a model&#39;s failure actually ma…">
+<meta property="og:description" content="I&#39;m a lecturer in computer science at Southeast University, Dhaka. My research spans vision-language models and low-resource NLP. One question runs through both: what is a model&#39;s failure actually ma…">
 <meta property="og:url" content="https://nazrul-99.github.io/publications.html">
 <meta property="og:locale" content="en_US">
+<link rel="icon" href="/static/favicon.png" type="image/png">
+<meta property="og:image" content="https://nazrul-99.github.io/static/portrait.jpg">
 <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@graph": [
@@ -20,9 +23,16 @@
       "name": "Md. Nazrul Islam",
       "url": "https://nazrul-99.github.io/",
       "sameAs": [
-        "https://scholar.google.com/PLACEHOLDER",
-        "https://github.com/PLACEHOLDER"
-      ]
+        "https://scholar.google.com/citations?user=qr34ziEAAAAJ",
+        "https://github.com/nazrul-99"
+      ],
+      "jobTitle": "Lecturer, CSE",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Southeast University, Dhaka",
+        "url": "https://cse.seu.edu.bd/employee/profile/MDAzMDA4"
+      },
+      "image": "https://nazrul-99.github.io/static/portrait.jpg"
     },
     {
       "@type": "WebSite",
@@ -35,72 +45,136 @@
     }
   ]
 }</script>
-<link rel="stylesheet" href="/static/style.css">
+<script>
+/* Theme toggle -- the one JS allowance (DESIGN.md v2). Sets data-theme on
+   <html>, remembers the choice, defaults to prefers-color-scheme. Runs before
+   first paint so a stored choice never flashes. With JS off the button stays
+   hidden and the OS setting applies. */
+(function () {
+  var root = document.documentElement, key = "theme", stored = null;
+  var osDark = matchMedia("(prefers-color-scheme: dark)");
+  try { stored = localStorage.getItem(key); } catch (e) {}
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+  function current() { return root.getAttribute("data-theme") || (osDark.matches ? "dark" : "light"); }
+  document.addEventListener("DOMContentLoaded", function () {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    function sync() { btn.setAttribute("aria-pressed", String(current() === "dark")); }
+    btn.hidden = false;
+    sync();
+    osDark.addEventListener("change", sync);
+    btn.addEventListener("click", function () {
+      root.setAttribute("data-theme", current() === "dark" ? "light" : "dark");
+      try { localStorage.setItem(key, root.getAttribute("data-theme")); } catch (e) {}
+      sync();
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="/static/style.css?v=7c3b56c892">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-header">
-  <p class="site-name">Md. Nazrul Islam</p>
-  <nav aria-label="Primary">
-    <a href="/index.html">Research</a>
-    <a href="/publications.html" aria-current="page">Publications</a>
-    <a href="/projects.html">Projects</a>
-    <a href="/cv.pdf">CV</a>
-  </nav>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="brand" href="/#top">Md. Nazrul Islam</a>
+    <nav aria-label="Primary">
+      <a class="nav-research" href="/#research">Research</a>
+      <a class="nav-publications active" href="/#publications">Publications</a>
+      <a class="nav-projects" href="/#projects">Projects</a>
+<a class="nav-teaching" href="/#teaching">Teaching</a><a class="nav-honors" href="/#honors">Honors</a><a class="nav-service" href="/#service">Service</a>      <a class="nav-contact" href="/#contact">Contact</a>
+      <a href="/cv.pdf">CV</a>
+      <button id="theme-toggle" type="button" class="theme-toggle" hidden aria-pressed="false" aria-label="Toggle dark mode"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+    </nav>
+  </div>
 </header>
 <main id="main">
-<section id="publications" aria-labelledby="page-title">
-  <h1 class="page-title" id="page-title">Publications</h1>
-  <div class="year-group">
-    <h2 class="year">2027</h2>
-    <div class="year-entries">
-      <article class="pub-entry">
-        <p class="pub-status">In preparation, 2027</p>
-<p class="pub-summary">Sample text describing a manuscript still being drafted, in the same style as the under-review entry above.
-</p>      </article>
-    </div>
-  </div>
-  <div class="year-group">
-    <h2 class="year">2026</h2>
-    <div class="year-entries">
-      <article class="pub-entry">
-        <p class="pub-status">In submission, 2026</p>
-<p class="pub-summary">Sample text describing the question this submission asks and the result it reports, written without naming the method under review.
-</p>      </article>
-    </div>
-  </div>
-  <div class="year-group">
-    <h2 class="year">2024</h2>
-    <div class="year-entries">
-      <article class="pub-entry">
-        <p class="pub-title">PLACEHOLDER Published Paper Title</p>
-        <p class="pub-authors"><strong>Md. Nazrul Islam</strong>, PLACEHOLDER Coauthor One, PLACEHOLDER Coauthor Two</p>
-        <p class="pub-venue">PLACEHOLDER Venue, Vol. 1, 2024</p>
-<p class="pub-summary">PLACEHOLDER one-line summary shown wherever a short form is used.</p>        <p class="pub-links">
-<a href="https://example.org/PLACEHOLDER.pdf">Paper</a><a href="https://github.com/PLACEHOLDER/repo">Code</a>        </p>
-        <details class="bibtex">
-          <summary class="bibtex-toggle">BibTeX</summary>
-          <pre>@article{placeholder2024,
-  title={PLACEHOLDER Published Paper Title},
-  author={Islam, Md. Nazrul and Coauthor, One and Coauthor, Two},
-  journal={PLACEHOLDER Venue},
-  year={2024}
+<section id="publications" class="section">
+  <div class="container">
+    <h1 class="section-title">Publications</h1>
+    <div class="pub-list">
+<article class="pub" id="geotoken">
+  <p class="pub-authors">Md. Asiful Islam Miah*, <strong>Md. Nazrul Islam</strong>*, S M Taslim Uddin Raju, Hamdi Altaheri (2027)</p>
+  <h2 class="pub-title"><a href="#geotoken">GeoToken: Differentiable 3D Voxel Tokenization for Geometric Spatial Reasoning in VLMs</a></h2>
+  <p class="pub-venue">Submitted to AAAI 2027</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/file/d/1ELj4VhWy8dj_DHJAQdN-i3FPRE4wxLzI/view?usp=sharing">PDF</a>  </div>
+</article><article class="pub" id="bangla-ner-orthography">
+  <p class="pub-authors"><strong>Md. Nazrul Islam</strong> (2027)</p>
+  <h2 class="pub-title"><a href="#bangla-ner-orthography">Anchored to the Form: Bangla Named Entity Recognition Depends on Entity Orthography, Not Context</a></h2>
+  <p class="pub-venue">In preparation, ACL Rolling Review, targeting NAACL 2027</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/TODO">PDF</a>  </div>
+</article><article class="pub" id="mmvp-position-bias">
+  <p class="pub-authors"><strong>Md. Nazrul Islam</strong>, Md. Habibullah Belali (2026)</p>
+  <h2 class="pub-title"><a href="#mmvp-position-bias">Low Scores Without a Perceptual Deficit: Separating Answer-Position Bias from Perception on MMVP</a></h2>
+  <p class="pub-venue">Submitted to ICCIT 2026</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/file/d/1UDr-B_FffHD4PoJ-6FCMyF1hHBAY2T0h/view?usp=drive_link">PDF</a>  </div>
+</article><article class="pub" id="bnlp-survey">
+  <p class="pub-authors">Ovishake Sen, Mohtasim Fuad, <strong>Md. Nazrul Islam</strong>, Jakaria Rabbi, Mehedi Masud, Md. Kamrul Hasan, Md. Abdul Awal, Awal Ahmed Fime, Md. Tahmid Hasan Fuad, Delowar Sikder, Md. Akil Raihan Iftee (2022)</p>
+  <h2 class="pub-title"><a href="#bnlp-survey">Bangla Natural Language Processing: A Comprehensive Analysis of Classical, Machine Learning, and Deep Learning-Based Methods</a></h2>
+  <p class="pub-venue"><em>IEEE Access, vol. 10, pp. 38999–39044</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@article{sen2022bangla,
+  author  = {Sen, Ovishake and Fuad, Mohtasim and Islam, Md. Nazrul and Rabbi, Jakaria and Masud, Mehedi and Hasan, Md. Kamrul and Awal, Md. Abdul and Fime, Awal Ahmed and Fuad, Md. Tahmid Hasan and Sikder, Delowar and Iftee, Md. Akil Raihan},
+  title   = {Bangla Natural Language Processing: A Comprehensive Analysis of Classical, Machine Learning, and Deep Learning-Based Methods},
+  journal = {IEEE Access},
+  volume  = {10},
+  pages   = {38999--39044},
+  year    = {2022},
+  doi     = {10.1109/ACCESS.2022.3165563}
 }
 </pre>
-        </details>
-      </article>
-    </div>
-  </div>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ACCESS.2022.3165563">DOI</a>  </div>
+</article><article class="pub" id="blood-donor-forecasting">
+  <p class="pub-authors">Towsif Ahamed, <strong>Md. Nazrul Islam</strong>, S. M. Taslim Uddin Raju, M. M. A. Hashem (2022)</p>
+  <h2 class="pub-title"><a href="#blood-donor-forecasting">Blood Donor Arrival Forecasting Using Regression Model and Analysis of Donor Behavioural Pattern</a></h2>
+  <p class="pub-venue"><em>ICCIT 2022, pp. 897–902</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@inproceedings{ahamed2022blood,
+  author    = {Ahamed, Towsif and Islam, Md. Nazrul and Raju, S. M. Taslim Uddin and Hashem, M. M. A.},
+  title     = {Blood Donor Arrival Forecasting Using Regression Model and Analysis of Donor Behavioural Pattern},
+  booktitle = {2022 25th International Conference on Computer and Information Technology (ICCIT)},
+  pages     = {897--902},
+  year      = {2022},
+  doi       = {10.1109/ICCIT57492.2022.10054710}
+}
+</pre>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ICCIT57492.2022.10054710">DOI</a>  </div>
+</article><article class="pub" id="face-recognition-survey">
+  <p class="pub-authors">Md. Tahmid Hasan Fuad, Awal Ahmed Fime, Delowar Sikder, Md. Akil Raihan Iftee, Jakaria Rabbi, Mabrook S. Al-Rakhami, Abdu Gumaei, Ovishake Sen, Mohtasim Fuad, <strong>Md. Nazrul Islam</strong> (2021)</p>
+  <h2 class="pub-title"><a href="#face-recognition-survey">Recent Advances in Deep Learning Techniques for Face Recognition</a></h2>
+  <p class="pub-venue"><em>IEEE Access, vol. 9, pp. 99112–99142</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@article{fuad2021recent,
+  author  = {Fuad, Md. Tahmid Hasan and Fime, Awal Ahmed and Sikder, Delowar and Iftee, Md. Akil Raihan and Rabbi, Jakaria and Al-Rakhami, Mabrook S. and Gumaei, Abdu and Sen, Ovishake and Fuad, Mohtasim and Islam, Md. Nazrul},
+  title   = {Recent Advances in Deep Learning Techniques for Face Recognition},
+  journal = {IEEE Access},
+  volume  = {9},
+  pages   = {99112--99142},
+  year    = {2021},
+  doi     = {10.1109/ACCESS.2021.3096136}
+}
+</pre>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ACCESS.2021.3096136">DOI</a>  </div>
+</article>    </div>
+<p class="footnote">* Equal contribution.</p>  </div>
 </section>
 </main>
 <footer class="site-footer">
-  <p class="footer-contact">
-    <a href="mailto:&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a>
-  </p>
-  <ul class="profile-links">
-    <li><a href="https://scholar.google.com/PLACEHOLDER">Google Scholar</a></li>
-    <li><a href="https://github.com/PLACEHOLDER">GitHub</a></li>
-  </ul>
+  <div class="container">
+    <p>© 2026 Md. Nazrul Islam</p>
+  </div>
 </footer>
 </body>
 </html>

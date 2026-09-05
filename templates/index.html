@@ -1,99 +1,210 @@
 {% extends "base.html" %}
-{% set nav_current = "research" %}
+{% import "_icons.html" as icons %}
+{% set home = "" %}
 {% block content %}
-<section id="intro" aria-labelledby="name">
-  <div class="intro-head">
-    <div>
-      <h1 class="name" id="name">{{ site.name }}</h1>
-      {% if site.affiliation %}
-      <p class="affiliation">{{ site.affiliation }}</p>
+{# publication id -> year, for the meta line on research thread cards #}
+{% set ns = namespace(years={}) %}
+{% for y, entries in publications_by_year %}{% for p in entries %}{% if p.id %}{% set _ = ns.years.update({p.id: y}) %}{% endif %}{% endfor %}{% endfor %}
+{% set aff = (site.affiliation or "").split(" — ") %}
+{% set ns3 = namespace(scholar="", github="") %}
+{% for l in site.links %}{% if "Scholar" in l.label %}{% set ns3.scholar = l.url %}{% elif l.label == "GitHub" %}{% set ns3.github = l.url %}{% endif %}{% endfor %}
+{% set scholar = ns3.scholar %}
+{% set github = site.github or ns3.github %}
+
+<section id="top" class="section about">
+  <div class="container about-grid">
+    <div class="about-side">
+      {% if site.portrait %}
+      <img class="portrait" src="{{ site.portrait }}" width="270" height="270" alt="">
       {% endif %}
+      <p class="about-name">{{ site.name }}</p>
+      {% if aff[0] %}<p class="about-role">{{ aff[0] }}</p>{% endif %}
+      {% if aff | length > 1 %}
+      <p class="about-org">{% if site.affiliation_url %}<a href="{{ site.affiliation_url }}" rel="me">{{ aff[1] }}</a>{% else %}{{ aff[1] }}{% endif %}</p>
+      {% endif %}
+      {% if site.notice and site.notice | trim %}
+      <p class="notice">{{ site.notice | trim }}</p>
+      {% endif %}
+      <ul class="icon-links" aria-label="Profiles">
+        <li><a href="mailto:{{ email_href | safe }}" aria-label="Email">{{ icons.mail() }}</a></li>
+        {% if scholar %}<li><a href="{{ scholar }}" aria-label="Google Scholar">{{ icons.scholar() }}</a></li>{% endif %}
+        {% if github %}<li><a href="{{ github }}" aria-label="GitHub">{{ icons.github() }}</a></li>{% endif %}
+        {% if site.linkedin %}<li><a href="{{ site.linkedin }}" aria-label="LinkedIn">{{ icons.linkedin() }}</a></li>{% endif %}
+      </ul>
+      <p class="about-cv"><a class="btn-pill" href="/cv.pdf" download>Download CV</a></p>
     </div>
-    {% if site.portrait %}
-    <img class="portrait" src="{{ site.portrait }}" width="84" height="84" alt="">
-    {% endif %}
+    <div class="about-main">
+      <h1 class="section-title">Biography</h1>
+      {% for para in about_html %}
+      <p class="bio">{{ para }}</p>
+      {% endfor %}
+      <div class="about-cols">
+        {% if site.interests %}
+        <div>
+          <h2 class="label">Interests</h2>
+          <ul class="bullets">
+            {% for i in site.interests %}<li>{{ i }}</li>{% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+        {% if education.degrees %}
+        <div>
+          <h2 class="label">Education</h2>
+          <ul class="edu">
+            {% for d in education.degrees %}
+            <li>
+              <strong>{{ d.degree }}</strong><br>
+              {{ d.institution }}<br>
+              <span class="meta">{{ d.period }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
   </div>
-  <p class="tagline">{{ site.tagline }}</p>
-  {% for para in about_html %}
-  <p>{{ para }}</p>
-  {% endfor %}
-  <p class="contact">
-    <a href="mailto:{{ email_href | safe }}">{{ email_display | safe }}</a>
-    {% for link in site.links %}
-    <a href="{{ link.url }}">{{ link.label }}</a>
-    {% endfor %}
-    <a href="/cv.pdf">CV (pdf)</a>
-  </p>
 </section>
 
-<section id="research" aria-labelledby="research-heading">
-  <h2 id="research-heading">Research</h2>
-  {% for thread in research_threads %}
-  <article class="thread" id="{{ thread.id }}">
-    <h3 class="thread-title">{{ thread.title }}</h3>
-    <p>{{ thread.description }}</p>
-    <dl class="pair">
-      <dt>Reported</dt>
-      <dd>{{ thread.claim }}</dd>
-      <dt>Found</dt>
-      <dd>{{ thread.correction }}</dd>
-    </dl>
-  </article>
-  {% endfor %}
+<section id="research" class="section">
+  <div class="container">
+    <h1 class="section-title">Research</h1>
+    <ol class="timeline">
+      {% for thread in research_threads %}
+      <li class="tl-item">
+        <article class="card" id="{{ thread.id }}">
+          <h2 class="card-title">{{ thread.title }}</h2>
+          {% if thread.related %}
+          <p class="card-meta">
+            {%- for r in thread.related -%}
+              {%- set pid = r.href.split("#")[1] if r.href else "" -%}
+              {%- set y = ns.years.get(pid) if pid else none -%}
+              {%- if y and (y | string) not in r.standing %}{{ y }} · {{ r.standing }}{% else %}{{ r.standing[:1] | upper }}{{ r.standing[1:] }}{% endif %}{% if not loop.last %}; {% endif -%}
+            {%- endfor -%}
+          </p>
+          {% endif %}
+          <p class="blurb">{{ thread.description }}</p>
+          <dl class="claim">
+            <div><dt>Reported</dt><dd>{{ thread.claim }}</dd></div>
+            <div><dt>Found</dt><dd>{{ thread.correction }}</dd></div>
+          </dl>
+          {% if thread.related or thread.code_url %}
+          <p class="card-actions">
+            {% for r in thread.related if r.href %}<a class="btn-pill" href="{{ r.href | replace('/publications.html', '') }}">Paper</a>{% endfor %}
+            {% if thread.code_url %}<a class="btn-pill" href="{{ thread.code_url }}">Code</a>{% endif %}
+          </p>
+          {% endif %}
+        </article>
+      </li>
+      {% endfor %}
+      {% for e in earlier_work %}
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">{{ e.title }}</h2>
+          <p class="card-meta">{{ e.years }}{% if e.stack %} · {{ e.stack }}{% endif %}</p>
+          <p class="blurb">{{ e.line }}</p>
+          {% if e.code or e.project %}
+          <p class="card-actions">
+            {% if e.code %}<a class="btn-pill" href="{{ e.code }}">Code</a>{% endif %}
+            {% if e.project %}<a class="btn-pill" href="#{{ e.project }}">Project</a>{% endif %}
+          </p>
+          {% endif %}
+        </article>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
 </section>
 
-<section id="publications" aria-labelledby="publications-heading">
-  <h2 id="publications-heading">Publications</h2>
-  {% for year, entries in publications_by_year %}
-  <div class="year-group">
-    <h3 class="year">{{ year }}</h3>
-    <div class="year-entries">
+<section id="publications" class="section">
+  <div class="container">
+    <h1 class="section-title">Publications</h1>
+    <div class="pub-list">
+      {% set ns2 = namespace(equal=false) %}
+      {% for year, entries in publications_by_year %}
       {% for pub in entries %}
-      <article class="pub-entry">
-        {% if pub.suppressed %}
-        {% if pub.status == "under-review" %}
-        <p class="pub-status">In submission, {{ pub.year }}</p>
-        {% elif pub.status == "in-preparation" %}
-        <p class="pub-status">In preparation, {{ pub.year }}</p>
-        {% endif %}
-        {% if pub.summary %}<p class="pub-summary">{{ pub.summary }}</p>{% endif %}
-        {% else %}
-        <p class="pub-title">{{ pub.title }}</p>
-        <p class="pub-authors">{{ pub.authors_html | safe }}</p>
-        <p class="pub-venue">{{ pub.venue }}, {{ pub.year }}</p>
-        {% if pub.links %}
-        <p class="pub-links">
-          {% for label, url in pub.links %}<a href="{{ url }}">{{ label }}</a>{% endfor %}
-        </p>
-        {% endif %}
-        {% endif %}
-      </article>
+      {% if "*" in (pub.authors_html or "") %}{% set ns2.equal = true %}{% endif %}
+      {% include "_pub_entry.html" %}
+      {% endfor %}
+      {% endfor %}
+    </div>
+    {% if ns2.equal %}<p class="footnote">* Equal contribution.</p>{% endif %}
+  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="container">
+    <h1 class="section-title">Projects</h1>
+    <div class="card-grid">
+      {% for project in projects %}
+      {% set full = false %}
+      {% include "_project_card.html" %}
       {% endfor %}
     </div>
   </div>
-  {% endfor %}
 </section>
 
-<section id="projects" aria-labelledby="projects-heading">
-  <h2 id="projects-heading">Projects</h2>
-  {% for project in projects %}
-  <article class="project">
-    <h3 class="project-title">{{ project.title }}{% if project.period %} <span class="project-status">· {{ project.period }}</span>{% endif %}</h3>
-    <p class="pitch">{{ project.pitch }}</p>
-  </article>
-  {% endfor %}
-  <p class="more-link"><a href="/projects.html">All projects</a></p>
+{% if education.teaching %}
+<section id="teaching" class="section">
+  <div class="container">
+    <h1 class="section-title">Teaching</h1>
+    <ol class="timeline">
+      {% for t in education.teaching %}
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">{{ t.role }}</h2>
+          <p class="card-subtitle">{{ t.institution }}</p>
+          <p class="card-meta">{{ t.period }}</p>
+          {% if t.course or t.bullets %}
+          <ul class="bullets">
+            {% if t.course %}<li>Teaching: {{ t.course }}</li>{% endif %}
+            {% for b in (t.bullets or [])[:3] %}<li>{{ b }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+        </article>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
 </section>
+{% endif %}
 
-<section id="teaching" aria-labelledby="teaching-heading">
-  <h2 id="teaching-heading">Teaching &amp; service</h2>
-  <ul class="entries">
-    {% for t in education.teaching %}
-    <li>{{ t.role }}, {{ t.course }} — {{ t.institution }} ({{ t.period }})</li>
-    {% endfor %}
-    {% for s in education.service %}
-    <li>{{ s.role }}, {{ s.venue }} ({{ s.period }})</li>
-    {% endfor %}
-  </ul>
+{% for key, heading in [("honors", "Honors"), ("service", "Service")] %}
+{% set items = education[key] %}
+{% if items %}
+<section id="{{ key }}" class="section">
+  <div class="container">
+    <h1 class="section-title">{{ heading }}</h1>
+    <ol class="timeline">
+      {% for e in items %}
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">{{ e.title }}</h2>
+          {% if e.organisation %}<p class="card-subtitle">{{ e.organisation }}</p>{% endif %}
+          <p class="card-meta">{{ e.years }}{% if e.location %} · {{ e.location }}{% endif %}</p>
+          {% if e.bullets %}
+          <ul class="bullets">
+            {% for b in e.bullets[:3] %}<li>{{ b }}</li>{% endfor %}
+          </ul>
+          {% endif %}
+        </article>
+      </li>
+      {% endfor %}
+    </ol>
+  </div>
+</section>
+{% endif %}
+{% endfor %}
+
+<section id="contact" class="section">
+  <div class="container">
+    <h1 class="section-title">Contact</h1>
+    <ul class="contact-list">
+      <li>{{ icons.mail() }} <a href="mailto:{{ email_href | safe }}">{{ email_display | safe }}</a></li>
+      {% if scholar %}<li>{{ icons.scholar() }} <a href="{{ scholar }}">Google Scholar</a></li>{% endif %}
+      {% if github %}<li>{{ icons.github() }} <a href="{{ github }}">GitHub</a></li>{% endif %}
+      {% if site.linkedin %}<li>{{ icons.linkedin() }} <a href="{{ site.linkedin }}">LinkedIn</a></li>{% endif %}
+    </ul>
+  </div>
 </section>
 {% endblock %}

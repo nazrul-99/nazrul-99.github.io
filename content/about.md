@@ -1,21 +1,14 @@
-<!--
-Example (delete or overwrite this comment when the real bio is written):
-Plain prose, 120-180 words, first person, no headings. One or two paragraphs
-separated by a blank line. This is the only markdown file in content/ — it is
-parsed as plain paragraphs by build.py, not by a markdown library.
--->
+I'm a lecturer in computer science at Southeast University, Dhaka. My
+research spans vision-language models and low-resource NLP. One question
+runs through both: what is a model's failure actually made of? In three
+projects so far the accepted explanation named the wrong cause. Correcting
+it changed which fix works. The research threads below show where.
 
-PLACEHOLDER bio. This paragraph exists only to give build.py something to
-render for Phase 1 — it is not the real bio and must be replaced before the
-site is deployed. In the real version this is 120 to 180 words, first person,
-describing the research areas, the current role, and the one or two threads a
-committee member should walk away remembering after sixty to ninety seconds on
-the page. It should read like something a person wrote about their own work,
-not a paragraph generated to fill a box, and it should avoid the usual filler
-adjectives entirely.
-
-PLACEHOLDER second paragraph, optional. Real bio content goes here once
-PAPERS.md and the CV are used to write it properly in Phase 4, covering
-current affiliation, prior degree, and the shape of the research threads
-that the rest of the homepage expands on in more detail with claim and
-correction pairs for each one.
+The questions those projects left open are the ones I want to pursue next.
+In vision-language models, one question is how to give a model geometry it
+can reason over rather than more examples of the right answers. The other is
+how to evaluate spatial reasoning so that a score identifies the capability,
+not a bias in the benchmark. In low-resource NLP, the question is what large
+language models actually depend on when the input is noisy, non-Latin, and
+underrepresented in pretraining. The defenses worth testing are the ones
+that dependence predicts.

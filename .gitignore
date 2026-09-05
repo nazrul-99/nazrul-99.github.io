@@ -1,12 +1,21 @@
-# Build artifacts and portal-only files -- never committed
+# Planning and working files: kept on disk, never in git. The repo contains
+# only what the site serves plus scripts, templates, content and static
+# assets. validate.py fails and deploy.sh refuses if any of these is tracked
+# or staged.
+CLAUDE.md
+DESIGN.md
+DESIGN-v1.md
+PAPERS.md
+WEBSITE-PLAN.md
+PROGRESS.md
+MAINTENANCE.md
+_source/
 build/
 cv-full.pdf
-
-# Source material (CV, portrait): local only, never published
-_source/
+.claude/
+*.docx
 *_draft*
 *private*
-*.docx
 
 # Local Python environment
 .venv

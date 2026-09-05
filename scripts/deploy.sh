@@ -38,8 +38,9 @@ if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
 fi
 
 # Anything forbidden that is already staged (only possible via 'git add -f',
-# since .gitignore covers all four patterns).
-FORBIDDEN_RE='(^|/)cv-full\.pdf$|_draft|private|\.docx$'
+# since .gitignore covers every pattern). Mirrors the .gitignore list;
+# validate.py checks the same list against tracked files too.
+FORBIDDEN_RE='(^|/)(CLAUDE|DESIGN|DESIGN-v1|PAPERS|WEBSITE-PLAN|PROGRESS|MAINTENANCE)\.md$|(^|/)cv-full\.pdf$|(^|/)(_source|build|\.claude)/|_draft|private|\.docx$'
 
 check_forbidden() {
   local staged

@@ -4,33 +4,92 @@
 #   - degree: "B.Sc. in Computer Science and Engineering"
 #     institution: "Example University"
 #     period: "2019-2023"
-#     details: "Thesis on X. Relevant coursework or honors, if notable."
-# awards:
-#   - title: "Award Name"
-#     year: 2023
-#     note: "Awarding body or context"
+#     details: "Thesis on X. Relevant coursework, if notable."
 # teaching:
 #   - role: "Lecturer"
-#     course: "Course Name"
+#     course: "Course Name"              # optional; rendered as "Teaching: ..."
 #     institution: "Example University"
 #     period: "2024-present"
-# service:
-#   - role: "Reviewer"
-#     venue: "Conference or Journal Name"
-#     period: "2025"
+#     bullets: []                        # optional, at most 3, after the course line
+# honors:                                 # awards, scholarships, placings, selective programs
+#   - title: "Award Name"
+#     organisation: "Awarding body"
+#     years: "2023"                       # or a range, "2018–2020"
+#     location: "City, Country"           # optional
+#     bullets:                            # optional, at most 3
+#       - "One line of context."
+# service:                                # reviewing, committees, mentoring, organizing, university service
+#   - title: "Reviewer"
+#     organisation: "Conference or Journal Name"
+#     years: "2025"
+#     location: ""                        # optional
+#     bullets: []                         # optional, at most 3
+#
+# Wording below is transcribed from _source/cv.docx. FLAGS are collected at the
+# bottom of this file.
 
 degrees:
-  - degree: "B.Sc. in Computer Science and Engineering"
-    institution: "Khulna University of Engineering & Technology (KUET)"
-    period: "2023"
-    details: "PLACEHOLDER thesis title and any honors."
-
-awards: []
+  - degree: "B.Sc. in Computer Science & Engineering"
+    institution: "Khulna University of Engineering & Technology (KUET), Khulna, Bangladesh"
+    period: "January 2018 – February 2023"
+    details: "CGPA: 3.68/4.00 (top 20%, Dept. of CSE)"
 
 teaching:
   - role: "Lecturer"
-    course: "PLACEHOLDER course name"
-    institution: "Southeast University, Dhaka"
-    period: "PLACEHOLDER-present"
+    course: "programming, numerical methods, and introductory AI"
+    institution: "Dept. of CSE, Southeast University, Dhaka, Bangladesh"
+    period: "February 2024 – Present"
+    bullets:
+      - "Supervise undergraduate research projects in machine learning and NLP."
+  - role: "Lecturer"
+    institution: "Dept. of CSE, Uttara University, Dhaka, Bangladesh"
+    period: "July 2023 – February 2024"
+  - role: "Part-time Lecturer"
+    institution: "Dept. of CSE, Central University of Science and Technology, Dhaka, Bangladesh"
+    period: "March 2023 – July 2023"
 
-service: []
+# CV § HONORS & AWARDS, split into the card fields without rewording.
+honors:
+  - title: "Ranked 10th globally and 1st among Bangladeshi teams, Indian Rover Design Challenge (IRDC) 2020"
+    organisation: "Mars Society South Asia — Team Durbar, KUET"
+    years: "2020"
+  - title: "Dean's Award"
+    organisation: "Faculty of Electrical and Electronic Engineering, KUET"
+    years: "AY 2018–2019 and 2019–2020"
+
+# CV § LEADERSHIP & VOLUNTEER EXPERIENCE: the club role and the rover team.
+# The supervision line is part of the SEU lecturer role and sits under
+# teaching:. Order here does not matter: build.py sorts every timeline by
+# start date, newest first.
+service:
+  - title: "Vice President"
+    organisation: "Hardware Acceleration Club of KUET (HACK)"
+    years: "March 2022 – March 2023"
+    bullets:
+      - "Ran the club's activities and events."
+      - "Led workshops on commonly used microcontrollers."
+  - title: "Programmer, Software Sub-Team"
+    organisation: "KUET Mars Rover (Team Durbar)"
+    years: "March 2019 – December 2022"
+    bullets:
+      - "Senior Programmer: rover navigation and computer vision, including a lightweight CNN for object recognition."
+      - "Junior Programmer: worked with Arduino and Raspberry Pi to implement key rover systems."
+
+# FLAGS -- not guessed, needs your call:
+#
+# 1. Positions vs teaching. CLAUDE.md's schema for this file is
+#    degrees/teaching/honors/service, with no `positions` key, so the three
+#    lecturer appointments are under `teaching`. Two of them list no courses in
+#    the CV; `course` is optional and the template skips it when absent.
+# 2. Dean's Award spans two academic years; `years` now carries the exact span
+#    from the CV, "AY 2018–2019 and 2019–2020".
+# 3. Not transcribed, because this file's schema has nowhere to put them: the
+#    standardized English test score; two DeepLearning.AI Coursera
+#    certificates (certificates, not selective honors); the Technical Skills
+#    list (_source/DESIGN.md drops skill lists deliberately); Research
+#    Interests (covered by site.yml and about.md).
+# 4. The CV lists no reviewing or committee work, so `service` holds the club
+#    role and the rover team. The supervision sentence is the second bullet of
+#    the SEU lecturer entry, verbatim from the CV.
+# 5. The phone number in the CV header is deliberately not transcribed
+#    anywhere (CLAUDE.md § Me; validate.py fails the build on it).

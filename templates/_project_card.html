@@ -1,0 +1,14 @@
+{# One project card (DESIGN.md v2 § Projects). Set `full = true` before
+   including to add the description under the pitch (projects.html). #}
+<article class="card project-card"{% if project.id %} id="{{ project.id }}"{% endif %}>
+  <h2 class="card-title">{{ project.title }}</h2>
+  {% if project.period %}<p class="card-meta">{{ project.period }}</p>{% endif %}
+  <p>{{ project.pitch }}</p>
+  {% if full and project.description %}<p>{{ project.description }}</p>{% endif %}
+  {% if project.stack %}
+  <p class="tags">{% for s in project.stack %}<span class="tag">{{ s }}</span>{% endfor %}</p>
+  {% endif %}
+  {% if project.repo %}
+  <p class="card-actions"><a class="btn-pill" href="{{ project.repo }}">Code</a></p>
+  {% endif %}
+</article>

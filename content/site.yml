@@ -1,7 +1,6 @@
 # Example (copy this block to see every field):
 #
 # name: "Jane Doe"
-# tagline: "One line, no verbs like 'passionate' or 'leverage'."
 # email:
 #   user: "jane.doe"
 #   domain: "gmail.com"
@@ -12,12 +11,37 @@
 #     url: "https://github.com/janedoe"
 
 name: "Md. Nazrul Islam"
-tagline: "PLACEHOLDER tagline — one line on what I work on."
+# Split on " — ": the part before is the role line, the part after the
+# institution line in About (DESIGN.md v2).
+affiliation: "Lecturer, CSE — Southeast University, Dhaka"
+# The institution line in About links here (same tab, rel="me").
+affiliation_url: "https://cse.seu.edu.bd/employee/profile/MDAzMDA4"
+# Square, at least 540 px (shown at 270 px), optional: the page must look
+# right with this line removed.
+# Source file lives in _source/; the copy in static/ is what gets published.
+portrait: "/static/portrait.jpg"
+# Profile URLs for the icon rows (About and Contact). A blank value hides
+# that icon. Scholar is read from `links` below.
+github: "https://github.com/nazrul-99"
+linkedin: ""
+# Short call-out under the institution in About. Leave "" to hide the block.
+notice: >
+  Applying to PhD programs. Open to conversations with groups working on
+  vision-language models, evaluation methodology, or low-resource NLP.
+# Rendered as the "Interests" bullet list beside Education in About
+# (DESIGN.md v2), and middle-dot joined in the CV. Parallel noun phrases,
+# each capitalised, since each is its own bullet.
+interests:
+  - "Vision-language models"
+  - "Spatial and geometric reasoning"
+  - "Benchmark validity"
+  - "Robustness in low-resource NLP"
+  - "Large language models"
 email:
   user: "nazrul.islam.cse.bd"
   domain: "gmail.com"
 links:
   - label: "Google Scholar"
-    url: "https://scholar.google.com/PLACEHOLDER"
+    url: "https://scholar.google.com/citations?user=qr34ziEAAAAJ"
   - label: "GitHub"
-    url: "https://github.com/PLACEHOLDER"
+    url: "https://github.com/nazrul-99"

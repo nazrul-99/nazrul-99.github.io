@@ -1,457 +1,552 @@
 /* ---------------------------------------------------------------------------
    Md. Nazrul Islam — academic portfolio
-   Implements DESIGN.md: six colour tokens, one type family, single column
-   with a hanging year margin. No cards, no radius, no shadow, no animation.
+   Implements _source/DESIGN.md v2: the Wowchemy "ocean" look rebuilt by hand.
+   Two self-hosted families, alternating sections, timeline cards, pill buttons.
    --------------------------------------------------------------------------- */
 
-/* --- Colour: 6 tokens ---------------------------------------------------- */
+/* --- Fonts: self-hosted variable Latin woff2 (licences alongside) -------- */
+
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/static/fonts/Roboto-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("/static/fonts/Montserrat-latin.woff2") format("woff2");
+}
+
+/* --- Colour tokens -------------------------------------------------------- */
 
 :root {
-  --paper:  #FCFBF9;
-  --ink:    #191B1F;
-  --muted:  #5B6069;
-  --rule:   #E0DCD4;
-  --accent: #294A6B;
-  --wash:   #F2EFE9;
+  --primary:      #1565c0;
+  --primary-tint: #eef4fb;
+  --body-bg:      #ffffff;
+  --section-alt:  #f7f7f7;
+  --card-bg:      #ffffff;
+  --text:         #2b2b2b;
+  --heading:      #34495e;
+  /* DESIGN.md's #6c757d measures 4.38:1 on --section-alt; one step darker
+     clears 4.5:1 on every background it sits on. */
+  --muted:        #687079;
+  --border:       #e3e6ea;
+  --shadow:       0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+  --nav-shadow:   0 .125rem .25rem rgba(0, 0, 0, .11);
 
-  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria,
-           "Iowan Old Style", Georgia, serif;
-
-  /* Layout: 180 + 20 + 680 = the 880px wrapper */
-  --gutter:  180px;
-  --gap:     20px;
-  --measure: min(680px, 70ch);
-  --wrap:    880px;
-  --pad:     24px;
+  --sans:    Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --display: Montserrat, var(--sans);
+  --nav-h:   70px;
+  --gutter:  95px;              /* 1 of 12 columns at 1140px */
+  color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    --paper:  #15171B;
-    --ink:    #E7E5E0;
-    --muted:  #9AA0A8;
-    --rule:   #282C33;
-    --accent: #93B4D2;
-    --wash:   #1B222B;
+  :root:not([data-theme="light"]) {
+    --primary:      #5b9be0;
+    --primary-tint: #1b2836;
+    --body-bg:      #1c1c1c;
+    --section-alt:  #242424;
+    --card-bg:      #2a2a2a;
+    --text:         #e0e0e0;
+    --heading:      #f0f0f0;
+    --muted:        #9aa3ad;
+    --border:       #3a3a3a;
+    --shadow:       0 1px 3px rgba(0, 0, 0, .5);
+    --nav-shadow:   0 .125rem .25rem rgba(0, 0, 0, .5);
+    color-scheme: dark;
   }
+}
+
+:root[data-theme="dark"] {
+  --primary:      #5b9be0;
+  --primary-tint: #1b2836;
+  --body-bg:      #1c1c1c;
+  --section-alt:  #242424;
+  --card-bg:      #2a2a2a;
+  --text:         #e0e0e0;
+  --heading:      #f0f0f0;
+  --muted:        #9aa3ad;
+  --border:       #3a3a3a;
+  --shadow:       0 1px 3px rgba(0, 0, 0, .5);
+  --nav-shadow:   0 .125rem .25rem rgba(0, 0, 0, .5);
+  color-scheme: dark;
 }
 
 /* --- Base ---------------------------------------------------------------- */
 
-html {
-  font-size: 112.5%;          /* 1rem = 18px */
-  scroll-padding-top: 4rem;   /* clears the sticky header on anchor jumps */
-}
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-padding-top: calc(var(--nav-h) + 12px); }
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--serif);
-  font-size: 1rem;
-  line-height: 1.62;
-  text-align: left;           /* never justified: no hyphenation engine */
+  background: var(--body-bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 1rem;                 /* 16px */
+  line-height: 1.65;
+  text-align: left;
   -webkit-text-size-adjust: 100%;
 }
 
-p { margin: 0 0 0.85em; }
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; }
+pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 
-img {
-  max-width: 100%;
-  height: auto;
-  border-radius: 0;
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--display);
+  color: var(--heading);
+  line-height: 1.25;
 }
 
-ul { margin: 0; padding: 0; list-style: none; }
-
-/* --- Type scale (base 18px, ratio ~1.25) -------------------------------- */
-
-h1, h2, h3 { line-height: 1.25; font-weight: 700; margin: 0; }
-
-.name {                                              /* 44px, homepage only */
-  font-size: clamp(2rem, 1.4rem + 3vw, 2.44rem);
-  letter-spacing: -0.01em;
-  margin-bottom: 0.12em;
+.section-title {
+  font-size: 2.2rem;               /* 35px */
+  font-weight: 700;
+  margin-bottom: 2rem;
 }
 
-h2 { font-size: 1.56rem; margin-bottom: 24px; }      /* 28px, sections */
+.label {                           /* "Interests" / "Education" */
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: .75rem;
+}
 
-.page-title { font-size: 1.11rem; margin-bottom: 26px; }  /* 20px, subpages */
+.card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: .25rem; }
+.card-subtitle { color: var(--muted); margin-bottom: .1rem; }
+.card-meta, .meta { font-size: .9rem; color: var(--muted); margin-bottom: .75rem; }
 
-.thread-title { font-size: 1.11rem; margin-bottom: 0.35em; }  /* 20px */
-
-.affiliation,
-.contact,
-.pub-authors,
-.pub-venue,
-.pub-links,
-.project-meta,
-.project-links,
-.project-status,
-.year,
-.site-header,
-.site-footer,
-.bibtex-toggle,
-pre { font-size: 0.83rem; }                          /* 15px, metadata */
-
-.affiliation,
-.pub-authors,
-.pub-venue,
-.project-meta,
-.project-status,
-.year { color: var(--muted); }                       /* metadata only */
-
-/* --- Links and focus ----------------------------------------------------- */
+/* --- Links, focus, motion ---------------------------------------------- */
 
 a {
-  color: var(--accent);
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  text-decoration-thickness: 1px;
-  transition: color 120ms;
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 150ms, background-color 150ms;
 }
 
-a:hover { color: var(--ink); }
+a:hover { text-decoration: underline; }
+
+nav a:hover, .btn-pill:hover, .brand:hover, .icon-links a:hover { text-decoration: none; }
 
 :focus-visible {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
-@supports not selector(:focus-visible) {
-  a:focus, summary:focus {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
-}
-
 .skip { position: absolute; left: -9999px; }
-.skip:focus {
-  position: static;
-  display: inline-block;
-  margin: 8px var(--pad);
+.skip:focus { position: static; display: inline-block; margin: .5rem 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; }
 }
 
-/* --- Layout: 880px wrapper, 680px text column, 180px year gutter --------- */
+/* --- Layout -------------------------------------------------------------- */
 
-.site-header,
-main,
-.site-footer {
-  box-sizing: border-box;
-  max-width: calc(var(--wrap) + 2 * var(--pad));
-  margin-inline: auto;
-  padding-inline: var(--pad);
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 15px;
 }
 
-main { padding-block: 44px 56px; }
+.section { padding: 110px 0; background: var(--body-bg); }
+/* Backgrounds alternate over the sections that actually render, so a section
+   omitted for an empty list never leaves two like colours adjacent. */
+main > .section:nth-child(even) { background: var(--section-alt); }
 
-/* Every block-level region is a two-column grid. Content sits in the text
-   column; only publication years occupy the gutter. */
-section,
-.thread,
-.year-group,
-.site-footer {
-  display: grid;
-  grid-template-columns: var(--gutter) minmax(0, var(--measure));
-  column-gap: var(--gap);
-  align-content: start;
-}
+/* --- Navbar -------------------------------------------------------------- */
 
-section > *,
-.thread > *,
-.year-group > *,
-.site-footer > * { grid-column: 2; }
-
-/* Hairline between sections only, 40px above and below. */
-section + section {
-  border-top: 1px solid var(--rule);
-  margin-top: 40px;
-  padding-top: 40px;
-}
-
-/* --- Header -------------------------------------------------------------- */
-
-.site-header {
+.navbar {
   position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
+  min-height: var(--nav-h);
+  background: var(--body-bg);
+  box-shadow: var(--nav-shadow);
+}
+
+.nav-inner {
+  min-height: var(--nav-h);
   display: flex;
   flex-wrap: wrap;
-  align-items: baseline;
+  align-items: center;
   justify-content: space-between;
-  gap: 6px var(--gap);
-  padding-block: 10px;
-  background: var(--paper);
-  border-bottom: 1px solid var(--rule);
+  gap: .25rem 1.5rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
 }
 
-.site-name { margin: 0; }
+.brand {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--heading);
+}
 
-.site-header nav {
+.navbar nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 1.15em;
+  align-items: center;
+  gap: .25rem 1.25rem;
 }
 
-/* --- Homepage intro ------------------------------------------------------ */
-
-.intro-head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--gap);
+.navbar nav a {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: .95rem;
+  color: var(--heading);
 }
+
+.navbar nav a:hover, .navbar nav a.active { color: var(--primary); }
+
+/* The section currently in view (CSS :target, no scroll-spy). */
+body:has(#research:target) .nav-research,
+body:has(#publications:target) .nav-publications,
+body:has(#projects:target) .nav-projects,
+body:has(#teaching:target) .nav-teaching,
+body:has(#honors:target) .nav-honors,
+body:has(#service:target) .nav-service,
+body:has(#contact:target) .nav-contact { color: var(--primary); }
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: .25rem;
+  border: 0;
+  background: transparent;
+  color: var(--heading);
+  cursor: pointer;
+  transition: color 150ms;
+}
+
+.theme-toggle:hover { color: var(--primary); }
+.theme-toggle .icon { width: 1.25rem; height: 1.25rem; }
+
+/* --- About --------------------------------------------------------------- */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  gap: 2rem 30px;
+  align-items: start;
+}
+
+.about-side { text-align: center; }
 
 .portrait {
-  flex: none;
-  width: 84px;
-  height: 84px;
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
   object-fit: cover;
+  display: block;
+  margin: 0 auto 1.25rem;
 }
 
-.affiliation { margin-bottom: 1.1em; }
-
-.tagline { margin-bottom: 1.1em; }
-
-.contact {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4em 1.15em;
-  margin-top: 1.2em;
-  margin-bottom: 0;
-}
-
-/* --- Research threads ---------------------------------------------------- */
-
-.thread { grid-column: 1 / -1; }
-
-.thread + .thread {
-  border-top: 1px solid var(--rule);
-  margin-top: 40px;
-  padding-top: 40px;
-}
-
-/* The claim/correction pair: the one filled block on the site. */
-.pair {
-  display: grid;
-  grid-template-columns: 90px minmax(0, 1fr);
-  row-gap: 0.9em;
-  margin: 10px 0 0;
-  padding: 20px;
-  background: var(--wash);
-  border-left: 2px solid var(--accent);
-  border-radius: 0;
-}
-
-.pair dt {
+.about-name {
+  font-family: var(--display);
+  font-size: 1.75rem;              /* 28px */
   font-weight: 700;
+  color: var(--heading);
+  line-height: 1.25;
+  margin-bottom: .35rem;
+}
+
+.about-role { font-size: 1.1rem; color: var(--muted); margin-bottom: .1rem; }
+.about-org  { font-size: 1.1rem; color: var(--muted); margin-bottom: 1rem; }
+
+/* Short call-out under the institution (site.notice); omitted when empty. */
+.notice {
+  margin: 0 0 1rem;
+  padding: .75rem 1rem;
+  font-size: .95rem;
+  color: var(--text);
+  text-align: left;
+  background: var(--primary-tint);
+  border-left: 3px solid var(--primary);
+  border-radius: 4px;
+}
+
+.icon-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.1rem;
+}
+
+.icon-links a { color: var(--heading); display: inline-flex; }
+.icon-links a:hover { color: var(--primary); }
+
+/* Download CV pill, directly under the icon row (DESIGN.md v2 § About). */
+.about-cv { margin: 1rem 0 0; }
+.icon { width: 1.4rem; height: 1.4rem; vertical-align: -.25em; }
+
+.tagline { font-size: 1.05rem; }
+
+.about-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 30px;
+  margin-top: 1.5rem;
+}
+
+.bullets { list-style: disc; padding-left: 1.25rem; }
+.bullets li { margin-bottom: .25rem; }
+
+.edu { list-style: none; }
+.edu li { margin-bottom: 1rem; line-height: 1.5; }
+.edu .meta { display: inline; }
+
+/* --- Timeline (Research, Teaching) ---------------------------------------- */
+
+.timeline {
+  list-style: none;
+  position: relative;
+  padding-left: var(--gutter);
+}
+
+.timeline::before {                /* the vertical line in the gutter */
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--gutter) / 2 - 1px);
+  width: 2px;
+  background: var(--border);
+}
+
+.tl-item { position: relative; }
+.tl-item + .tl-item { margin-top: 2.5rem; }
+
+.tl-item::before {                 /* the dot, aligned with the card top */
+  content: "";
+  position: absolute;
+  top: 1.6rem;
+  left: calc(-1 * var(--gutter) / 2 - 7px);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--body-bg);
+}
+
+main > .section:nth-child(even) .tl-item::before { border-color: var(--section-alt); }
+
+/* --- Cards --------------------------------------------------------------- */
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.card > :last-child { margin-bottom: 0; }
+
+.card-actions { margin-top: 1rem; }
+
+/* Claim/found block, kept from v1 and now inside the card idiom. */
+.claim {
+  margin: 1rem 0 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--primary);
+  border-radius: 4px;
+  background: var(--primary-tint);
+}
+
+.claim div + div { margin-top: .75rem; }
+.claim dt { display: inline; font-weight: 700; color: var(--heading); }
+.claim dt::after { content: ". "; }
+.claim dd { display: inline; margin: 0; }
+
+/* --- Pill buttons -------------------------------------------------------- */
+
+.btn-pill {
+  display: inline-block;
+  padding: .25rem .75rem;
+  margin: .25rem .25rem 0 0;
+  font-size: .8rem;
+  line-height: 1.5;
+  color: var(--primary);
+  background: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 10rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms, background-color 150ms;
+}
+
+.btn-pill:hover { color: #fff; background: var(--primary); }
+
+/* --- Publications: compact list ------------------------------------------ */
+
+.pub + .pub { margin-top: 1.75rem; }
+
+.pub-authors { font-size: .95rem; color: var(--text); margin-bottom: .15rem; }
+.pub-authors strong { font-weight: 700; }
+
+.pub-title {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: .15rem;
+}
+
+.pub-title a { color: var(--heading); }
+.pub-title a:hover { color: var(--primary); text-decoration: none; }
+
+.pub-venue { color: var(--muted); font-size: .95rem; margin-bottom: .25rem; }
+
+.pub-actions { display: flex; flex-wrap: wrap; align-items: flex-start; }
+
+.cite { display: inline-block; }
+.cite[open] { display: block; width: 100%; }
+.cite summary { list-style: none; }
+.cite summary::-webkit-details-marker { display: none; }
+.cite pre {
+  margin-top: .75rem;
+  padding: .75rem 1rem;
+  font-size: .8rem;
+  line-height: 1.5;
+  background: var(--section-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+}
+
+main > .section:nth-child(even) .cite pre { background: var(--card-bg); }
+
+.footnote { font-size: .9rem; color: var(--muted); margin-top: 1.5rem; }
+
+/* --- Projects: card grid ------------------------------------------------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);   /* two projects: two columns at >=768px */
+  gap: 30px;
+  align-items: start;
+}
+
+.tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: .75rem;
+}
+
+.tag {
+  font-size: .75rem;
+  line-height: 1.5;
+  padding: .15rem .5rem;
+  color: var(--muted);
+  background: var(--section-alt);
+  border-radius: 4px;
+}
+
+main > .section:nth-child(even) .tag { background: var(--body-bg); }
+
+/* --- Contact and footer -------------------------------------------------- */
+
+.contact-list { list-style: none; }
+.contact-list li { display: flex; align-items: center; gap: .6rem; margin-bottom: .6rem; }
+.contact-list .icon { color: var(--heading); flex: none; }
+
+.site-footer {
+  padding: 1.5rem 0 2rem;
+  background: var(--body-bg);
+  font-size: .9rem;
   color: var(--muted);
 }
 
-.pair dd { margin: 0; }
+.site-footer p { margin: 0; }
 
-/* --- Publications -------------------------------------------------------- */
+/* --- Responsive ---------------------------------------------------------- */
 
-.year-group { grid-column: 1 / -1; }
-
-.year-group + .year-group { margin-top: 28px; }
-
-.year-group > .year {
-  grid-column: 1;
-  font-weight: 400;
-  font-variant-numeric: tabular-nums;
+@media (max-width: 767px) {
+  /* The wrapped navbar is ~135px tall on a phone. Sticky, it would cover a
+     third of the screen and the fixed scroll-padding above would leave every
+     anchored heading hidden under it, so it scrolls with the page instead. */
+  .navbar { position: static; }
+  html { scroll-padding-top: 12px; }
+  .section { padding: 60px 0; }
+  .about-grid, .about-cols, .card-grid { grid-template-columns: 1fr; }
+  .about-side { margin-bottom: .5rem; }
+  .portrait { width: 200px; height: 200px; }
+  .section-title { font-size: 1.8rem; }
+  .timeline { padding-left: 0; }
+  .timeline::before, .tl-item::before { display: none; }
+  .nav-inner { justify-content: center; text-align: center; }
+  .navbar nav { justify-content: center; }
 }
 
-.pub-entry + .pub-entry { margin-top: 22px; }
-
-.pub-title { font-weight: 700; margin-bottom: 0.1em; }
-
-/* Anonymized and in-preparation entries: same size, same colour as a
-   published title. Italic prose, the way a CV sets it. Never greyed out. */
-.pub-status {
-  font-style: italic;
-  color: var(--ink);
-  margin-bottom: 0.1em;
-}
-
-.pub-authors,
-.pub-venue { margin-bottom: 0.1em; }
-
-.pub-summary { margin-top: 0.35em; }
-
-.pub-links,
-.project-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.3em 1.15em;
-  margin-top: 0.45em;
-}
-
-.bibtex { margin-top: 0.5em; }
-
-.bibtex-toggle {
-  color: var(--accent);
-  cursor: pointer;
-}
-
-pre {
-  font-family: var(--serif);   /* no monospace anywhere on the site */
-  white-space: pre-wrap;
-  overflow-wrap: break-word;
-  margin: 0.5em 0 0;
-  background: none;
-}
-
-.pub-note { margin-top: 0.35em; }
-
-/* --- Projects ------------------------------------------------------------ */
-
-.project + .project { margin-top: 30px; }
-
-.project-title { font-size: 1rem; margin-bottom: 0.1em; }
-
-.project-status { font-weight: 400; }
-
-.pitch { margin-bottom: 0.5em; }
-
-.project-meta { margin-bottom: 0.1em; }
-
-.more-link { margin-top: 26px; margin-bottom: 0; }
-
-/* --- Teaching and footer ------------------------------------------------- */
-
-.entries > li + li { margin-top: 0.35em; }
-
-.site-footer {
-  border-top: 1px solid var(--rule);
-  padding-block: 22px 40px;
-}
-
-.footer-contact { margin-bottom: 0.5em; }
-
-.profile-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4em 1.15em;
-}
-
-/* --- Narrow: the hanging year margin collapses -------------------------- */
-
-@media (max-width: 719px) {
-  section,
-  .thread,
-  .year-group,
-  .site-footer {
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  section > *,
-  .thread > *,
-  .year-group > *,
-  .site-footer > *,
-  .year-group > .year { grid-column: 1; }
-
-  .year-group > .year { margin-bottom: 8px; }   /* years run inline above */
-
-  main { padding-block: 32px 44px; }
-
-  section + section,
-  .thread + .thread { margin-top: 32px; padding-top: 32px; }
-}
-
-@media (max-width: 479px) {
-  :root { --pad: 16px; }
-
-  .pair {
-    grid-template-columns: minmax(0, 1fr);
-    row-gap: 0;
-    padding: 16px;
-  }
-
-  .pair dt { margin-top: 0.8em; }
-  .pair dt:first-child { margin-top: 0; }
-  .pair dd { margin-bottom: 0.15em; }
-
-  .intro-head { flex-wrap: wrap; }
-}
-
-/* --- Reduced motion ------------------------------------------------------ */
-
-@media (prefers-reduced-motion: reduce) {
-  * { transition: none !important; }
-}
-
-/* --- Print: one clean sheet ---------------------------------------------- */
+/* --- Print: two A4 pages --------------------------------------------------- */
 
 @media print {
-  :root {
-    --paper: #FFFFFF;
-    --ink: #000000;
-    --muted: #333333;
-    --rule: #999999;
-    --accent: #000000;
-    --wash: transparent;
+  :root, :root[data-theme="dark"] {
+    --primary: #000; --primary-tint: transparent; --body-bg: #fff;
+    --section-alt: #fff; --card-bg: #fff; --text: #000; --heading: #000;
+    --muted: #444; --border: #999; --shadow: none; --nav-shadow: none;
   }
 
-  @page { margin: 1.5cm; }
+  /* A4 declared so a US-locale browser does not default to Letter, which is
+     50pt shorter and would push the second page onto a third. */
+  @page { size: A4; margin: 1.2cm; }
 
-  html { font-size: 10pt; }
-  body { line-height: 1.34; }
+  /* 8.5pt: at 9pt the third research card straddled the page-1 break and,
+     being unbreakable, jumped to page 2 and pushed Contact onto a third. */
+  html { font-size: 8.5pt; }
+  body { line-height: 1.25; }
 
-  p { margin-bottom: 0.5em; }
+  .navbar, .theme-toggle, .portrait, .btn-pill, .cite, .skip, .notice,
+  .icon-links, .timeline::before, .tl-item::before { display: none; }
 
-  .site-header,
-  .portrait,
-  .skip,
-  .more-link,
-  .site-footer,
-  .bibtex { display: none; }
+  /* Two A4 pages: the earlier-work cards and the project grid are omitted
+     from print because cv.pdf carries both in full; the printed homepage
+     keeps the argument (threads + claim/found), publications, teaching
+     and contact. */
+  #research .tl-item:nth-child(n+4), #projects, #honors, #service { display: none; }
 
-  main {
-    max-width: none;
-    padding: 0;
+  .section { padding: 4pt 0; }
+  .section-title { font-size: 13pt; margin-bottom: 3pt; break-after: avoid; }
+  .about-grid { grid-template-columns: 1fr; gap: 0; }
+  .about-side { text-align: left; }
+  .about-name { font-size: 14pt; }
+  .about-cols { margin-top: 6pt; }
+
+  .card {
+    border: 0;
+    border-bottom: .5pt solid var(--border);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 0 3pt;
+    break-inside: avoid;
   }
 
-  /* Hanging year margin collapses to inline. (.site-footer stays hidden
-     above -- do not re-set its display here.) */
-  section,
-  .thread,
-  .year-group { display: block; }
+  .timeline { padding-left: 0; }
+  .tl-item + .tl-item { margin-top: 4pt; }
+  .site-footer { padding: 4pt 0 0; }
+  .card-grid { grid-template-columns: 1fr 1fr; gap: 8pt 18pt; }
+  .card-title { font-size: 11pt; }
+  .card-meta, .meta, .pub-venue { font-size: 8.5pt; margin-bottom: 2pt; }
+  p { margin-bottom: 2pt; }
 
-  .year-group > .year { margin-bottom: 2pt; }
-
-  /* Hairlines to 0.5pt. */
-  section + section,
-  .thread + .thread {
-    border-top-width: 0.5pt;
-    margin-top: 11pt;
-    padding-top: 11pt;
-  }
-
-  h2 { font-size: 13pt; margin-bottom: 7pt; }
-
-  .name { font-size: 18pt; }
-
-  .tagline, .affiliation { margin-bottom: 0.5em; }
-
-  /* Background colours dropped; the pair keeps only its left rule. */
-  .pair {
+  .claim {                         /* keeps its left rule only */
     background: none;
-    border-left: 1pt solid #000;
-    padding: 0 0 0 10pt;
-    margin-top: 6pt;
-    row-gap: 0.45em;
+    border-radius: 0;
+    border-left: 1.5pt solid #000;
+    padding: 0 0 0 8pt;
+    margin-top: 4pt;
   }
 
-  .year-group + .year-group { margin-top: 9pt; }
-  .pub-entry + .pub-entry { margin-top: 8pt; }
-  .thread, .pub-entry, .project { break-inside: avoid; }
-
-  /* Links rendered with their href in parentheses at 9pt. */
-  a { text-decoration: none; }
-  a[href^="http"]::after {
-    content: " (" attr(href) ")";
-    font-size: 9pt;
-    overflow-wrap: break-word;
-  }
+  .pub + .pub { margin-top: 5pt; }
+  .pub { break-inside: avoid; }
+  .tag { border: .5pt solid #999; background: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #444; }
+  .pub-title a::after { content: none; }
 }
