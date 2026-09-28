@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% set nav_current = "publications" %}
+{% set home = "/" %}
+{% block title %}Publications — {{ site.name }}{% endblock %}
+{% block content %}
+<section id="publications" class="section">
+  <div class="container">
+    <h1 class="section-title">Publications</h1>
+    <div class="pub-list">
+      {% set ns2 = namespace(equal=false) %}
+      {% for year, entries in publications_by_year %}
+      {% for pub in entries %}
+      {% if "*" in (pub.authors_html or "") %}{% set ns2.equal = true %}{% endif %}
+      {% include "_pub_entry.html" %}
+      {% endfor %}
+      {% endfor %}
+    </div>
+    {% if ns2.equal %}<p class="footnote">* Equal contribution.</p>{% endif %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,9 @@
+User-agent: *
+{% if site.hide_cv_from_search %}
+# site.yml hide_cv_from_search: the CV stays out of search; the pages do not.
+Disallow: /cv.pdf
+{% else %}
+Disallow:
+{% endif %}
+
+Sitemap: {{ base_url }}/sitemap.xml

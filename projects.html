@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects — Md. Nazrul Islam</title>
+<link rel="canonical" href="https://nazrul-99.github.io/projects.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Md. Nazrul Islam">
+<meta property="og:title" content="Projects — Md. Nazrul Islam">
+<meta name="description" content="I&#39;m a lecturer at Southeast University, Dhaka. I study where vision-language models and low-resource language models fail, and whether the instruments we use to judge them can be trusted. Rather than…">
+<meta property="og:description" content="I&#39;m a lecturer at Southeast University, Dhaka. I study where vision-language models and low-resource language models fail, and whether the instruments we use to judge them can be trusted. Rather than…">
+<meta property="og:url" content="https://nazrul-99.github.io/projects.html">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="/static/favicon.png" type="image/png">
+<meta property="og:image" content="https://nazrul-99.github.io/static/portrait.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://nazrul-99.github.io/#person",
+      "name": "Md. Nazrul Islam",
+      "url": "https://nazrul-99.github.io/",
+      "alternateName": [
+        "Md Nazrul Islam",
+        "Nazrul Islam"
+      ],
+      "sameAs": [
+        "https://orcid.org/0000-0002-6385-5095",
+        "https://scholar.google.com/citations?user=qr34ziEAAAAJ",
+        "https://github.com/nazrul-99",
+        "https://www.linkedin.com/in/md-nazrul-islam-nz/"
+      ],
+      "jobTitle": "Lecturer, CSE",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Southeast University, Dhaka",
+        "url": "https://cse.seu.edu.bd/employee/profile/MDAzMDA4"
+      },
+      "image": "https://nazrul-99.github.io/static/portrait.jpg",
+      "knowsAbout": [
+        "Vision-language models",
+        "Spatial and geometric reasoning",
+        "Benchmark validity",
+        "Explanation faithfulness",
+        "Robustness in low-resource NLP"
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Khulna University of Engineering & Technology (KUET)"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nazrul-99.github.io/#website",
+      "url": "https://nazrul-99.github.io/",
+      "name": "Md. Nazrul Islam",
+      "publisher": {
+        "@id": "https://nazrul-99.github.io/#person"
+      }
+    }
+  ]
+}</script>
+<script>
+/* Theme toggle -- the one JS allowance (DESIGN.md v2). Sets data-theme on
+   <html>, remembers the choice, defaults to prefers-color-scheme. Runs before
+   first paint so a stored choice never flashes. With JS off the button stays
+   hidden and the OS setting applies. */
+(function () {
+  var root = document.documentElement, key = "theme", stored = null;
+  var osDark = matchMedia("(prefers-color-scheme: dark)");
+  try { stored = localStorage.getItem(key); } catch (e) {}
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+  function current() { return root.getAttribute("data-theme") || (osDark.matches ? "dark" : "light"); }
+  document.addEventListener("DOMContentLoaded", function () {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    function sync() { btn.setAttribute("aria-pressed", String(current() === "dark")); }
+    btn.hidden = false;
+    sync();
+    osDark.addEventListener("change", sync);
+    btn.addEventListener("click", function () {
+      root.setAttribute("data-theme", current() === "dark" ? "light" : "dark");
+      try { localStorage.setItem(key, root.getAttribute("data-theme")); } catch (e) {}
+      sync();
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="/static/style.css?v=c84f0a47df">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="brand" href="/#top">Md. Nazrul Islam</a>
+    <nav aria-label="Primary">
+      <a class="nav-research" href="/#research">Research</a>
+      <a class="nav-publications" href="/#publications">Publications</a>
+      <a class="nav-projects active" href="/#projects">Projects</a>
+<a class="nav-teaching" href="/#teaching">Teaching</a><a class="nav-honors" href="/#honors">Honors</a><a class="nav-service" href="/#service">Service</a>      <a class="nav-contact" href="/#contact">Contact</a>
+      <a href="/cv.pdf" rel="nofollow">CV</a>
+      <button id="theme-toggle" type="button" class="theme-toggle" hidden aria-pressed="false" aria-label="Toggle dark mode"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+    </nav>
+  </div>
+</header>
+<main id="main">
+<section id="projects" class="section">
+  <div class="container">
+    <h1 class="section-title">Projects</h1>
+    <div class="card-grid">
+<article class="card project-card" id="faithaudit">
+  <h2 class="card-title"><a href="https://github.com/nazrul-99/counterfactual-citation-audit" target="_blank" rel="noopener noreferrer">FaithAudit: Do explainable deepfake detectors cite the region that caused their verdict?</a></h2>
+<p class="card-meta">2026 – present</p>  <p>Explainable forgery detectors are scored for plausibility or localization overlap, never for whether the cited region drives the verdict. I test that with counterfactuals that contain no synthetic pixels: every face-swap frame has a frame-aligned authentic twin, so the authentic region spliced back in is the counterfactual.
+</p>
+<p>An identity splice controls for the seam. The codebase is complete and self-tested, with control detectors of known faithfulness, Qwen2.5-VL and CNN+Grad-CAM detectors, and a pre-registered development/test split. First runs on FaceForensics++ are scheduled.
+</p>  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+  <p class="card-actions"><a class="btn-pill" href="https://github.com/nazrul-99/counterfactual-citation-audit" target="_blank" rel="noopener noreferrer">Code</a></p>
+</article><article class="card project-card" id="predictorprobe">
+  <h2 class="card-title"><a href="https://github.com/nazrul-99/jepa-spatial-probe" target="_blank" rel="noopener noreferrer">PredictorProbe: Is the I-JEPA predictor spatially grounded?</a></h2>
+<p class="card-meta">2026 – present</p>  <p>JEPA models train a predictor to infer a hidden region&#39;s representation from context and a positional query, then discard it. I query the frozen predictor at a patch position and rank its output against every patch&#39;s true representation, which gives localization accuracy with no labels or training.
+</p>
+<p>Two chance baselines, a positional-query ablation, and cross-image controls bound the result. I designed the protocol and built the codebase; the first real-weights run is complete. Undergraduates I supervise run the experiments and the web instrument as their Final Year Design Project.
+</p>  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+  <p class="card-actions"><a class="btn-pill" href="https://github.com/nazrul-99/jepa-spatial-probe" target="_blank" rel="noopener noreferrer">Code</a></p>
+</article><article class="card project-card" id="sql-injection">
+  <h2 class="card-title"><a href="https://github.com/nazrul-99/SQLi" target="_blank" rel="noopener noreferrer">Multiclass SQL Injection Detection with a 1D CNN–TinyBERT Model</a></h2>
+<p class="card-meta">2024 – 2025</p>  <p>I built a hybrid 1D CNN–TinyBERT classifier for multiclass SQL-injection payloads. Because payload classes are heavily imbalanced, I evaluated it with macro-F1 and PR-AUC under realistic adversarial scenarios, rather than accuracy alone.
+</p>
+  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+  <p class="card-actions"><a class="btn-pill" href="https://github.com/nazrul-99/SQLi" target="_blank" rel="noopener noreferrer">Code</a></p>
+</article><article class="card project-card" id="text-to-sql">
+  <h2 class="card-title"><a href="https://github.com/nazrul-99/Text-to-Sql" target="_blank" rel="noopener noreferrer">Lightweight LLM and Reinforcement Learning for Text-to-SQL Generation</a></h2>
+<p class="card-meta">2023</p>  <p>I built a TinyBERT-based text-to-SQL system on the Spider dataset. Adding reinforcement learning from execution feedback improved logical correctness without requiring a larger model.
+</p>
+  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+  <p class="card-actions"><a class="btn-pill" href="https://github.com/nazrul-99/Text-to-Sql" target="_blank" rel="noopener noreferrer">Code</a></p>
+</article>    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 Md. Nazrul Islam</p>
+  </div>
+</footer>
+</body>
+</html>

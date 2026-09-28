@@ -1,0 +1,5 @@
+User-agent: *
+# site.yml hide_cv_from_search: the CV stays out of search; the pages do not.
+Disallow: /cv.pdf
+
+Sitemap: https://nazrul-99.github.io/sitemap.xml

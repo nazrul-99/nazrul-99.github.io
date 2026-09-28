@@ -1,0 +1,584 @@
+/* ---------------------------------------------------------------------------
+   Md. Nazrul Islam — academic portfolio
+   Implements _source/DESIGN.md v2: the Wowchemy "ocean" look rebuilt by hand.
+   Two self-hosted families, alternating sections, timeline cards, pill buttons.
+   --------------------------------------------------------------------------- */
+
+/* --- Fonts: self-hosted variable Latin woff2 (licences alongside) -------- */
+
+@font-face {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/static/fonts/Roboto-latin.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: Montserrat;
+  font-style: normal;
+  font-weight: 500 700;
+  font-display: swap;
+  src: url("/static/fonts/Montserrat-latin.woff2") format("woff2");
+}
+
+/* --- Colour tokens -------------------------------------------------------- */
+
+:root {
+  --primary:      #1565c0;
+  --primary-tint: #eef4fb;
+  --body-bg:      #ffffff;
+  --section-alt:  #f7f7f7;
+  --card-bg:      #ffffff;
+  --text:         #2b2b2b;
+  --heading:      #34495e;
+  /* DESIGN.md's #6c757d measures 4.38:1 on --section-alt; one step darker
+     clears 4.5:1 on every background it sits on. */
+  --muted:        #687079;
+  --border:       #e3e6ea;
+  --shadow:       0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24);
+  --nav-shadow:   0 .125rem .25rem rgba(0, 0, 0, .11);
+
+  --sans:    Roboto, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  --display: Montserrat, var(--sans);
+  --nav-h:   70px;
+  --gutter:  95px;              /* 1 of 12 columns at 1140px */
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --primary:      #5b9be0;
+    --primary-tint: #1b2836;
+    --body-bg:      #1c1c1c;
+    --section-alt:  #242424;
+    --card-bg:      #2a2a2a;
+    --text:         #e0e0e0;
+    --heading:      #f0f0f0;
+    --muted:        #9aa3ad;
+    --border:       #3a3a3a;
+    --shadow:       0 1px 3px rgba(0, 0, 0, .5);
+    --nav-shadow:   0 .125rem .25rem rgba(0, 0, 0, .5);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --primary:      #5b9be0;
+  --primary-tint: #1b2836;
+  --body-bg:      #1c1c1c;
+  --section-alt:  #242424;
+  --card-bg:      #2a2a2a;
+  --text:         #e0e0e0;
+  --heading:      #f0f0f0;
+  --muted:        #9aa3ad;
+  --border:       #3a3a3a;
+  --shadow:       0 1px 3px rgba(0, 0, 0, .5);
+  --nav-shadow:   0 .125rem .25rem rgba(0, 0, 0, .5);
+  color-scheme: dark;
+}
+
+/* --- Base ---------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-padding-top: calc(var(--nav-h) + 12px); }
+
+body {
+  margin: 0;
+  background: var(--body-bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 1rem;                 /* 16px */
+  line-height: 1.65;
+  text-align: left;
+  -webkit-text-size-adjust: 100%;
+}
+
+p { margin: 0 0 1rem; }
+ul, ol { margin: 0; padding: 0; }
+img { max-width: 100%; height: auto; }
+pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+h1, h2, h3 {
+  margin: 0;
+  font-family: var(--display);
+  color: var(--heading);
+  line-height: 1.25;
+}
+
+.section-title {
+  font-size: 2.2rem;               /* 35px */
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+.label {                           /* "Interests" / "Education" */
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: .75rem;
+}
+
+.card-title { font-size: 1.25rem; font-weight: 700; margin-bottom: .25rem; }
+.card-subtitle { color: var(--muted); margin-bottom: .1rem; }
+.card-meta, .meta { font-size: .9rem; color: var(--muted); margin-bottom: .75rem; }
+
+/* --- Links, focus, motion ---------------------------------------------- */
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 150ms, background-color 150ms;
+}
+
+a:hover { text-decoration: underline; }
+
+nav a:hover, .btn-pill:hover, .brand:hover, .icon-links a:hover { text-decoration: none; }
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.skip { position: absolute; left: -9999px; }
+.skip:focus { position: static; display: inline-block; margin: .5rem 15px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition-duration: 0ms !important; }
+}
+
+/* --- Layout -------------------------------------------------------------- */
+
+.container {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.section { padding: 110px 0; background: var(--body-bg); }
+/* Backgrounds alternate over the sections that actually render, so a section
+   omitted for an empty list never leaves two like colours adjacent. */
+main > .section:nth-child(even) { background: var(--section-alt); }
+
+/* --- Navbar -------------------------------------------------------------- */
+
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  min-height: var(--nav-h);
+  background: var(--body-bg);
+  box-shadow: var(--nav-shadow);
+}
+
+.nav-inner {
+  min-height: var(--nav-h);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .25rem 1.5rem;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.brand {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--heading);
+}
+
+.navbar nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .25rem 1.25rem;
+}
+
+.navbar nav a {
+  font-family: var(--display);
+  font-weight: 500;
+  font-size: .95rem;
+  color: var(--heading);
+}
+
+.navbar nav a:hover, .navbar nav a.active { color: var(--primary); }
+
+/* The section currently in view (CSS :target, no scroll-spy). */
+body:has(#research:target) .nav-research,
+body:has(#publications:target) .nav-publications,
+body:has(#projects:target) .nav-projects,
+body:has(#teaching:target) .nav-teaching,
+body:has(#honors:target) .nav-honors,
+body:has(#service:target) .nav-service,
+body:has(#contact:target) .nav-contact { color: var(--primary); }
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  padding: .25rem;
+  border: 0;
+  background: transparent;
+  color: var(--heading);
+  cursor: pointer;
+  transition: color 150ms;
+}
+
+.theme-toggle:hover { color: var(--primary); }
+.theme-toggle .icon { width: 1.25rem; height: 1.25rem; }
+
+/* --- About --------------------------------------------------------------- */
+
+.about-grid {
+  display: grid;
+  grid-template-columns: 4fr 8fr;
+  gap: 2rem 30px;
+  align-items: start;
+}
+
+.about-side { text-align: center; }
+
+.portrait {
+  width: 270px;
+  height: 270px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 1.25rem;
+}
+
+.about-name {
+  font-family: var(--display);
+  font-size: 1.75rem;              /* 28px */
+  font-weight: 700;
+  color: var(--heading);
+  line-height: 1.25;
+  margin-bottom: .35rem;
+}
+
+.about-role { font-size: 1.1rem; color: var(--muted); margin-bottom: .1rem; }
+.about-org  { font-size: 1.1rem; color: var(--muted); margin-bottom: 1rem; }
+
+/* Short call-out under the institution (site.notice); omitted when empty. */
+.notice {
+  margin: 0 0 1rem;
+  padding: .75rem 1rem;
+  font-size: .95rem;
+  color: var(--text);
+  text-align: left;
+  background: var(--primary-tint);
+  border-left: 3px solid var(--primary);
+  border-radius: 4px;
+}
+
+.icon-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 1.1rem;
+}
+
+.icon-links a { color: var(--heading); display: inline-flex; }
+.icon-links a:hover { color: var(--primary); }
+
+/* Download CV pill, directly under the icon row (DESIGN.md v2 § About). */
+.about-cv { margin: 1rem 0 0; }
+.icon { width: 1.4rem; height: 1.4rem; vertical-align: -.25em; }
+
+.tagline { font-size: 1.05rem; }
+
+/* News strip under the bio: a shaded block so it reads apart from the
+   prose; date in --muted, one line each, no bullets. Deliberately not the
+   notice's tinted, left-ruled style, so the two blocks do not compete. */
+.news {
+  margin-top: 1.5rem;
+  padding: 1rem 1.25rem;
+  background: var(--section-alt);
+  border-radius: 6px;
+}
+.news .label { margin-bottom: .5rem; }
+.news-list { list-style: none; }
+.news-list li { display: flex; gap: .75rem; margin-bottom: .4rem; line-height: 1.5; }
+.news-date { flex: 0 0 auto; color: var(--muted); font-size: .9rem; padding-top: .1rem; }
+
+.about-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 30px;
+  margin-top: 1.5rem;
+}
+
+.bullets { list-style: disc; padding-left: 1.25rem; }
+.bullets li { margin-bottom: .25rem; }
+
+.edu { list-style: none; }
+.edu li { margin-bottom: 1rem; line-height: 1.5; }
+.edu .meta { display: inline; }
+
+/* --- Timeline (Research, Teaching) ---------------------------------------- */
+
+.timeline {
+  list-style: none;
+  position: relative;
+  padding-left: var(--gutter);
+}
+
+.timeline::before {                /* the vertical line in the gutter */
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--gutter) / 2 - 1px);
+  width: 2px;
+  background: var(--border);
+}
+
+.tl-item { position: relative; }
+.tl-item + .tl-item { margin-top: 2.5rem; }
+
+.tl-item::before {                 /* the dot, aligned with the card top */
+  content: "";
+  position: absolute;
+  top: 1.6rem;
+  left: calc(-1 * var(--gutter) / 2 - 7px);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 2px solid var(--body-bg);
+}
+
+main > .section:nth-child(even) .tl-item::before { border-color: var(--section-alt); }
+
+/* --- Cards --------------------------------------------------------------- */
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  box-shadow: var(--shadow);
+  padding: 1.5rem;
+}
+
+.card > :last-child { margin-bottom: 0; }
+
+/* Timeline entries carry no card chrome (DESIGN.md v2 § Research): the
+   gutter line, the dot and the Reported/Found block give the structure, so
+   the claim block is the only framed element on the page. Projects keep
+   their cards because a grid needs edges. */
+.timeline .card {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
+}
+.timeline .card-title { font-size: 1.4rem; }
+.tl-item + .tl-item { margin-top: 3.25rem; }
+/* Dot centred on the first title line: 1.4rem × 1.25 line box, 14px dot. */
+.tl-item::before { top: .45rem; }
+
+.card-actions { margin-top: 1rem; }
+
+/* Claim/found block, kept from v1 and now inside the card idiom. */
+.claim {
+  margin: 1rem 0 0;
+  padding: 1rem 1.25rem;
+  border-left: 3px solid var(--primary);
+  border-radius: 4px;
+  background: var(--primary-tint);
+}
+
+.claim div + div { margin-top: .75rem; }
+.claim dt { display: inline; font-weight: 700; color: var(--heading); }
+.claim dt::after { content: ". "; }
+.claim dd { display: inline; margin: 0; }
+
+/* --- Pill buttons -------------------------------------------------------- */
+
+.btn-pill {
+  display: inline-block;
+  padding: .25rem .75rem;
+  margin: .25rem .25rem 0 0;
+  font-size: .8rem;
+  line-height: 1.5;
+  color: var(--primary);
+  background: transparent;
+  border: 1px solid var(--primary);
+  border-radius: 10rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 150ms, background-color 150ms;
+}
+
+.btn-pill:hover { color: #fff; background: var(--primary); }
+
+/* --- Publications: compact list ------------------------------------------ */
+
+.pub + .pub { margin-top: 1.75rem; }
+
+.pub-authors { font-size: .95rem; color: var(--text); margin-bottom: .15rem; }
+.pub-authors strong { font-weight: 700; }
+
+.pub-title {
+  font-family: var(--sans);
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: .15rem;
+}
+
+.pub-title a, .card-title a { color: var(--heading); }
+.pub-title a:hover, .card-title a:hover { color: var(--primary); text-decoration: none; }
+
+.pub-venue { color: var(--muted); font-size: .95rem; margin-bottom: .25rem; }
+
+.pub-actions { display: flex; flex-wrap: wrap; align-items: flex-start; }
+
+.cite { display: inline-block; }
+.cite[open] { display: block; width: 100%; }
+.cite summary { list-style: none; }
+.cite summary::-webkit-details-marker { display: none; }
+.cite pre {
+  margin-top: .75rem;
+  padding: .75rem 1rem;
+  font-size: .8rem;
+  line-height: 1.5;
+  background: var(--section-alt);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text);
+}
+
+main > .section:nth-child(even) .cite pre { background: var(--card-bg); }
+
+.footnote { font-size: .9rem; color: var(--muted); margin-top: 1.5rem; }
+
+/* --- Projects: card grid ------------------------------------------------- */
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);   /* two projects: two columns at >=768px */
+  gap: 30px;
+  align-items: start;
+}
+
+.tags {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+  margin-top: .75rem;
+}
+
+.tag {
+  font-size: .75rem;
+  line-height: 1.5;
+  padding: .15rem .5rem;
+  color: var(--muted);
+  background: var(--section-alt);
+  border-radius: 4px;
+}
+
+main > .section:nth-child(even) .tag { background: var(--body-bg); }
+
+/* --- Contact and footer -------------------------------------------------- */
+
+.contact-list { list-style: none; }
+.contact-list li { display: flex; align-items: center; gap: .6rem; margin-bottom: .6rem; }
+.contact-list .icon { color: var(--heading); flex: none; }
+
+.site-footer {
+  padding: 1.5rem 0 2rem;
+  background: var(--body-bg);
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.site-footer p { margin: 0; }
+
+/* --- Responsive ---------------------------------------------------------- */
+
+@media (max-width: 767px) {
+  /* The wrapped navbar is ~135px tall on a phone. Sticky, it would cover a
+     third of the screen and the fixed scroll-padding above would leave every
+     anchored heading hidden under it, so it scrolls with the page instead. */
+  .navbar { position: static; }
+  html { scroll-padding-top: 12px; }
+  .section { padding: 60px 0; }
+  .about-grid, .about-cols, .card-grid { grid-template-columns: 1fr; }
+  /* News: date above the sentence, so the text keeps the full width. */
+  .news-list li { flex-direction: column; gap: 0; margin-bottom: .75rem; }
+  .about-side { margin-bottom: .5rem; }
+  .portrait { width: 200px; height: 200px; }
+  .section-title { font-size: 1.8rem; }
+  .timeline { padding-left: 0; }
+  .timeline::before, .tl-item::before { display: none; }
+  .nav-inner { justify-content: center; text-align: center; }
+  .navbar nav { justify-content: center; }
+}
+
+/* --- Print: two A4 pages --------------------------------------------------- */
+
+@media print {
+  :root, :root[data-theme="dark"] {
+    --primary: #000; --primary-tint: transparent; --body-bg: #fff;
+    --section-alt: #fff; --card-bg: #fff; --text: #000; --heading: #000;
+    --muted: #444; --border: #999; --shadow: none; --nav-shadow: none;
+  }
+
+  /* A4 declared so a US-locale browser does not default to Letter, which is
+     50pt shorter and would push the second page onto a third. */
+  @page { size: A4; margin: 1.2cm; }
+
+  /* 8.5pt: at 9pt the third research card straddled the page-1 break and,
+     being unbreakable, jumped to page 2 and pushed Contact onto a third. */
+  html { font-size: 8.5pt; }
+  body { line-height: 1.25; }
+
+  .navbar, .theme-toggle, .portrait, .btn-pill, .cite, .skip, .notice, .news,
+  .icon-links, .timeline::before, .tl-item::before { display: none; }
+
+  /* Two A4 pages: the earlier-work cards and the project grid are omitted
+     from print because cv.pdf carries both in full; the printed homepage
+     keeps the argument (threads + claim/found), publications, teaching
+     and contact. */
+  #research .tl-item:nth-child(n+4), #projects, #honors, #service { display: none; }
+
+  .section { padding: 4pt 0; }
+  .section-title { font-size: 13pt; margin-bottom: 3pt; break-after: avoid; }
+  .about-grid { grid-template-columns: 1fr; gap: 0; }
+  .about-side { text-align: left; }
+  .about-name { font-size: 14pt; }
+  .about-cols { margin-top: 6pt; }
+
+  .card {
+    border: 0;
+    border-bottom: .5pt solid var(--border);
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 0 3pt;
+    break-inside: avoid;
+  }
+
+  .timeline { padding-left: 0; }
+  .tl-item + .tl-item { margin-top: 4pt; }
+  .site-footer { padding: 4pt 0 0; }
+  .card-grid { grid-template-columns: 1fr 1fr; gap: 8pt 18pt; }
+  .card-title { font-size: 11pt; }
+  .card-meta, .meta, .pub-venue { font-size: 8.5pt; margin-bottom: 2pt; }
+  p { margin-bottom: 2pt; }
+
+  .claim {                         /* keeps its left rule only */
+    background: none;
+    border-radius: 0;
+    border-left: 1.5pt solid #000;
+    padding: 0 0 0 8pt;
+    margin-top: 4pt;
+  }
+
+  .pub + .pub { margin-top: 5pt; }
+  .pub { break-inside: avoid; }
+  .tag { border: .5pt solid #999; background: none; }
+  a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #444; }
+  .pub-title a::after, .card-title a::after { content: none; }
+}

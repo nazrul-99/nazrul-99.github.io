@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% set nav_current = "projects" %}
+{% set home = "/" %}
+{% block title %}Projects — {{ site.name }}{% endblock %}
+{% block content %}
+<section id="projects" class="section">
+  <div class="container">
+    <h1 class="section-title">Projects</h1>
+    <div class="card-grid">
+      {% for project in projects %}
+      {% set full = true %}
+      {% include "_project_card.html" %}
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

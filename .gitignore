@@ -1,0 +1,26 @@
+# Planning and working files: kept on disk, never in git. The repo contains
+# only what the site serves plus scripts, templates, content and static
+# assets. validate.py fails and deploy.sh refuses if any of these is tracked
+# or staged.
+CLAUDE.md
+DESIGN.md
+DESIGN-v1.md
+PAPERS.md
+WEBSITE-PLAN.md
+PROGRESS.md
+MAINTENANCE.md
+_source/
+build/
+cv-full.pdf
+.claude/
+*.docx
+*_draft*
+*private*
+
+# Local Python environment
+.venv
+__pycache__/
+*.pyc
+
+# OS cruft
+.DS_Store

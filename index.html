@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Md. Nazrul Islam — Vision-Language Models and Bangla NLP</title>
+<link rel="canonical" href="https://nazrul-99.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Md. Nazrul Islam">
+<meta property="og:title" content="Md. Nazrul Islam — Vision-Language Models and Bangla NLP">
+<meta name="description" content="I&#39;m a lecturer at Southeast University, Dhaka. I study where vision-language models and low-resource language models fail, and whether the instruments we use to judge them can be trusted. Rather than…">
+<meta property="og:description" content="I&#39;m a lecturer at Southeast University, Dhaka. I study where vision-language models and low-resource language models fail, and whether the instruments we use to judge them can be trusted. Rather than…">
+<meta property="og:url" content="https://nazrul-99.github.io/">
+<meta property="og:locale" content="en_US">
+<link rel="icon" href="/static/favicon.png" type="image/png">
+<meta property="og:image" content="https://nazrul-99.github.io/static/portrait.jpg">
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": "https://nazrul-99.github.io/#person",
+      "name": "Md. Nazrul Islam",
+      "url": "https://nazrul-99.github.io/",
+      "alternateName": [
+        "Md Nazrul Islam",
+        "Nazrul Islam"
+      ],
+      "sameAs": [
+        "https://orcid.org/0000-0002-6385-5095",
+        "https://scholar.google.com/citations?user=qr34ziEAAAAJ",
+        "https://github.com/nazrul-99",
+        "https://www.linkedin.com/in/md-nazrul-islam-nz/"
+      ],
+      "jobTitle": "Lecturer, CSE",
+      "affiliation": {
+        "@type": "Organization",
+        "name": "Southeast University, Dhaka",
+        "url": "https://cse.seu.edu.bd/employee/profile/MDAzMDA4"
+      },
+      "image": "https://nazrul-99.github.io/static/portrait.jpg",
+      "knowsAbout": [
+        "Vision-language models",
+        "Spatial and geometric reasoning",
+        "Benchmark validity",
+        "Explanation faithfulness",
+        "Robustness in low-resource NLP"
+      ],
+      "alumniOf": [
+        {
+          "@type": "CollegeOrUniversity",
+          "name": "Khulna University of Engineering & Technology (KUET)"
+        }
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://nazrul-99.github.io/#website",
+      "url": "https://nazrul-99.github.io/",
+      "name": "Md. Nazrul Islam",
+      "publisher": {
+        "@id": "https://nazrul-99.github.io/#person"
+      }
+    }
+  ]
+}</script>
+<script>
+/* Theme toggle -- the one JS allowance (DESIGN.md v2). Sets data-theme on
+   <html>, remembers the choice, defaults to prefers-color-scheme. Runs before
+   first paint so a stored choice never flashes. With JS off the button stays
+   hidden and the OS setting applies. */
+(function () {
+  var root = document.documentElement, key = "theme", stored = null;
+  var osDark = matchMedia("(prefers-color-scheme: dark)");
+  try { stored = localStorage.getItem(key); } catch (e) {}
+  if (stored === "dark" || stored === "light") root.setAttribute("data-theme", stored);
+  function current() { return root.getAttribute("data-theme") || (osDark.matches ? "dark" : "light"); }
+  document.addEventListener("DOMContentLoaded", function () {
+    var btn = document.getElementById("theme-toggle");
+    if (!btn) return;
+    function sync() { btn.setAttribute("aria-pressed", String(current() === "dark")); }
+    btn.hidden = false;
+    sync();
+    osDark.addEventListener("change", sync);
+    btn.addEventListener("click", function () {
+      root.setAttribute("data-theme", current() === "dark" ? "light" : "dark");
+      try { localStorage.setItem(key, root.getAttribute("data-theme")); } catch (e) {}
+      sync();
+    });
+  });
+})();
+</script>
+<link rel="stylesheet" href="/static/style.css?v=c84f0a47df">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="navbar">
+  <div class="container nav-inner">
+    <a class="brand" href="#top">Md. Nazrul Islam</a>
+    <nav aria-label="Primary">
+      <a class="nav-research" href="#research">Research</a>
+      <a class="nav-publications" href="#publications">Publications</a>
+      <a class="nav-projects" href="#projects">Projects</a>
+<a class="nav-teaching" href="#teaching">Teaching</a><a class="nav-honors" href="#honors">Honors</a><a class="nav-service" href="#service">Service</a>      <a class="nav-contact" href="#contact">Contact</a>
+      <a href="/cv.pdf" rel="nofollow">CV</a>
+      <button id="theme-toggle" type="button" class="theme-toggle" hidden aria-pressed="false" aria-label="Toggle dark mode"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></svg></button>
+    </nav>
+  </div>
+</header>
+<main id="main">
+
+<section id="top" class="section about">
+  <div class="container about-grid">
+    <div class="about-side">
+      <img class="portrait" src="/static/portrait.jpg" width="270" height="270" alt="">
+      <p class="about-name">Md. Nazrul Islam</p>
+<p class="about-role">Lecturer, CSE</p>      <p class="about-org"><a href="https://cse.seu.edu.bd/employee/profile/MDAzMDA4" target="_blank" rel="noopener noreferrer me">Southeast University, Dhaka</a></p>
+      <p class="notice">Applying to PhD programs. Open to conversations with groups working on vision-language models, evaluation methodology, or low-resource NLP.</p>
+      <ul class="icon-links" aria-label="Profiles">
+        <li><a href="mailto:&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;" aria-label="Email"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="2"/></svg></a></li>
+<li><a href="https://scholar.google.com/citations?user=qr34ziEAAAAJ" target="_blank" rel="noopener noreferrer" aria-label="Google Scholar"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3z" fill="currentColor"/><path d="M5 13.18V17c0 1.66 3.13 3 7 3s7-1.34 7-3v-3.82l-7 3.82-7-3.82z" fill="currentColor"/></svg></a></li><li><a href="https://github.com/nazrul-99" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></a></li><li><a href="https://www.linkedin.com/in/md-nazrul-islam-nz/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a></li><li><a href="https://orcid.org/0000-0002-6385-5095" target="_blank" rel="noopener noreferrer" aria-label="ORCID"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.3" cy="7.4" r="1.2" fill="currentColor"/><path d="M8.3 10v7.4" stroke="currentColor" stroke-width="2"/><path d="M11.6 10h2.1a3.7 3.7 0 0 1 0 7.4h-2.1z" fill="none" stroke="currentColor" stroke-width="1.9"/></svg></a></li>      </ul>
+      <p class="about-cv"><a class="btn-pill" href="/cv.pdf" rel="nofollow" download>Download CV</a></p>
+    </div>
+    <div class="about-main">
+      <h1 class="section-title">Biography</h1>
+      <p class="bio">I&#39;m a lecturer at Southeast University, Dhaka. I study where vision-language models and low-resource language models fail, and whether the instruments we use to judge them can be trusted. Rather than start from a fix, I locate the failure first, because which fix works depends on what actually failed. More than once the published diagnosis has not held up under a control.</p>
+      <div class="about-cols">
+        <div>
+          <h2 class="label">Interests</h2>
+          <ul class="bullets">
+<li>Vision-language models</li><li>Spatial and geometric reasoning</li><li>Benchmark validity</li><li>Explanation faithfulness</li><li>Robustness in low-resource NLP</li>          </ul>
+        </div>
+        <div>
+          <h2 class="label">Education</h2>
+          <ul class="edu">
+            <li>
+              <strong>B.Sc. in Computer Science &amp; Engineering</strong><br>
+              Khulna University of Engineering &amp; Technology (KUET), Khulna, Bangladesh<br>
+              <span class="meta">January 2018 – February 2023</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="research" class="section">
+  <div class="container">
+    <h1 class="section-title">Research</h1>
+    <ol class="timeline">
+      <li class="tl-item">
+        <article class="card" id="geometry-in-the-token">
+          <h2 class="card-title"><a href="https://drive.google.com/file/d/1ELj4VhWy8dj_DHJAQdN-i3FPRE4wxLzI/view?usp=sharing" target="_blank" rel="noopener noreferrer">Geometry in the token, not in the pipeline</a></h2>
+          <p class="card-meta">2027 · under review</p>
+          <p class="blurb">A VLM answers &#34;is the chair in front of the sofa&#34; from a grid of 2D patch features that carry no depth, so it answers from word statistics. We lift each patch to a metric 3D point and cluster the points into voxel tokens with a soft assignment. The question-answering loss trains the depth, the camera, and the grouping together.
+</p>
+          <dl class="claim">
+            <div><dt>Reported</dt><dd>Spatial reasoning improves with more spatial QA data, or with detection and segmentation estimators added at inference.
+</dd></div>
+            <div><dt>Found</dt><dd>Language loss alone learns a text shortcut: 41.5% on binary relations, below chance. Moving geometry into the tokenizer reaches 81.33% on SpatialRGPT-Bench at 1B parameters in 3.6 GB, with no region proposal at inference.
+</dd></div>
+          </dl>
+          <p class="card-actions">
+<a class="btn-pill" href="#geotoken">Paper</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card" id="what-a-score-identifies">
+          <h2 class="card-title"><a href="https://drive.google.com/file/d/1UDr-B_FffHD4PoJ-6FCMyF1hHBAY2T0h/view?usp=drive_link" target="_blank" rel="noopener noreferrer">What a benchmark score identifies</a></h2>
+          <p class="card-meta">2026 · under review</p>
+          <p class="blurb">MMVP&#39;s 6% for LLaVA-1.5 fits a model that cannot see. It fits equally a model that sees fine but always picks option (a). A single score is consistent with both readings until a control separates them. I build the cheapest control that does, then report what the published number was actually tracking.
+</p>
+          <dl class="claim">
+            <div><dt>Reported</dt><dd>LLaVA-1.5 scores 6.0% on MMVP, below the 25% random floor. The literature reads this as a perceptual deficit inherited from CLIP.
+</dd></div>
+            <div><dt>Found</dt><dd>93% of its failures pick the same slot whatever the image shows. On answers that survive reversal its perceptual accuracy is 70, indistinguishable from the model scoring 33.3.
+</dd></div>
+          </dl>
+          <p class="card-actions">
+<a class="btn-pill" href="#mmvp-position-bias">Paper</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card" id="what-a-low-resource-model-keys-on">
+          <h2 class="card-title"><a href="https://drive.google.com/file/d/1UVrMuyEz3BboiWVay6Fi1jTbIHSLEYx5/view?usp=sharing" target="_blank" rel="noopener noreferrer">What a low-resource model is keying on</a></h2>
+          <p class="card-meta">In preparation, 2026</p>
+          <p class="blurb">Bangla encoders are evaluated on clean text. Bangla outside curated corpora is not clean. Rather than report that noise hurts, I control the comparison until the damage can be attributed to something, then test whether that attribution predicts which defense works.
+</p>
+          <dl class="claim">
+            <div><dt>Reported</dt><dd>Character noise degrades Bangla encoders because it fragments subword tokenization.
+</dd></div>
+            <div><dt>Found</dt><dd>With coverage held fixed, fragmentation predicts almost none of the loss (r = 0.05). The model is anchored to memorized entity spellings by 9.3 to 1 over context. Failing to find the entity at all accounts for 86% of the damage. Character augmentation recovers 14.3 F1, whereas gradient-based adversarial training (FGSM) recovers nothing outside seed noise.
+</dd></div>
+          </dl>
+          <p class="card-actions">
+<a class="btn-pill" href="#bangla-ner-orthography">Paper</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title"><a href="https://github.com/nazrul-99/counterfactual-citation-audit" target="_blank" rel="noopener noreferrer">FaithAudit: Do explainable deepfake detectors cite the region that caused their verdict?</a></h2>
+          <p class="card-meta">2026 – present · PyTorch</p>
+          <p class="blurb">Explainable forgery detectors are scored for plausibility or localization overlap, never for whether the cited region drives the verdict. I test that with counterfactuals that contain no synthetic pixels: every face-swap frame has a frame-aligned authentic twin, so the authentic region spliced back in is the counterfactual. An identity splice controls for the seam. The codebase is complete and self-tested; first runs on FaceForensics++ are scheduled.</p>
+          <p class="card-actions">
+<a class="btn-pill" href="https://github.com/nazrul-99/counterfactual-citation-audit" target="_blank" rel="noopener noreferrer">Code</a><a class="btn-pill" href="#faithaudit">Project</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title"><a href="https://github.com/nazrul-99/jepa-spatial-probe" target="_blank" rel="noopener noreferrer">PredictorProbe: Is the I-JEPA predictor spatially grounded?</a></h2>
+          <p class="card-meta">2026 – present · PyTorch</p>
+          <p class="blurb">JEPA models train a predictor to infer a hidden region&#39;s representation from context and a positional query, then discard it. Whether it uses the position it is asked about has not been quantified. I query the frozen predictor at a patch position and rank its output against every patch&#39;s true representation, which gives localization accuracy with no labels or training. The first real-weights run is complete.</p>
+          <p class="card-actions">
+<a class="btn-pill" href="https://github.com/nazrul-99/jepa-spatial-probe" target="_blank" rel="noopener noreferrer">Code</a><a class="btn-pill" href="#predictorprobe">Project</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title"><a href="https://github.com/nazrul-99/Bangla-Ner-Adversial-Attack" target="_blank" rel="noopener noreferrer">Adversarial Robustness in Low-Resource NLP (Bangla)</a></h2>
+          <p class="card-meta">2025 · PyTorch</p>
+          <p class="blurb">I ran character-, word-, and noise-level attacks on Bangla language models to measure which perturbations break which encoders. That work is the groundwork for the entity-orthography paper above.</p>
+          <p class="card-actions">
+<a class="btn-pill" href="https://github.com/nazrul-99/Bangla-Ner-Adversial-Attack" target="_blank" rel="noopener noreferrer">Code</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title"><a href="#sql-injection">Multiclass SQL Injection Detection with a 1D CNN–TinyBERT Model</a></h2>
+          <p class="card-meta">2024–2025 · PyTorch</p>
+          <p class="blurb">I built a 1D CNN–TinyBERT classifier for multiclass SQL-injection payloads. Because the classes are heavily imbalanced, I evaluated it with macro-F1 and PR-AUC under realistic adversarial scenarios.</p>
+          <p class="card-actions">
+<a class="btn-pill" href="#sql-injection">Project</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title"><a href="#text-to-sql">Lightweight LLM and Reinforcement Learning for Text-to-SQL Generation</a></h2>
+          <p class="card-meta">2023 · PyTorch</p>
+          <p class="blurb">I built a TinyBERT text-to-SQL system on Spider. Reinforcement learning from execution feedback improved logical correctness without a larger model.</p>
+          <p class="card-actions">
+<a class="btn-pill" href="#text-to-sql">Project</a>          </p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Undergraduate thesis: BCI-Oriented EEG Signal Analysis and Classification</h2>
+          <p class="card-meta">2022–2023 · TensorFlow</p>
+          <p class="blurb">I built end-to-end ERP detection on BCI Competition data, where cross-subject generalization was the bottleneck. The pipeline used FIR/notch/CAR preprocessing, PSD/WPD/STFT features, and NCA and Relief-F selection. The CNN reached 92% cross-subject accuracy. Ablations attributed most of the gain to preprocessing and feature selection rather than the classifier.</p>
+        </article>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="publications" class="section">
+  <div class="container">
+    <h1 class="section-title">Publications</h1>
+    <div class="pub-list">
+<article class="pub" id="geotoken">
+  <p class="pub-authors">Md. Asiful Islam Miah*, <strong>Md. Nazrul Islam</strong>*, S M Taslim Uddin Raju, Hamdi Altaheri (2027)</p>
+  <h2 class="pub-title"><a href="https://drive.google.com/file/d/1ELj4VhWy8dj_DHJAQdN-i3FPRE4wxLzI/view?usp=sharing" target="_blank" rel="noopener noreferrer">GeoToken: Differentiable 3D Voxel Tokenization for Geometric Spatial Reasoning in VLMs</a></h2>
+  <p class="pub-venue">Under review</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/file/d/1ELj4VhWy8dj_DHJAQdN-i3FPRE4wxLzI/view?usp=sharing" target="_blank" rel="noopener noreferrer">PDF</a>  </div>
+</article><article class="pub" id="mmvp-position-bias">
+  <p class="pub-authors"><strong>Md. Nazrul Islam</strong>, Md. Habibullah Belali (2026)</p>
+  <h2 class="pub-title"><a href="https://drive.google.com/file/d/1UDr-B_FffHD4PoJ-6FCMyF1hHBAY2T0h/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Low Scores Without a Perceptual Deficit: Separating Answer-Position Bias from Perception on MMVP</a></h2>
+  <p class="pub-venue">Under review</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/file/d/1UDr-B_FffHD4PoJ-6FCMyF1hHBAY2T0h/view?usp=drive_link" target="_blank" rel="noopener noreferrer">PDF</a>  </div>
+</article><article class="pub" id="bangla-ner-orthography">
+  <p class="pub-authors"><strong>Md. Nazrul Islam</strong> (2026)</p>
+  <h2 class="pub-title"><a href="https://drive.google.com/file/d/1UVrMuyEz3BboiWVay6Fi1jTbIHSLEYx5/view?usp=sharing" target="_blank" rel="noopener noreferrer">Character Noise Makes Bangla NER Miss Entities, Not Mislabel Them</a></h2>
+  <p class="pub-venue">In preparation, ACL Rolling Review, October 2026</p>
+  <div class="pub-actions">
+<a class="btn-pill" href="https://drive.google.com/file/d/1UVrMuyEz3BboiWVay6Fi1jTbIHSLEYx5/view?usp=sharing" target="_blank" rel="noopener noreferrer">PDF</a>  </div>
+</article><article class="pub" id="bnlp-survey">
+  <p class="pub-authors">Ovishake Sen, Mohtasim Fuad, <strong>Md. Nazrul Islam</strong>, Jakaria Rabbi, Mehedi Masud, Md. Kamrul Hasan, Md. Abdul Awal, Awal Ahmed Fime, Md. Tahmid Hasan Fuad, Delowar Sikder, Md. Akil Raihan Iftee (2022)</p>
+  <h2 class="pub-title"><a href="https://doi.org/10.1109/ACCESS.2022.3165563" target="_blank" rel="noopener noreferrer">Bangla Natural Language Processing: A Comprehensive Analysis of Classical, Machine Learning, and Deep Learning-Based Methods</a></h2>
+  <p class="pub-venue"><em>IEEE Access, vol. 10, pp. 38999–39044</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@article{sen2022bangla,
+  author  = {Sen, Ovishake and Fuad, Mohtasim and Islam, Md. Nazrul and Rabbi, Jakaria and Masud, Mehedi and Hasan, Md. Kamrul and Awal, Md. Abdul and Fime, Awal Ahmed and Fuad, Md. Tahmid Hasan and Sikder, Delowar and Iftee, Md. Akil Raihan},
+  title   = {Bangla Natural Language Processing: A Comprehensive Analysis of Classical, Machine Learning, and Deep Learning-Based Methods},
+  journal = {IEEE Access},
+  volume  = {10},
+  pages   = {38999--39044},
+  year    = {2022},
+  doi     = {10.1109/ACCESS.2022.3165563}
+}
+</pre>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ACCESS.2022.3165563" target="_blank" rel="noopener noreferrer">DOI</a>  </div>
+</article><article class="pub" id="blood-donor-forecasting">
+  <p class="pub-authors">Towsif Ahamed, <strong>Md. Nazrul Islam</strong>, S. M. Taslim Uddin Raju, M. M. A. Hashem (2022)</p>
+  <h2 class="pub-title"><a href="https://doi.org/10.1109/ICCIT57492.2022.10054710" target="_blank" rel="noopener noreferrer">Blood Donor Arrival Forecasting Using Regression Model and Analysis of Donor Behavioural Pattern</a></h2>
+  <p class="pub-venue"><em>ICCIT 2022, pp. 897–902</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@inproceedings{ahamed2022blood,
+  author    = {Ahamed, Towsif and Islam, Md. Nazrul and Raju, S. M. Taslim Uddin and Hashem, M. M. A.},
+  title     = {Blood Donor Arrival Forecasting Using Regression Model and Analysis of Donor Behavioural Pattern},
+  booktitle = {2022 25th International Conference on Computer and Information Technology (ICCIT)},
+  pages     = {897--902},
+  year      = {2022},
+  doi       = {10.1109/ICCIT57492.2022.10054710}
+}
+</pre>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ICCIT57492.2022.10054710" target="_blank" rel="noopener noreferrer">DOI</a>  </div>
+</article><article class="pub" id="face-recognition-survey">
+  <p class="pub-authors">Md. Tahmid Hasan Fuad, Awal Ahmed Fime, Delowar Sikder, Md. Akil Raihan Iftee, Jakaria Rabbi, Mabrook S. Al-Rakhami, Abdu Gumaei, Ovishake Sen, Mohtasim Fuad, <strong>Md. Nazrul Islam</strong> (2021)</p>
+  <h2 class="pub-title"><a href="https://doi.org/10.1109/ACCESS.2021.3096136" target="_blank" rel="noopener noreferrer">Recent Advances in Deep Learning Techniques for Face Recognition</a></h2>
+  <p class="pub-venue"><em>IEEE Access, vol. 9, pp. 99112–99142</em></p>
+  <div class="pub-actions">
+    <details class="cite">
+      <summary class="btn-pill">Cite</summary>
+      <pre>@article{fuad2021recent,
+  author  = {Fuad, Md. Tahmid Hasan and Fime, Awal Ahmed and Sikder, Delowar and Iftee, Md. Akil Raihan and Rabbi, Jakaria and Al-Rakhami, Mabrook S. and Gumaei, Abdu and Sen, Ovishake and Fuad, Mohtasim and Islam, Md. Nazrul},
+  title   = {Recent Advances in Deep Learning Techniques for Face Recognition},
+  journal = {IEEE Access},
+  volume  = {9},
+  pages   = {99112--99142},
+  year    = {2021},
+  doi     = {10.1109/ACCESS.2021.3096136}
+}
+</pre>
+    </details>
+<a class="btn-pill" href="https://doi.org/10.1109/ACCESS.2021.3096136" target="_blank" rel="noopener noreferrer">DOI</a>  </div>
+</article>    </div>
+<p class="footnote">* Equal contribution.</p>  </div>
+</section>
+
+<section id="projects" class="section">
+  <div class="container">
+    <h1 class="section-title">Projects</h1>
+    <div class="card-grid">
+<article class="card project-card" id="faithaudit">
+  <h2 class="card-title"><a href="https://github.com/nazrul-99/counterfactual-citation-audit" target="_blank" rel="noopener noreferrer">FaithAudit: Do explainable deepfake detectors cite the region that caused their verdict?</a></h2>
+<p class="card-meta">2026 – present</p>  <p>Explainable forgery detectors are scored for plausibility or localization overlap, never for whether the cited region drives the verdict. I test that with counterfactuals that contain no synthetic pixels: every face-swap frame has a frame-aligned authentic twin, so the authentic region spliced back in is the counterfactual.
+</p>
+  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+  <p class="card-actions"><a class="btn-pill" href="https://github.com/nazrul-99/counterfactual-citation-audit" target="_blank" rel="noopener noreferrer">Code</a></p>
+</article><article class="card project-card" id="predictorprobe">
+  <h2 class="card-title"><a href="https://github.com/nazrul-99/jepa-spatial-probe" target="_blank" rel="noopener noreferrer">PredictorProbe: Is the I-JEPA predictor spatially grounded?</a></h2>
+<p class="card-meta">2026 – present</p>  <p>JEPA models train a predictor to infer a hidden region&#39;s representation from context and a positional query, then discard it. I query the frozen predictor at a patch position and rank its output against every patch&#39;s true representation, which gives localization accuracy with no labels or training.
+</p>
+  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+  <p class="card-actions"><a class="btn-pill" href="https://github.com/nazrul-99/jepa-spatial-probe" target="_blank" rel="noopener noreferrer">Code</a></p>
+</article><article class="card project-card" id="sql-injection">
+  <h2 class="card-title"><a href="https://github.com/nazrul-99/SQLi" target="_blank" rel="noopener noreferrer">Multiclass SQL Injection Detection with a 1D CNN–TinyBERT Model</a></h2>
+<p class="card-meta">2024 – 2025</p>  <p>I built a hybrid 1D CNN–TinyBERT classifier for multiclass SQL-injection payloads. Because payload classes are heavily imbalanced, I evaluated it with macro-F1 and PR-AUC under realistic adversarial scenarios, rather than accuracy alone.
+</p>
+  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+  <p class="card-actions"><a class="btn-pill" href="https://github.com/nazrul-99/SQLi" target="_blank" rel="noopener noreferrer">Code</a></p>
+</article><article class="card project-card" id="text-to-sql">
+  <h2 class="card-title"><a href="https://github.com/nazrul-99/Text-to-Sql" target="_blank" rel="noopener noreferrer">Lightweight LLM and Reinforcement Learning for Text-to-SQL Generation</a></h2>
+<p class="card-meta">2023</p>  <p>I built a TinyBERT-based text-to-SQL system on the Spider dataset. Adding reinforcement learning from execution feedback improved logical correctness without requiring a larger model.
+</p>
+  <p class="tags"><span class="tag">PyTorch</span><span class="tag">Python</span></p>
+  <p class="card-actions"><a class="btn-pill" href="https://github.com/nazrul-99/Text-to-Sql" target="_blank" rel="noopener noreferrer">Code</a></p>
+</article>    </div>
+  </div>
+</section>
+
+<section id="teaching" class="section">
+  <div class="container">
+    <h1 class="section-title">Teaching</h1>
+    <ol class="timeline">
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Lecturer</h2>
+          <p class="card-subtitle">Dept. of CSE, Southeast University, Dhaka, Bangladesh</p>
+          <p class="card-meta">February 2024 – Present</p>
+          <ul class="bullets">
+<li>Teaching: programming, numerical methods, and introductory AI</li><li>Supervise six undergraduates on Final Year Design Projects in machine learning and NLP, including PredictorProbe.</li>          </ul>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Lecturer</h2>
+          <p class="card-subtitle">Dept. of CSE, Uttara University, Dhaka, Bangladesh</p>
+          <p class="card-meta">July 2023 – February 2024</p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Part-time Lecturer</h2>
+          <p class="card-subtitle">Dept. of CSE, Central University of Science and Technology, Dhaka, Bangladesh</p>
+          <p class="card-meta">March 2023 – July 2023</p>
+        </article>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="honors" class="section">
+  <div class="container">
+    <h1 class="section-title">Honors</h1>
+    <ol class="timeline">
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Ranked 10th globally and 1st among Bangladeshi teams, Indian Rover Design Challenge (IRDC) 2020</h2>
+<p class="card-subtitle">Mars Society South Asia — Team Durbar, KUET</p>          <p class="card-meta">2020</p>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Dean&#39;s Award</h2>
+<p class="card-subtitle">Faculty of Electrical and Electronic Engineering, KUET</p>          <p class="card-meta">AY 2018–2019 and 2019–2020</p>
+        </article>
+      </li>
+    </ol>
+  </div>
+</section>
+<section id="service" class="section">
+  <div class="container">
+    <h1 class="section-title">Service</h1>
+    <ol class="timeline">
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Vice President</h2>
+<p class="card-subtitle">Hardware Acceleration Club of KUET (HACK)</p>          <p class="card-meta">March 2022 – March 2023</p>
+          <ul class="bullets">
+<li>Ran the club&#39;s activities and events.</li><li>Led workshops on commonly used microcontrollers.</li>          </ul>
+        </article>
+      </li>
+      <li class="tl-item">
+        <article class="card">
+          <h2 class="card-title">Programmer, Software Sub-Team</h2>
+<p class="card-subtitle">KUET Mars Rover (Team Durbar)</p>          <p class="card-meta">March 2019 – December 2022</p>
+          <ul class="bullets">
+<li>Senior Programmer: rover navigation and computer vision, including a lightweight CNN for object recognition.</li><li>Junior Programmer: worked with Arduino and Raspberry Pi to implement key rover systems.</li>          </ul>
+        </article>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <div class="container">
+    <h1 class="section-title">Contact</h1>
+    <ul class="contact-list">
+      <li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5" fill="none" stroke="currentColor" stroke-width="2"/></svg> <a href="mailto:&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;">&#110;&#97;&#122;&#114;&#117;&#108;&#46;&#105;&#115;&#108;&#97;&#109;&#46;&#99;&#115;&#101;&#46;&#98;&#100;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#99;&#111;&#109;</a></li>
+<li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3z" fill="currentColor"/><path d="M5 13.18V17c0 1.66 3.13 3 7 3s7-1.34 7-3v-3.82l-7 3.82-7-3.82z" fill="currentColor"/></svg> <a href="https://scholar.google.com/citations?user=qr34ziEAAAAJ" target="_blank" rel="noopener noreferrer">Google Scholar</a></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg> <a href="https://github.com/nazrul-99" target="_blank" rel="noopener noreferrer">GitHub</a></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> <a href="https://www.linkedin.com/in/md-nazrul-islam-nz/" target="_blank" rel="noopener noreferrer">LinkedIn</a></li><li><svg class="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="8.3" cy="7.4" r="1.2" fill="currentColor"/><path d="M8.3 10v7.4" stroke="currentColor" stroke-width="2"/><path d="M11.6 10h2.1a3.7 3.7 0 0 1 0 7.4h-2.1z" fill="none" stroke="currentColor" stroke-width="1.9"/></svg> <a href="https://orcid.org/0000-0002-6385-5095" target="_blank" rel="noopener noreferrer">ORCID</a></li>    </ul>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 Md. Nazrul Islam</p>
+  </div>
+</footer>
+</body>
+</html>

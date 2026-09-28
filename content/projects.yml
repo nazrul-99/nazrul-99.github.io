@@ -1,0 +1,88 @@
+# Example (copy this block for a new project):
+#
+# - id: "short-slug"                      # anchor on projects.html; referenced by research.yml `project:`
+#   title: "Example Project"
+#   pitch: "One sentence: what it does and why it's interesting."
+#   description: >                        # optional; shown on projects.html only
+#     A few sentences on the problem, the approach, and any technical
+#     decision worth calling out.
+#   role: "Sole developer"                # optional
+#   stack: ["Python", "PyTorch"]
+#   period: "2025"
+#   repo: "https://github.com/user/repo"  # renders as the Code pill; "" if none
+#   demo: ""
+#   featured: true
+#
+# Wording below follows the CV (v3, September 2026). The two ongoing research
+# projects sit first; each is also an entry in research_threads.yml `earlier`,
+# linked here through `project:`. Empty `role` means the CV states none.
+
+- id: "faithaudit"
+  title: "FaithAudit: Do explainable deepfake detectors cite the region that caused their verdict?"
+  pitch: >
+    Explainable forgery detectors are scored for plausibility or localization
+    overlap, never for whether the cited region drives the verdict. I test
+    that with counterfactuals that contain no synthetic pixels: every
+    face-swap frame has a frame-aligned authentic twin, so the authentic
+    region spliced back in is the counterfactual.
+  description: >
+    An identity splice controls for the seam. The codebase is complete and
+    self-tested, with control detectors of known faithfulness, Qwen2.5-VL and
+    CNN+Grad-CAM detectors, and a pre-registered development/test split.
+    First runs on FaceForensics++ are scheduled.
+  role: ""
+  stack: ["PyTorch", "Python"]
+  period: "2026 – present"
+  repo: "https://github.com/nazrul-99/counterfactual-citation-audit"
+  demo: ""
+  featured: true
+
+- id: "predictorprobe"
+  title: "PredictorProbe: Is the I-JEPA predictor spatially grounded?"
+  pitch: >
+    JEPA models train a predictor to infer a hidden region's representation
+    from context and a positional query, then discard it. I query the frozen
+    predictor at a patch position and rank its output against every patch's
+    true representation, which gives localization accuracy with no labels or
+    training.
+  description: >
+    Two chance baselines, a positional-query ablation, and cross-image
+    controls bound the result. I designed the protocol and built the
+    codebase; the first real-weights run is complete. Undergraduates I
+    supervise run the experiments and the web instrument as their Final Year
+    Design Project.
+  role: "Protocol design and codebase; supervising the experiments"
+  stack: ["PyTorch", "Python"]
+  period: "2026 – present"
+  repo: "https://github.com/nazrul-99/jepa-spatial-probe"
+  demo: ""
+  featured: true
+
+- id: "sql-injection"
+  title: "Multiclass SQL Injection Detection with a 1D CNN–TinyBERT Model"
+  pitch: >
+    I built a hybrid 1D CNN–TinyBERT classifier for multiclass SQL-injection
+    payloads. Because payload classes are heavily imbalanced, I evaluated it
+    with macro-F1 and PR-AUC under realistic adversarial scenarios, rather than
+    accuracy alone.
+  description: ""
+  role: ""
+  stack: ["PyTorch", "Python"]
+  period: "2024 – 2025"
+  repo: "https://github.com/nazrul-99/SQLi"
+  demo: ""
+  featured: true
+
+- id: "text-to-sql"
+  title: "Lightweight LLM and Reinforcement Learning for Text-to-SQL Generation"
+  pitch: >
+    I built a TinyBERT-based text-to-SQL system on the Spider dataset. Adding
+    reinforcement learning from execution feedback improved logical
+    correctness without requiring a larger model.
+  description: ""
+  role: ""
+  stack: ["PyTorch", "Python"]
+  period: "2023"
+  repo: "https://github.com/nazrul-99/Text-to-Sql"
+  demo: ""
+  featured: true
