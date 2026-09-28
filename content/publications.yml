@@ -69,8 +69,10 @@
   venue: "ACL Rolling Review, October 2026"
   year: 2026
   type: "conference"
-  # manuscript complete; submission planned for the ARR October 2026 cycle
-  status: "in-preparation"
+  # Submitted to the ARR October 2026 cycle with a non-anonymous preprint
+  # allowed (the binding "no non-anonymous preprint" option was not chosen),
+  # so ACL policy permits naming the venue beside the public PDF.
+  status: "under-review"
   anonymized: false
   equal_contribution: []
   links:
