@@ -66,13 +66,14 @@
 - id: "bangla-ner-orthography"
   title: "Character Noise Makes Bangla NER Miss Entities, Not Mislabel Them"
   authors: ["Md. Nazrul Islam"]
-  venue: "Transactions of the Association for Computational Linguistics"
+  venue: "ACL Rolling Review, January 2027"
   year: 2026
-  type: "journal"
-  # Submitted to TACL instead of ARR. TACL reviews double-blind but treats
-  # preprints as non-archival, so the public PDF may stay up under my name;
-  # its title, URL and date go in the "Comments to the Editor" field.
-  status: "under-review"
+  type: "conference"
+  # Not submitted yet; planned for the ARR January 2027 cycle. ARR allows a
+  # non-anonymous preprint unless the binding "no non-anonymous preprint"
+  # option is chosen on the submission form, so do not choose it while the
+  # PDF is public here.
+  status: "in-preparation"
   anonymized: false
   equal_contribution: []
   links:

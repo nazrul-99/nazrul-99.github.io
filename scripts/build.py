@@ -140,7 +140,9 @@ def venue_line(venue, year, status, note=""):
         if status != "under-review":
             return ""
         return f"Under review, {note}" if note else "Under review"
-    line = venue if venue.endswith(str(year)) else f"{venue}, {year}"
+    # A venue that already names a year ("ACL Rolling Review, January 2027")
+    # keeps it; otherwise the paper's year is appended.
+    line = venue if re.search(r"\b(19|20)\d{2}\b", venue) else f"{venue}, {year}"
     if status == "under-review":
         line = f"Submitted to {line}"
     if note:
