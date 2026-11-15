@@ -98,6 +98,18 @@ RANGE_MARKERS = ("--", "–", "—")
 SEU_PATTERN = re.compile(
     r"[\w.+-]+@seu\.edu\.bd|[\[(]at[\])]\s*seu\.edu\.bd", re.IGNORECASE
 )
+# A referee's SEU address that the hand-made cv.pdf lists on purpose (he is
+# the department head at my current workplace). Allowed in cv.pdf only; any
+# other SEU address, and any SEU address on the pages, still fails.
+CV_ALLOWED_SEU = ("smanzoor@seu.edu.bd",)
+
+
+def _strip_cv_allowed(text):
+    for addr in CV_ALLOWED_SEU:
+        text = re.sub(re.escape(addr), "", text, flags=re.IGNORECASE)
+    return text
+
+
 PAGE_BUDGET_BYTES = 150 * 1024
 CV_MIN_BYTES = 20 * 1024          # CLAUDE.md § Two CVs; the Phase 1 stub was 536 bytes
 
@@ -406,7 +418,7 @@ def check_privacy_patterns(text, label):
     hand-made cv.pdf carries a phone number by choice (CLAUDE.md § Two CVs),
     so it is checked for the SEU address only."""
     if label == "cv.pdf":
-        if SEU_PATTERN.search(text):
+        if SEU_PATTERN.search(_strip_cv_allowed(text)):
             fail(f"{label}: contains an SEU institutional address")
         return
 
@@ -492,7 +504,7 @@ def check_cv_text(outputs):
         if not text.strip():
             fail("cv.pdf: no text could be extracted, so the privacy checks cannot run")
             return
-        lowered = text.lower()
+        lowered = _strip_cv_allowed(text).lower()
         if "seu.edu.bd" in lowered:
             fail("cv.pdf: contains 'seu.edu.bd'")
         if "placeholder" in lowered:

@@ -66,10 +66,10 @@
 - id: "bangla-ner-orthography"
   title: "Character Noise Makes Bangla NER Miss Entities, Not Mislabel Them"
   authors: ["Md. Nazrul Islam"]
-  venue: "ACL Rolling Review, January 2027"
-  year: 2026
+  venue: ""
+  year: 2027
   type: "conference"
-  # Not submitted yet; planned for the ARR January 2027 cycle. ARR allows a
+  # Not submitted yet; planned for 2027. If it goes to ARR, that allows a
   # non-anonymous preprint unless the binding "no non-anonymous preprint"
   # option is chosen on the submission form, so do not choose it while the
   # PDF is public here.
