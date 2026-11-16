@@ -3,7 +3,7 @@
 # - id: "short-slug"
 #   title: "Paper Title: Subtitle If Any"
 #   authors: ["First Author", "Md. Nazrul Islam", "Third Author"]
-#   venue: "Venue Name 2027"      # under-review renders as "Submitted to <venue>";
+#   venue: "Venue Name 2027"      # under-review renders as "Under review at <venue>";
 #                                 # leave "" for a double-blind venue: "Under review"
 #   year: 2027
 #   type: "conference"           # conference | journal | workshop | preprint | thesis
@@ -25,7 +25,7 @@
 - id: "geotoken"
   title: "GeoToken: Differentiable 3D Voxel Tokenization for Geometric Spatial Reasoning in VLMs"
   authors: ["Md. Asiful Islam Miah", "Md. Nazrul Islam", "S M Taslim Uddin Raju", "Hamdi Altaheri"]
-  venue: ""
+  venue: "AAAI 2027"
   year: 2026
   type: "conference"
   status: "under-review"
@@ -45,7 +45,7 @@
 - id: "mmvp-position-bias"
   title: "Low Scores Without a Perceptual Deficit: Separating Answer-Position Bias from Perception on MMVP"
   authors: ["Md. Nazrul Islam", "Md. Habibullah Belali"]
-  venue: ""
+  venue: "ICCIT 2026"
   year: 2026
   type: "conference"
   status: "under-review"

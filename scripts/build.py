@@ -129,7 +129,7 @@ def status_label(status, year):
 def venue_line(venue, year, status, note=""):
     """Venue, year and any volume/pages note on one line.
 
-    Work under review is prefixed 'Submitted to', so a venue name can never
+    Work under review is prefixed 'Under review at', so a venue name can never
     read as an acceptance. Under review with no venue -- a double-blind venue
     whose rules forbid naming it next to a public preprint -- reads 'Under
     review'. The year is not appended when the venue string already carries
@@ -144,7 +144,7 @@ def venue_line(venue, year, status, note=""):
     # keeps it; otherwise the paper's year is appended.
     line = venue if re.search(r"\b(19|20)\d{2}\b", venue) else f"{venue}, {year}"
     if status == "under-review":
-        line = f"Submitted to {line}"
+        line = f"Under review at {line}"
     if note:
         line = f"{line}, {note}"
     return line
